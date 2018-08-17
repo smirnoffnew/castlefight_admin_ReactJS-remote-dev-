@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import editIcon from "../assets/images/edit-icon.svg"
-import "../assets/main.scss"
+import editIcon from "../assets/images/edit-icon.svg";
 import '../App.css';
 
 import Modal from "react-modal";

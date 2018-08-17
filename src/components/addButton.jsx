@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import addIcon from "../assets/images/icon-add.svg"
-import "../assets/main.scss";
+import addIcon from "../assets/images/icon-add.svg";
 import '../App.css';
 import FormComponent from "./form";
 import Modal from "react-modal";
