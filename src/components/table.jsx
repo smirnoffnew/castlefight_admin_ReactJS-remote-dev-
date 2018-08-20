@@ -6,16 +6,25 @@ class TableComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { };
+        this.state = {
+            rows: []
+        };
 
         // this.deleteHandler = this.deleteHandler.bind(this);
     }
 
 
-    deleteHandler(e) {
-        console.log("delete button clicked");
-        // e.preventDefault();
-    }
+    // deleteHandler(e) {
+    //     console.log("delete button clicked");
+    //     // e.preventDefault();
+    // }
+
+    handleRemoveRow = () => {
+        console.log('delete');
+        this.setState({
+            rows: this.state.rows.slice(0, -1)
+        });
+    };
     render() {
         const dataColumns = this.props.data.columns;
         const dataRows = this.props.data.rows;
@@ -33,7 +42,7 @@ class TableComponent extends Component {
                     {dataColumns.map((column) => {
                         const btnName = row[column];
                         return column === 'Edit' ? <td className="center-btn-align"><EditButton/></td> : <td>{btnName}</td>
-                          && column === 'Delete' ? <td className="center-btn-align2"><button className="delete-btn" onClick={this.deleteHandler}><img src={deleteIcon} alt="Delete" className="delete-btn-icon"/>{btnName}</button></td> : <td>{btnName}</td>
+                          && column === 'Delete' ? <td className="center-btn-align2"><button className="delete-btn" onClick={this.handleRemoveRow}><img src={deleteIcon} alt="Delete" className="delete-btn-icon"/>{btnName}</button></td> : <td>{btnName}</td>
                     })}
                 </tr>);
         });

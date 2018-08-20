@@ -61,19 +61,47 @@
   display: flex;
   justify-content: space-between;
   background-color: lightgrey;
+  padding: 0 10px;
 }
 .modal-header .close{
   align-self: center;
 }
+.modal-content{
+  width: 465px;
+}
 .modal-body{
   margin: 20px 0;
+  padding: 0 10px;
 }
 .modal-footer{
   display: flex;
   justify-content: space-evenly;
+  margin: 25px;
 }
 .ReactModal__Overlay--after-open{
   background-color: rgba(15, 15, 15, 0.95) !important;
+
+}
+.ReactModal__Body--open .ReactModalPortal .ReactModal__Overlay--after-open .ReactModal__Content--after-open{
+  padding: 0 !important;
+  max-height: calc(100vh - 85px);
+  overflow-y: scroll !important;
+}
+::-webkit-scrollbar,
+::-moz-viewport-scroll{
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+.select-skill{
+  float: left;
+}
+.new-inputs{
+  text-align: right;
+  /*margin-right: 68px;*/
+}
+.btn-add-value{
+  text-align: right;
+  margin-top: 5px;
 }
 footer{
   position: absolute;
