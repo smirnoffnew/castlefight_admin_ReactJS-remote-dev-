@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import EditSkills from "./editSkills";
 
 class EditFormComponent extends Component {
 
     state = {
         editSkills: [{name:""}],
-        editSkillsValue: [{count: ''}],
+        editSkillsValue: 1,
         editSkillSelection: ""
     };
     addSkill = (e) => {
@@ -13,16 +14,36 @@ class EditFormComponent extends Component {
         }));
     };
     addSkillValue = (e) => {
-        this.setState((prevState) => ({
-            editSkillsValue: [...prevState.editSkillsValue, {count:""}],
-        }));
+        this.setState((prevState) => {
+            return{
+                editSkillsValue: prevState.editSkillsValue +1,
+            }
+        });
     };
     handleSubmit = (e) => {
         e.preventDefault()
     };
     render() {
         let { editSkills } = this.state;
-        let { editSkillsValue } = this.state;
+        // let { editSkillsValue } = this.state;
+        let edit = [];
+
+        for (let i = 0; i < this.state.editSkillsValue; i++) {
+            let editSkillValueId = 'editSkillValueId-' + i;
+            edit.push(
+                <div className="new-inputs" key={i}>
+                    <label htmlFor={editSkillValueId}>{` #${i + 1}`}</label>
+                    <input
+                        type="text"
+                        name={editSkillValueId}
+                        data-id={i}
+                        id={editSkillValueId}
+                        className="name"
+                    />
+                </div>
+            )
+        }
+
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -35,55 +56,28 @@ class EditFormComponent extends Component {
                         </div>
                         <div className="modal-body">
                             {/*<label htmlFor="skill">Skill</label>*/}
-                            <select name="skillSelection" id="skillSelection">
-                                <option value="dmg">DMG</option>
-                                <option value="hp">HP</option>
-                                <option value="distance">DISTANCE</option>
-                                <option value="speed">SPEED</option>
-                            </select>
-                            <label htmlFor="description"> #1</label>
-                            <input type="text" name="damage" id="damage" />
-                            <button onClick={this.addSkill}>+</button>
+                            {/*<select name="skillSelection" id="skillSelection">*/}
+                                {/*<option value="dmg">DMG</option>*/}
+                                {/*<option value="hp">HP</option>*/}
+                                {/*<option value="distance">DISTANCE</option>*/}
+                                {/*<option value="speed">SPEED</option>*/}
+                            {/*</select>*/}
+                            {/*<label htmlFor="description"> #1</label>*/}
+                            {/*<input type="text" name="damage" id="damage" />*/}
+                            <button onClick={this.addSkill}>Add</button>
+                            <hr/>
                             {
                                 editSkills.map((val, idx)=> {
                                     let editSkillId = `edit-skill-${idx}`
                                     // let skillId = `skill-${idx}`, ageId = `age-${idx}`
                                     return (
-                                        <div key={idx}>
-                                            <select name={editSkillId} id={editSkillId}>
-                                                <option value="dmg">DMG</option>
-                                                <option value="hp">HP</option>
-                                                <option value="distance">DISTANCE</option>
-                                                <option value="speed">SPEED</option>
-                                            </select>
-                                            <label htmlFor={editSkillId}>{` #${idx + 1}`}</label>
-                                            <input
-                                                type="text"
-                                                name={editSkillId}
-                                                data-id={idx}
-                                                id={editSkillId}
-                                                className="name"
-                                            />
-                                            <button onClick={this.addSkillValue}>+1</button>
-                                            {
-                                                editSkillsValue.map((value, index) => {
-                                                    let editSkillValueId = `editSkillValueId-${index}`;
-                                                    return (
-                                                        <div key={index}>
-                                                            <label htmlFor={editSkillValueId}>{` #${index + 1}`}</label>
-                                                            <input
-                                                                type="text"
-                                                                name={editSkillValueId}
-                                                                data-id={index}
-                                                                id={editSkillValueId}
-                                                                className="name"
-                                                            />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                            <hr/>
-                                        </div>
+                                        <EditSkills
+                                            key={idx}
+                                            name={editSkillId}
+                                            id={editSkillId}
+                                            addSkillValue={this.addSkillValue}
+                                            edit={edit}
+                                        />
                                     )
                                 })
                             }

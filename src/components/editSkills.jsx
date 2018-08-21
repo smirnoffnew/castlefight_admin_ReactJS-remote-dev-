@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Skills extends Component {
+class EditSkills extends Component {
 
     render() {
         return (
@@ -13,7 +13,7 @@ class Skills extends Component {
                     <option value="distance" onClick={this.handlePrint}>MELLEEDPS</option>
                 </select>
                 {
-                    this.props.etq
+                    this.props.edit
                 }
                 <div className="btn-add-value">
                     <button onClick={this.props.addSkillValue}>+1</button>
@@ -25,4 +25,5 @@ class Skills extends Component {
     }
 }
 
-export default Skills;
+export default EditSkills;
+

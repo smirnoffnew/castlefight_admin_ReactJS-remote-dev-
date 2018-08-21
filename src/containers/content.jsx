@@ -36,8 +36,6 @@ const data = {
 
 class ContentComponent extends Component {
 
-
-
     render() {
         return (
             <div className="container">

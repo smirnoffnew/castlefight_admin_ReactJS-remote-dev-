@@ -52,7 +52,6 @@ class AddButton extends Component {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-
                     <FormComponent closeModal={this.closeModal}/>
                 </Modal>
             </div>

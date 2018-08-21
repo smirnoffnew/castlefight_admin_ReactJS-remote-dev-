@@ -1,19 +1,64 @@
 import React, {Component} from 'react';
+import Skills from "./skills";
 
 class FormComponent extends Component {
+    constructor(props) {
+        super(props);
 
-    state = {
-        skills: [{name: ""}],
-        skillsValue: 1,
-        skillSelection: "",
-        options: [
-            {value: 'dmg', label: 'DMG'},
-            {value: 'hp', label: 'HP'},
-            {value: 'distance', label: 'DISTANCE'},
-            {value: 'speed', label: 'SPEED'}
-        ],
-        value: ''
-    };
+        this.state = {
+            dropDown: {
+                "components": [
+                    {
+                        "type": "com.anygames.castlefight.components.Hp",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 20.0,
+                            "2": 30.0,
+                            "3": 40.0
+                        }
+                    }, {
+                        "type" : "com.anygames.castlefight.components.Speed",
+                        "defaultValue" : null,
+                        "values" : {
+                            "1" : 60.0,
+                            "2" : 70.0,
+                            "3" : 10.0
+                        }
+                    }, {
+                        "type" : "com.anygames.castlefight.components.Cooldown",
+                        "defaultValue" : null,
+                        "values" : {
+                            "1" : 60.0,
+                            "2" : 70.0,
+                            "3" : 10.0
+                        }
+                    }, {
+                        "type" : "com.anygames.castlefight.components.MeleeDps",
+                        "defaultValue" : null,
+                        "values" : {
+                            "1" : 60.0,
+                            "2" : 70.0,
+                            "3" : 10.0
+                        }
+                    }
+                ]
+            },
+            skills: [{name: ""}],
+            skillsValue: 1,
+            skillSelection: "",
+            options: [
+                {value: 'hp', label: 'HP'},
+                {value: 'speed', label: 'SPEED'},
+                {value: 'cooldown', label: 'COOLDOWN'},
+                {value: 'meleedps', label: 'MELEEDPS'}
+            ],
+            value: ''
+        }
+    }
+
+    // state = {
+    //
+    // };
     addSkill = (e) => {
         this.setState((prevState) => ({
             skills: [...prevState.skills, {name: ""}],
@@ -62,6 +107,7 @@ class FormComponent extends Component {
                         data-id={i}
                         id={skillValueId}
                         className="name"
+                        value={this.state.dropDown.components[0].values["1"]}
                     />
                 </div>
             )
@@ -94,22 +140,13 @@ class FormComponent extends Component {
                                     let skillId = `skill-${idx}`;
                                     // let skillId = `skill-${idx}`, ageId = `age-${idx}`
                                     return (
-                                        <div key={idx}>
-                                            <select className="select-skill" name={skillId} id={skillId}
-                                                    onChange={this.test}>
-                                                <option value="dmg" onClick={this.handlePrint}>DMG</option>
-                                                <option value="hp" onClick={this.handlePrint}>HP</option>
-                                                <option value="distance" onClick={this.handlePrint}>DISTANCE</option>
-                                                <option value="speed" onClick={this.handlePrint}>SPEED</option>
-                                            </select>
-                                            {
-                                                etq
-                                            }
-                                            <div className="btn-add-value">
-                                                <button onClick={this.addSkillValue}>+1</button>
-                                            </div>
-                                            <hr/>
-                                        </div>
+                                        <Skills
+                                            key={idx}
+                                            name={skillId}
+                                            id={skillId}
+                                            addSkillValue={this.addSkillValue}
+                                            etq={etq}
+                                        />
                                     )
                                 })
                             }
