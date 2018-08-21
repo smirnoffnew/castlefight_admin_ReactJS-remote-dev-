@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
-import editIcon from "../assets/images/edit-icon.svg";
+import editIcon from "../assets/images/edit-icon.png";
 import '../App.css';
-
 import Modal from "react-modal";
-// import FormComponent from "./form";
 import EditFormComponent from "./editForm";
 
 const editButtonStyles = {
-    content : {
-        top        : '50%',
-        left       : '50%',
-        right      : 'auto',
-        bottom     : 'auto',
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
         marginRight: '-50%',
-        transform  : 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%)',
     }
 };
 
@@ -33,13 +31,16 @@ class EditButton extends Component {
     openEditModal() {
         this.setState({editModalIsOpen: true});
     }
+
     afterOpenEditModal() {
         // references are now sync'd and can be accessed.
         // this.subtitle.style.color = '#f00';
     }
+
     closeEditModal() {
         this.setState({editModalIsOpen: false});
     }
+
     render() {
         return (
             <div>

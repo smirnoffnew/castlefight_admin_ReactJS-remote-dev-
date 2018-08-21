@@ -1,30 +1,31 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import EditSkills from "./editSkills";
 
 class EditFormComponent extends Component {
 
     state = {
-        editSkills: [{name:""}],
+        editSkills: [{name: ""}],
         editSkillsValue: 1,
         editSkillSelection: ""
     };
     addSkill = (e) => {
         this.setState((prevState) => ({
-            editSkills: [...prevState.editSkills, {name:""}],
+            editSkills: [...prevState.editSkills, {name: ""}],
         }));
     };
     addSkillValue = (e) => {
         this.setState((prevState) => {
-            return{
-                editSkillsValue: prevState.editSkillsValue +1,
+            return {
+                editSkillsValue: prevState.editSkillsValue + 1,
             }
         });
     };
     handleSubmit = (e) => {
         e.preventDefault()
     };
+
     render() {
-        let { editSkills } = this.state;
+        let {editSkills} = this.state;
         // let { editSkillsValue } = this.state;
         let edit = [];
 
@@ -50,24 +51,12 @@ class EditFormComponent extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Edit Hero Skills</h5>
-                            {/*<button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
-                            {/*<span aria-hidden="true">&times;</span>*/}
-                            {/*</button>*/}
                         </div>
                         <div className="modal-body">
-                            {/*<label htmlFor="skill">Skill</label>*/}
-                            {/*<select name="skillSelection" id="skillSelection">*/}
-                                {/*<option value="dmg">DMG</option>*/}
-                                {/*<option value="hp">HP</option>*/}
-                                {/*<option value="distance">DISTANCE</option>*/}
-                                {/*<option value="speed">SPEED</option>*/}
-                            {/*</select>*/}
-                            {/*<label htmlFor="description"> #1</label>*/}
-                            {/*<input type="text" name="damage" id="damage" />*/}
                             <button onClick={this.addSkill}>Add</button>
                             <hr/>
                             {
-                                editSkills.map((val, idx)=> {
+                                editSkills.map((val, idx) => {
                                     let editSkillId = `edit-skill-${idx}`
                                     // let skillId = `skill-${idx}`, ageId = `age-${idx}`
                                     return (
@@ -84,7 +73,9 @@ class EditFormComponent extends Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-save">Save</button>
-                            <button type="button" className="btn btn-close" data-dismiss="modal" onClick={this.props.closeEditModal}>Close</button>
+                            <button type="button" className="btn btn-close" data-dismiss="modal"
+                                    onClick={this.props.closeEditModal}>Close
+                            </button>
                         </div>
                     </div>
                 </form>

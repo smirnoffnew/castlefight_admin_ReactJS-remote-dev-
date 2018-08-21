@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import deleteIcon from "../assets/images/de.svg";
+import deleteIcon from "../assets/images/de.png";
 import EditButton from "./editButton";
 
 class TableComponent extends Component {
@@ -7,10 +7,9 @@ class TableComponent extends Component {
         super(props);
 
         this.state = {
-            rows: { id: 0 }
+            rows: {id: 0}
 
         };
-
         // this.deleteHandler = this.deleteHandler.bind(this);
     }
 
@@ -39,6 +38,7 @@ class TableComponent extends Component {
                 })}
             </tr>
             </thead>);
+
         const tableBody = dataRows.map((row, index) => {
             let tRowId = `tRowId-${index}`;
             return (
@@ -71,7 +71,7 @@ class TableComponent extends Component {
         return (
             <table className="table table-bordered table-hover" width="100%">
                 {tableHeaders}
-                {tableBody}
+                <tbody>{tableBody}</tbody>
             </table>
         );
     }

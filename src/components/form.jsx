@@ -17,28 +17,212 @@ class FormComponent extends Component {
                             "3": 40.0
                         }
                     }, {
-                        "type" : "com.anygames.castlefight.components.Speed",
-                        "defaultValue" : null,
-                        "values" : {
-                            "1" : 60.0,
-                            "2" : 70.0,
-                            "3" : 10.0
+                        "type": "com.anygames.castlefight.components.Speed",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 60.0,
+                            "2": 70.0,
+                            "3": 10.0
                         }
                     }, {
-                        "type" : "com.anygames.castlefight.components.Cooldown",
-                        "defaultValue" : null,
-                        "values" : {
-                            "1" : 60.0,
-                            "2" : 70.0,
-                            "3" : 10.0
+                        "type": "com.anygames.castlefight.components.Cooldown",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 60.0,
+                            "2": 70.0,
+                            "3": 10.0
                         }
                     }, {
-                        "type" : "com.anygames.castlefight.components.MeleeDps",
-                        "defaultValue" : null,
-                        "values" : {
-                            "1" : 60.0,
-                            "2" : 70.0,
-                            "3" : 10.0
+                        "type": "com.anygames.castlefight.components.MeleeDps",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 60.0,
+                            "2": 70.0,
+                            "3": 10.0
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Prefab",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Cost",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.NumberPercentage",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MeleeAttackRadius",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.SummonCost",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.ProjectileSpeed",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.RangeDps",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MaxGoldReward",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Aps",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.RestoreHpPerSec",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Name",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.UpgradeCost",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.PumpkinRewardChancePercentage",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.ThresholdCompanyLevel",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Distance",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MinGoldReward",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.MapComponent",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.RangeAttackRadius",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MaxOE",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MaxPumpkinReward",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.MinPumpkinReward",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.Time",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
+                        }
+                    }, {
+                        "type": "com.anygames.castlefight.components.GoldRewardChancePercentag",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 50.0,
+                            "2": 60.0,
+                            "3": 70
                         }
                     }
                 ]
@@ -56,9 +240,6 @@ class FormComponent extends Component {
         }
     }
 
-    // state = {
-    //
-    // };
     addSkill = (e) => {
         this.setState((prevState) => ({
             skills: [...prevState.skills, {name: ""}],
@@ -119,20 +300,8 @@ class FormComponent extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Adding hero skills</h5>
-                            {/*<button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
-                            {/*<span aria-hidden="true">&times;</span>*/}
-                            {/*</button>*/}
                         </div>
                         <div className="modal-body">
-                            {/*<label htmlFor="skill">Skill</label>*/}
-                            {/*<select name="skillSelection" id="skillSelection">*/}
-                            {/*<option value="dmg">DMG</option>*/}
-                            {/*<option value="hp">HP</option>*/}
-                            {/*<option value="distance">DISTANCE</option>*/}
-                            {/*<option value="speed">SPEED</option>*/}
-                            {/*</select>*/}
-                            {/*<label htmlFor="description"> #1</label>*/}
-                            {/*<input type="text" name="damage" id="damage" />*/}
                             <button onClick={this.addSkill}>Add</button>
                             <hr/>
                             {
