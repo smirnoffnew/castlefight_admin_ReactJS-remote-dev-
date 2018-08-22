@@ -103,6 +103,15 @@
   text-align: right;
   margin-top: 5px;
 }
+.btn-edit-input{
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+.btn-remove-select{
+  text-align: left;
+  margin-bottom: 10px;
+}
 footer{
   position: absolute;
   right: 0;
