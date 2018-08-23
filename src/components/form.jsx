@@ -300,6 +300,23 @@ class FormComponent extends Component {
         }
     }
 
+    configData = () => {
+        let componentTrueStructure = [];
+        this.state.skills.forEach((item) => {
+            let valuesObject = {};
+            let trueItem = {};
+            item.inputArray.forEach((inputItem) => {
+                valuesObject[inputItem.name] = inputItem.value;
+            });
+
+            trueItem.type = item.type;
+            trueItem.defaultValue = item.defaultValue;
+            trueItem.values = valuesObject;
+            componentTrueStructure.push(trueItem);
+        });
+        return componentTrueStructure;
+    }
+
     componentDidMount(){
         const _this = this;
         axios.get('http://178.128.163.251:5555/v1/knights')
@@ -443,28 +460,16 @@ class FormComponent extends Component {
     };
 
     saveForm = (e) => {
-        console.log('+++++++++++++++++++++++saved++++++++++++++++++++++++++', e.target);
+        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++', e.target);
         e.preventDefault();
-        let values = {};
+
         axios.post(`http://178.128.163.251:5555/v1/knights`,
             {
-                "components": [
-                    {
-                        "type": this.state.components[0].value,
-                        "values":  this.state.inputArray.map((item) => {
-                            return item.name
-                        })
-                            // "1": this.state.skills[0].value,
-                            // "2": this.state.skills[0].value,
-                            // "3": this.state.skills[0].value
-                        }
-
-                ],
+                "components": this.configData(),
                 "name": "teccc1"
             })
             .then(res => {
-                console.log('-------------------------------SAVE----------------------------------', res);
-                // console.log(res.data);
+                console.log('-------------------------------SAVED----------------------------------', res);
             })
 
     }

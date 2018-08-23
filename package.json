@@ -8,6 +8,7 @@
     ]
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-modal": "^3.5.1",
@@ -19,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-	"postbuild": "mv build/* ../castlefight_admin_server/src/main/resources/webroot"
+    "postbuild": "mv build/* ../castlefight_admin_server/src/main/resources/webroot"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
