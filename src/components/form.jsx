@@ -281,7 +281,7 @@ class FormComponent extends Component {
             ],
             skills: [
                 {
-                    name: "",
+                    type: "test type",
                     uniqueId: this.makeid(),
                     inputArray: [
                         {
@@ -378,7 +378,6 @@ class FormComponent extends Component {
                 })]
             }
         })
-
     };
 
     addValueInput = (componentId) => {
@@ -440,21 +439,20 @@ class FormComponent extends Component {
             {
                 "components" : [
                     {
-                        "type": "com.anygames.castlefight.components.Hp",
+                        "type": this.state.skills.inputArray.type,
                         "values": {
                             name: this.state.skills.inputArray.name,
                             values: this.state.skills.inputArray.value
                         },
                     }
                 ],
-                "name": this.state.skills
+                "name": "test name"
             })
             .then(res => {
                 console.log(res);
                 // console.log(res.data);
             })
         e.preventDefault();
-
     }
 
     render() {
