@@ -5,51 +5,65 @@ import AddButton from "../components/addButton";
 const axios = require("axios");
 
 class ContentComponent extends Component {
-    constructor(props){
+
+    constructor(props) {
         super(props)
         this.state = {
             isLoaded: false,
-            data: {
-                columns: ['Сharacter', 'Lorem #1', 'Lorem #2', 'Edit', 'Delete'],
-                rows: [ ]
+            entity: 'knights',
+            tableComponentProps: {
+                data: [],
+                columns: []
             }
+
         }
     }
-    componentDidMount(){
-        axios.get('http://178.128.163.251:5555/v1/knights')
-            .then(heros => {
-                const data= heros.data.map((item, index) => {
-                    return {
-                        'Сharacter': item.name,
-                        'Lorem #1': 50,
-                        'Lorem #2': 'lorem',
-                        'Edit': '',
-                        'Delete': ''
-                    }
-                })
 
-                const rows = data.map(item => {
-                    const obj = {};
-                    this.state.data.columns.forEach( col => {
-                        obj[col] = item[col];
-                    })
-                    return obj;
-                })
-
-               this.setState((prevState) => {
-                   const newState = Object.assign({}, prevState);
-                   newState.data.rows = rows;
-                   return newState;
-
-               })
-            })
-            .then(() => {
-                this.setState({isLoaded: true})
-            })
+    removeRecord = (entity, id) => {
+        console.log('delete', entity, ' ', id);
+        axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`)
+            .then(() => this.getData(this.state.entity))
             .catch(function (error) {
                 console.error(error);
             });
-    }
+    };
+
+    getData = (param) => {
+        switch(param) {
+            case 'knights':
+            return axios.get('http://178.128.163.251:5555/v1/knights')
+                    .then(response => {
+                        this.setState(() => {
+                            return {
+                                isLoaded: true,
+                                entity: 'knights',
+                                tableComponentProps: {
+                                    data: response.data,
+                                    columns: ['Name', 'Components', 'Edit', 'Delete'],
+                                }
+                            };
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+        }
+    };
+
+    componentDidMount() {
+        this.getData(this.state.entity);
+    };
+
+    renderSwitch = (param) => {
+        switch(param) {
+            case 'knights':
+                return <TableComponent content = {this.state.tableComponentProps}
+                                       removeRecord = {this.removeRecord}
+                                       entity = {this.state.entity}/>;
+            default:
+                return 'Allies';
+        }
+    };
 
     render() {
         return (
@@ -57,17 +71,14 @@ class ContentComponent extends Component {
                 <AddButton/>
                 {
                     this.state.isLoaded
-
                     ?
-
-                    <TableComponent data={this.state.data} />
-
+                    this.renderSwitch(this.state.entity)
                     :
-
-                    <TableComponent data={this.state.data} />
+                    <h1>LOADING...</h1>
                 }
             </div>
         );
-    }
+    };
 }
+
 export default ContentComponent;
