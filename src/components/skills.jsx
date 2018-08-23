@@ -5,7 +5,7 @@ class Skills extends Component {
     render() {
         return (
 
-            <div idx={this.props.key}>
+            <div idx={this.props.idx}>
                 <div className="btn-remove-select">
                     <button onClick={this.props.deleteSkillItem} >delete select</button>
                 </div>
@@ -13,8 +13,8 @@ class Skills extends Component {
                 <div style={{'height': '40px'}}>
                     <select className="select-skill" name={this.props.name} id={this.props.id} onChange={(e)=>this.props.onSelectSkillItem(this.props.data.uniqueId, e)}>
                         {
-                            this.props.components.map( (item) =>
-                                <option value={item.type}>{item.type}</option>
+                            this.props.components.map((item, index) =>
+                                <option value={item.type} key={index}>{item.type}</option>
                             )
                         }
                     </select>
@@ -26,8 +26,8 @@ class Skills extends Component {
                 </div>
 
                 {
-                    this.props.data.inputArray.map(  (item, index) =>
-                        <div className="new-inputs" key={item.uniqueId}>
+                    this.props.data.inputArray.map( (item, index) =>
+                        <div className="new-inputs" key={index}>
                             <input
                                 type="text"
                                 value={item.name}

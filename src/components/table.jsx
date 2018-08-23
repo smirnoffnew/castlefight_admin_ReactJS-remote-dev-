@@ -22,7 +22,7 @@ class TableComponent extends Component {
         console.log('delete');
         this.setState((prevState) => {
             return {
-                // rows: prevState.rows[0].id.slice(0, -1),
+                // rows: [...prevState.skills.filter(item => item.uniqueId !== id)]
             }
         });
     };
@@ -33,8 +33,8 @@ class TableComponent extends Component {
         const tableHeaders = (
             <thead>
             <tr>
-                {dataColumns.map((column) => {
-                    return <th>{column}</th>;
+                {dataColumns.map((column, index) => {
+                    return <th key={index}>{column}</th>;
                 })}
             </tr>
             </thead>);
@@ -42,29 +42,29 @@ class TableComponent extends Component {
         const tableBody = dataRows.map((row, index) => {
             let tRowId = `tRowId-${index}`;
             return (
-                <tr id={tRowId}>
-                    {dataColumns.map((column) => {
+                <tr id={tRowId} key={index}>
+                    {dataColumns.map((column, index) => {
                         const btnName = row[column];
                         return column === 'Edit'
                             ?
-                            <td className="center-btn-align">
+                            <td className="center-btn-align" key={index}>
                                 <EditButton/>
                             </td>
                             :
-                            <td>{btnName}</td>
+                            <td key={index}>{btnName}</td>
 
                             &&
 
                             column === 'Delete'
                             ?
-                            <td className="center-btn-align2">
+                            <td className="center-btn-align2" key={index}>
                                 <button className="delete-btn" onClick={this.handleRemoveRow}>
                                     <img src={deleteIcon} alt="Delete" className="delete-btn-icon"/>
                                     {btnName}
                                 </button>
                             </td>
                             :
-                            <td>{btnName}</td>
+                            <td key={index}>{btnName}</td>
                     })}
                 </tr>);
         });

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Skills from "./skills";
 
+const axios = require("axios");
+
 class FormComponent extends Component {
     constructor(props) {
         super(props);
@@ -298,6 +300,34 @@ class FormComponent extends Component {
         }
     }
 
+    componentDidMount(){
+        const _this = this;
+        axios.get('http://178.128.163.251:5555/v1/knights')
+            .then( heroSkills => {
+                console.log("heroSkills ------- ", heroSkills);
+                console.log("heroSkills +++++++ ", heroSkills.data[0].name);
+                console.log("heroSkills ******* ", heroSkills.data.map(person => ({value: person.components})));
+                let result = heroSkills.data.map(person => ({value: person.components}))
+
+                console.log('result ----------', result);
+
+                _this.setState((prevState) => ({
+                    components: result[0].value
+
+                    // components: Object.keys(result).map(function(key, index) {
+                    //         console.log(result[key].value);
+                    //     })
+                }))
+                // console.log('~~~~~~~~~~',result.value.map( getType => ({value: getType.value})));
+                // Object.keys(result).map(function(key, index) {
+                //     console.log(result[key]);
+                // });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     makeid() {
         let text = "";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -357,7 +387,7 @@ class FormComponent extends Component {
                 skills: [...prevState.skills.map((item) =>
                     item.uniqueId === componentId
                     ?
-                    {...item, inputArray: [... item.inputArray, {name: "2", value:  1234, uniqueId: this.makeid()}]}
+                    {...item, inputArray: [...item.inputArray, {name: "2", value:  1234, uniqueId: this.makeid()}]}
                     :
                     item
                 )]
@@ -404,16 +434,35 @@ class FormComponent extends Component {
         });
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-    };
+    saveForm = (e) => {
+        console.log('saved', e.target);
+        axios.post(`http://178.128.163.251:5555/v1/knights`,
+            {
+                "components" : [
+                    {
+                        "type": "com.anygames.castlefight.components.Hp",
+                        "values": {
+                            name: this.state.skills.inputArray.name,
+                            values: this.state.skills.inputArray.value
+                        },
+                    }
+                ],
+                "name": this.state.skills
+            })
+            .then(res => {
+                console.log(res);
+                // console.log(res.data);
+            })
+        e.preventDefault();
+
+    }
 
     render() {
         let {skills} = this.state;
 
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.saveForm}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Adding hero skills</h5>
@@ -425,7 +474,8 @@ class FormComponent extends Component {
                                 skills.map((item, idx) => {
                                     return (
                                         <Skills
-                                            key = {idx}
+                                            key={idx}
+                                            idx = {idx}
                                             deleteSkillItem = {() => this.deleteSkillItem(item.uniqueId)}
                                             onSelectSkillItem = {this.onSelectSkillItem}
 
@@ -435,15 +485,13 @@ class FormComponent extends Component {
 
                                             data = {item}
                                             components = {this.state.components}
-
-
                                         />
                                     )
                                 })
                             }
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-save">Save</button>
+                            <button type="submit" className="btn btn-save">Save</button>
                             <button type="button" className="btn btn-close" data-dismiss="modal"
                                     onClick={this.props.closeModal}>Close
                             </button>

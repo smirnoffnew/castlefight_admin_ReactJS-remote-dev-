@@ -53,6 +53,7 @@ class EditButton extends Component {
                     // onRequestClose={this.closeModal}
                     style={editButtonStyles}
                     contentLabel="Example Modal"
+                    ariaHideApp={false}
                 >
                     <EditFormComponent closeEditModal={this.closeEditModal}/>
                 </Modal>

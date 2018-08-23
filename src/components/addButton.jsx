@@ -54,6 +54,7 @@ class AddButton extends Component {
                     // onRequestClose={this.closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
+                    ariaHideApp={false}
                 >
                     <FormComponent closeModal={this.closeModal}/>
                 </Modal>
