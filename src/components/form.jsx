@@ -281,7 +281,7 @@ class FormComponent extends Component {
             ],
             skills: [
                 {
-                    type: "test type",
+                    type: "",
                     uniqueId: this.makeid(),
                     inputArray: [
                         {
@@ -310,9 +310,9 @@ class FormComponent extends Component {
                 let result = heroSkills.data.map(person => ({value: person.components}))
 
                 console.log('result ----------', result);
-
                 _this.setState((prevState) => ({
                     components: result[0].value
+
 
                     // components: Object.keys(result).map(function(key, index) {
                     //         console.log(result[key].value);
@@ -357,25 +357,34 @@ class FormComponent extends Component {
     };
 
     onSelectSkillItem = (componentId, selectedValue) => {
+
         let selectId = selectedValue.target.value;
+        // this.setState((prevState) => {
+        //     return { type: [...prevState.selectId}
+        // })
+        // console.log('-----------------------------------',this.state);
 
         let componentSelect = this.state.components.filter( item => selectId === item.type )[0];
+
         this.setState((prevState) => {
             return{
                 skills: [...prevState.skills.map((item) => {
-
                     if (item.uniqueId === componentId) {
                         let newInputArray = Object.keys(componentSelect.values).map((key)=>{
-                            return {name:key, value:componentSelect.values[key], uniqueId: this.makeid() }
+
+                            return {name:key, value:componentSelect.values[key], uniqueId: this.makeid()
+                            }
                         });
                         return {
                             ...item,
                             inputArray: newInputArray
+
                         }
                     } else {
                         return item;
                     }
                 })]
+
             }
         })
     };
@@ -434,25 +443,30 @@ class FormComponent extends Component {
     };
 
     saveForm = (e) => {
-        console.log('saved', e.target);
+        console.log('+++++++++++++++++++++++saved++++++++++++++++++++++++++', e.target);
+        e.preventDefault();
+        let values = {};
         axios.post(`http://178.128.163.251:5555/v1/knights`,
             {
-                "components" : [
+                "components": [
                     {
-                        "type": this.state.skills.inputArray.type,
-                        "values": {
-                            name: this.state.skills.inputArray.name,
-                            values: this.state.skills.inputArray.value
-                        },
-                    }
+                        "type": this.state.components[0].value,
+                        "values":  this.state.inputArray.map((item) => {
+                            return item.name
+                        })
+                            // "1": this.state.skills[0].value,
+                            // "2": this.state.skills[0].value,
+                            // "3": this.state.skills[0].value
+                        }
+
                 ],
-                "name": "test name"
+                "name": "teccc1"
             })
             .then(res => {
-                console.log(res);
+                console.log('-------------------------------SAVE----------------------------------', res);
                 // console.log(res.data);
             })
-        e.preventDefault();
+
     }
 
     render() {
@@ -460,7 +474,7 @@ class FormComponent extends Component {
 
         return (
             <div>
-                <form onSubmit={this.saveForm}>
+                <form >
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Adding hero skills</h5>
@@ -489,7 +503,7 @@ class FormComponent extends Component {
                             }
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-save">Save</button>
+                            <button onClick={this.saveForm} className="btn btn-save">Save</button>
                             <button type="button" className="btn btn-close" data-dismiss="modal"
                                     onClick={this.props.closeModal}>Close
                             </button>
