@@ -43,7 +43,7 @@ class AddButton extends Component {
 
     render() {
         return (
-            <div className="add-btn-container">
+            <div className="add-btn-container col-50">
                 <button className="add-btn" onClick={this.openModal}>
                     <img src={addIcon} className="add-btn-icon" alt="Add"/>
                     <span>Add</span>

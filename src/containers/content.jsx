@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import TableComponent from "../components/table";
+import KnightsTable from "../components/knightsTable";
 import AddButton from "../components/addButton";
 
 const axios = require("axios");
@@ -57,17 +57,20 @@ class ContentComponent extends Component {
     renderSwitch = (param) => {
         switch(param) {
             case 'knights':
-                return <TableComponent content = {this.state.tableComponentProps}
+                return <KnightsTable content = {this.state.tableComponentProps}
                                        removeRecord = {this.removeRecord}
                                        entity = {this.state.entity}/>;
             default:
-                return 'Allies';
+                return  <KnightsTable content = {this.state.tableComponentProps}
+                                        removeRecord = {this.removeRecord}
+                                        entity = {this.state.entity}/>;
         }
     };
 
     render() {
         return (
             <div className="container">
+                <h2 className="col-50">{this.state.entity}</h2>
                 <AddButton/>
                 {
                     this.state.isLoaded

@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  min-width: 992px;
+}
+
+.col-50 {
+  width: 50%;
+  float: left;
 }
 
 .App-logo {
@@ -12,6 +18,10 @@
   height: 140px;
   padding: 0px;
   color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 
 .App-title {
@@ -29,8 +39,8 @@
 /* ------------------------------------------ */
 .container{
   width: 100%;
-  height: calc(100vh - 205px);
-  margin: auto;
+  height: calc(100vh - 195px);
+  margin-top: 140px;;
 }
 
 .table-container {
@@ -126,7 +136,7 @@
   margin-bottom: 10px;
 }
 footer{
-  position: absolute;
+  position: fixed;
   right: 0;
   left: 0;
   padding: 1rem;
