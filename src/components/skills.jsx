@@ -7,7 +7,7 @@ class Skills extends Component {
 
             <div idx={this.props.idx}>
                 <div className="btn-remove-select">
-                    <button onClick={this.props.deleteSkillItem} >delete select</button>
+                    <button type="reset" onClick={this.props.deleteSkillItem} >delete select</button>
                 </div>
 
                 <div style={{'height': '40px'}}>
@@ -38,13 +38,13 @@ class Skills extends Component {
                                 value={item.value}
                                 onChange={ (e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value') }
                             />
-                            <button onClick={()=>this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>delete prop</button>
+                            <button type="reset" onClick={()=>this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>delete prop</button>
                         </div>
                     )
                 }
 
                 <div className="btn-edit-input">
-                    <button onClick={()=>this.props.addValueInput(this.props.data.uniqueId)}>+1</button>
+                    <button type="reset" onClick={()=>this.props.addValueInput(this.props.data.uniqueId)}>+1</button>
                 </div>
                 <hr/>
             </div>

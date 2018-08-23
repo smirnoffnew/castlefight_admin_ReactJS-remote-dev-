@@ -461,12 +461,13 @@ class FormComponent extends Component {
 
     saveForm = (e) => {
         console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++', e.target);
+        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++',this.configData());
         e.preventDefault();
 
         axios.post(`http://178.128.163.251:5555/v1/knights`,
             {
                 "components": this.configData(),
-                "name": "teccc1"
+                "name": "PoorKnight"
             })
             .then(res => {
                 console.log('-------------------------------SAVED----------------------------------', res);
@@ -485,7 +486,7 @@ class FormComponent extends Component {
                             <h5 className="modal-title">Adding hero skills</h5>
                         </div>
                         <div className="modal-body">
-                            <button onClick={this.addSkillItem}>Add++</button>
+                            <button type="reset" onClick={this.addSkillItem}>Add++</button>
                             <hr/>
                             {
                                 skills.map((item, idx) => {
@@ -508,8 +509,8 @@ class FormComponent extends Component {
                             }
                         </div>
                         <div className="modal-footer">
-                            <button onClick={this.saveForm} className="btn btn-save">Save</button>
-                            <button type="button" className="btn btn-close" data-dismiss="modal"
+                            <button type="reset" onClick={this.saveForm} className="btn btn-save">Save</button>
+                            <button type="reset" className="btn btn-close" data-dismiss="modal"
                                     onClick={this.props.closeModal}>Close
                             </button>
                         </div>
