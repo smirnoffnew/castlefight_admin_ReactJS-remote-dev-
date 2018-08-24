@@ -300,11 +300,9 @@ class FormComponent extends Component {
         axios
             .get('http://178.128.163.251:5555/v1/knights/abilities')
             .then( response => console.log(response));
-
     }
 
     componentDidMount(){
-
     }
 
     makeid() {
@@ -316,13 +314,20 @@ class FormComponent extends Component {
     }
 
     addSkillItem = (e) => {
+        let generateNewFormElement = {
+            ...this.state.abilities[0],
+            uniqueId:this.makeid(),
+        };
+
         this.setState( (prevState) =>  ({
             components: [
                     ...prevState.components,
-                    { name: "", uniqueId:this.makeid(), values:[] }
+                    {...generateNewFormElement }
                 ]
             })
         );
+
+        this.setSelect(generateNewFormElement.uniqueId, this.state.abilities[0])
     };
 
     deleteSkillItem = (id) => {
@@ -334,21 +339,26 @@ class FormComponent extends Component {
     };
 
     onSelectSkillItem = (componentId, selectedValue) => {
-        let selectId = selectedValue.target.value;
-        let componentSelect = this.state.abilities.filter( item => selectId === item.type )[0];
+        let componentSelect = this.state.abilities.filter(item => selectedValue.target.value === item.type )[0];
+        this.setSelect(componentId, componentSelect);
+    };
+
+    setSelect = (componentId, componentSelect) => {
         this.setState((prevState) => {
             return{
                 components: [...prevState.components.map((item) => {
                     if (item.uniqueId === componentId) {
                         let newInputArray = Object.keys(componentSelect.values).map((key)=>{
-
-                            return {name:key, value:componentSelect.values[key], uniqueId: this.makeid()
+                            return {
+                                name:key,
+                                value:componentSelect.values[key],
+                                uniqueId: this.makeid(),
                             }
                         });
                         return {
                             ...item,
-                            values: newInputArray
-
+                            values: newInputArray,
+                            type: componentSelect.type
                         }
                     } else {
                         return item;
@@ -357,7 +367,7 @@ class FormComponent extends Component {
 
             }
         })
-    };
+    }
 
     addValueInput = (componentId) => {
         this.setState((prevState) => {
@@ -468,7 +478,5 @@ class FormComponent extends Component {
         );
     }
 }
-
-FormComponent.propTypes = {};
 
 export default FormComponent;

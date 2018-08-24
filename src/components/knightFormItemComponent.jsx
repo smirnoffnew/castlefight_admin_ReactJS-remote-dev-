@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 
 class KnightFormItemComponent extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+
     makeKey() {
         let text = "SkillsComponent";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -11,7 +16,7 @@ class KnightFormItemComponent extends Component {
     }
 
     render() {
-        // console.log('skills', this.props.data);
+        console.log('KnightFormItemComponent', this.props.data);
         return (
 
             <div idx={this.props.idx}>
@@ -20,7 +25,11 @@ class KnightFormItemComponent extends Component {
                 </div>
 
                 <div style={{'height': '40px'}}>
-                    <select className="select-skill" name={this.props.name} id={this.props.id} onChange={(e)=>this.props.onSelectSkillItem(this.props.data.uniqueId, e)}>
+                    <select className="select-skill"
+                            name={this.props.name}
+                            id={this.props.id}
+                            value={this.props.data.type}
+                            onChange={(e)=>this.props.onSelectSkillItem(this.props.data.uniqueId, e)}>
                         {
                             this.props.abilities.map((item, index) =>
                                 <option value={item.type} key={index}>{item.type}</option>
