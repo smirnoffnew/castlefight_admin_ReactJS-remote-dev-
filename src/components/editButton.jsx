@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import editIcon from "../assets/images/edit-icon.png";
 import '../App.css';
 import Modal from "react-modal";
-import FormComponent from "./form";
+import FormComponent from "./knightFormComponent";
 
 const editButtonStyles = {
     content: {

@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import KnightsTable from "../components/knightsTable";
 import AddButton from "../components/addButton";
-
-const axios = require("axios");
+import axios from "axios";
 
 class ContentComponent extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -27,9 +25,9 @@ class ContentComponent extends Component {
         return text;
     };
 
-    removeRecord = (entity, id) => {
+    removeRecord = (entity, id) => { debugger;
         console.log('delete', entity, ' ', id);
-        axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`)
+        axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
             .then(() => this.getData(this.state.entity))
             .catch(function (error) {
                 console.error(error);
@@ -80,13 +78,17 @@ class ContentComponent extends Component {
     renderSwitch = (param) => {
         switch(param) {
             case 'knights':
-                return <KnightsTable content = {this.state.tableComponentProps}
-                                     removeRecord = {this.removeRecord}
-                                     entity = {this.state.entity}/>;
+                return <KnightsTable
+                            getData={this.getData}
+                            content = {this.state.tableComponentProps}
+                            removeRecord = {this.removeRecord}
+                            entity = {this.state.entity}/>;
             default:
-                return <KnightsTable content = {this.state.tableComponentProps}
-                                     removeRecord = {this.removeRecord}
-                                     entity = {this.state.entity}/>;
+                return <KnightsTable
+                            getData={this.getData}
+                            content = {this.state.tableComponentProps}
+                            removeRecord = {this.removeRecord}
+                            entity = {this.state.entity}/>;
         }
     };
 
@@ -94,7 +96,7 @@ class ContentComponent extends Component {
         return (
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
-                <AddButton/>
+                <AddButton getData={this.getData}/>
                 {
                     this.state.isLoaded
                     ?

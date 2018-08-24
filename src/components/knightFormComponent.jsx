@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import KnightFormItemComponent from "./knightFormItemComponent";
 import axios from 'axios';
 
-class FormComponent extends Component {
+class KnightFormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -282,19 +282,17 @@ class FormComponent extends Component {
         };
     }
 
-    // configData = (components) => {
-    //    return components.map((item) => {
-    //
-    //         let values = {};
-    //
-    //         item.values.forEach((key) => {
-    //             values[inputItem.name] = inputItem.value;
-    //         });
-    //
-    //         return {...item, values}
-    //     });
-    //
-    // }
+    formatComponentsData = (components) => {
+       return components.map((item) => {
+            let values = {};
+            item.values.forEach((inputItem) => {
+                values[inputItem.name] = inputItem.value;
+            });
+            delete  item.uniqueId;
+            return {...item, values}
+        });
+
+    };
 
     getAbilities = () => {
         axios
@@ -423,17 +421,15 @@ class FormComponent extends Component {
     };
 
     saveForm = (e) => {
-        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++', e.target);
-        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++',this.state);
         e.preventDefault();
-
         axios.post(`http://178.128.163.251:5555/v1/knights`,
             {
-                "components": this.state.components,
+                "components": this.formatComponentsData(this.state.components),
                 "name": this.state.name
             })
-            .then(res => {
-                console.log('-------------------------------SAVED----------------------------------', res);
+            .then( () => {
+                this.props.getData('knights');
+                this.props.closeModal();
             })
 
     };
@@ -479,4 +475,4 @@ class FormComponent extends Component {
     }
 }
 
-export default FormComponent;
+export default KnightFormComponent;

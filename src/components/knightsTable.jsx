@@ -47,7 +47,10 @@ class TableComponent extends Component {
                                     }
                                 </td>
                                 <td className="center-btn-align">
-                                    <ButtonComponent data={rowContentItem} label='edit'/>
+                                    <ButtonComponent
+                                        data={rowContentItem}
+                                        label='edit'
+                                        getData={this.props.getData}/>
                                 </td>
                                 <td className="center-btn-align2">
                                     <button className="delete-btn" onClick={() => this.props.removeRecord(this.props.entity,rowContentItem.name)}>

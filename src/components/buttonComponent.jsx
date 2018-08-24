@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
-import FormComponent from "./form";
+import KnightFormComponent from "./knightFormComponent";
 import addIconPath from "../assets/images/icon-add.png";
 import editIconPath from "../assets/images/edit-icon.png";
 import '../App.css';
@@ -55,9 +55,12 @@ class ButtonComponent extends Component {
                         contentLabel={this.state.label}
                         ariaHideApp={false}>
 
-                    <FormComponent closeModal={this.closeModal}
-                                   components={this.props.data.components}
-                                   name={this.props.data.name}/>
+                    <KnightFormComponent
+                        closeModal={this.closeModal}
+                        components={this.props.data.components}
+                        name={this.props.data.name}
+
+                        getData={this.getData}/>
                 </Modal>
             </div>
         );

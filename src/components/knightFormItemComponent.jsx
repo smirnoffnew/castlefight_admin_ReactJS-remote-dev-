@@ -2,11 +2,6 @@ import React, {Component} from 'react';
 
 class KnightFormItemComponent extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-
     makeKey() {
         let text = "SkillsComponent";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -18,8 +13,7 @@ class KnightFormItemComponent extends Component {
     render() {
         console.log('KnightFormItemComponent', this.props.data);
         return (
-
-            <div idx={this.props.idx}>
+            <div>
                 <div className="btn-remove-select">
                     <button type="reset" onClick={this.props.deleteSkillItem} >delete select</button>
                 </div>
@@ -44,7 +38,7 @@ class KnightFormItemComponent extends Component {
                 </div>
 
                 {
-                    this.props.data.values.map( (item, index) =>
+                    this.props.data.values.map( item =>
                         <div key={this.makeKey()} className="new-inputs" >
                             <input
                                 key={this.makeKey()}

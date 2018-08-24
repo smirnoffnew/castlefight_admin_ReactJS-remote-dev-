@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import addIcon from "../assets/images/icon-add.png";
 import '../App.css';
-import FormComponent from "./form";
+import KnightFormComponent from "./knightFormComponent";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -55,9 +55,11 @@ class AddButton extends Component {
                     contentLabel="Example Modal"
                     ariaHideApp={false}
                 >
-                    <FormComponent closeModal={this.closeModal}
-                                   components={[]}
-                                   name={'default_name'}/>
+                    <KnightFormComponent
+                        getData={this.props.getData}
+                        closeModal={this.closeModal}
+                        components={[]}
+                        name={'default_name'}/>
                 </Modal>
             </div>
         );
