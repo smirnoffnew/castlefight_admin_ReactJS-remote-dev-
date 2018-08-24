@@ -8,7 +8,7 @@ class FormComponent extends Component {
         super(props);
 
         this.state = {
-            components: [
+            abilities: [
                 {
                     "type": "com.anygames.castlefight.components.Hp",
                     "defaultValue": null,
@@ -281,31 +281,78 @@ class FormComponent extends Component {
             ],
             skills: [
                 {
-                    type: "",
                     uniqueId: this.makeid(),
-                    inputArray: [
+                    type: "com.anygames.castlefight.components.Hp",
+                    defaultValue: null,
+                    values: [
                         {
                             name: "1",
-                            value: 'asdf',
+                            value: '20.0',
                             uniqueId: this.makeid()
                         },
                         {
                             name: "2",
-                            value:  1234,
+                            value: "30",
                             uniqueId: this.makeid()
                         }
                     ]
                 }
             ],
         }
-    }
 
+        let trueData =
+
+            {
+                "components": [
+                    {
+                        "type": "com.anygames.castlefight.components.Hp",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 20.0,
+                            "2": 30.0,
+                            "3": 40.0
+                        }
+                    },
+
+                    {
+                        "type": "com.anygames.castlefight.components.Speed",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 30.0,
+                            "2": 70.0,
+                            "3": 10.0
+                        }
+                    },
+
+                    {
+                        "type": "com.anygames.castlefight.components.Cooldown",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 60.0,
+                            "2": 70.0,
+                            "3": 10.0
+                        }
+                    },
+
+                    {
+                        "type": "com.anygames.castlefight.components.MeleeDps",
+                        "defaultValue": null,
+                        "values": {
+                            "1": 60.0,
+                            "2": 70.0,
+                            "3": 10.0
+                        }
+                    }
+                ],
+                "name": "PoorKnight"
+            };
+    }
     configData = () => {
         let componentTrueStructure = [];
         this.state.skills.forEach((item) => {
             let valuesObject = {};
             let trueItem = {};
-            item.inputArray.forEach((inputItem) => {
+            item.values.forEach((inputItem) => {
                 valuesObject[inputItem.name] = inputItem.value;
             });
 
@@ -341,7 +388,7 @@ class FormComponent extends Component {
         this.setState( (prevState) =>  ({
                 skills: [
                     ...prevState.skills,
-                    { name: "", uniqueId:this.makeid(), inputArray:[] }
+                    { name: "", uniqueId:this.makeid(), values:[] }
                 ]
             })
         );
@@ -356,15 +403,8 @@ class FormComponent extends Component {
     };
 
     onSelectSkillItem = (componentId, selectedValue) => {
-
         let selectId = selectedValue.target.value;
-        // this.setState((prevState) => {
-        //     return { type: [...prevState.selectId}
-        // })
-        // console.log('-----------------------------------',this.state);
-
-        let componentSelect = this.state.components.filter( item => selectId === item.type )[0];
-
+        let componentSelect = this.state.abilities.filter( item => selectId === item.type )[0];
         this.setState((prevState) => {
             return{
                 skills: [...prevState.skills.map((item) => {
@@ -376,7 +416,7 @@ class FormComponent extends Component {
                         });
                         return {
                             ...item,
-                            inputArray: newInputArray
+                            values: newInputArray
 
                         }
                     } else {
@@ -394,7 +434,7 @@ class FormComponent extends Component {
                 skills: [...prevState.skills.map((item) =>
                     item.uniqueId === componentId
                     ?
-                    {...item, inputArray: [...item.inputArray, {name: "2", value:  1234, uniqueId: this.makeid()}]}
+                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: this.makeid()}]}
                     :
                     item
                 )]
@@ -408,7 +448,7 @@ class FormComponent extends Component {
                 skills: [...prevState.skills.map((item) =>
                     item.uniqueId === componentId
                     ?
-                    {...item, inputArray: item.inputArray.filter(item => item.uniqueId !== inputId)}
+                    {...item, values: item.values.filter(item => item.uniqueId !== inputId)}
                     :
                     item
                 )]
@@ -424,7 +464,7 @@ class FormComponent extends Component {
                     if (item.uniqueId === componentId) {
                         return {
                             ...item,
-                            inputArray: item.inputArray.map(
+                            values: item.values.map(
                                 (inputItem) =>
                                     inputItem.uniqueId === inputId
                                         ?
@@ -484,7 +524,7 @@ class FormComponent extends Component {
                                             deleteValueInput = {this.deleteValueInput}
 
                                             data = {item}
-                                            components = {this.state.components}
+                                            abilities = {this.state.abilities}
                                         />
                                     )
                                 })

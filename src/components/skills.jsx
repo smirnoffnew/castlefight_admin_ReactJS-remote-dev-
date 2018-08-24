@@ -13,7 +13,7 @@ class Skills extends Component {
                 <div style={{'height': '40px'}}>
                     <select className="select-skill" name={this.props.name} id={this.props.id} onChange={(e)=>this.props.onSelectSkillItem(this.props.data.uniqueId, e)}>
                         {
-                            this.props.components.map((item, index) =>
+                            this.props.abilities.map((item, index) =>
                                 <option value={item.type} key={index}>{item.type}</option>
                             )
                         }
@@ -26,7 +26,7 @@ class Skills extends Component {
                 </div>
 
                 {
-                    this.props.data.inputArray.map( (item, index) =>
+                    this.props.data.values.map( (item, index) =>
                         <div className="new-inputs" key={index}>
                             <input
                                 type="text"
