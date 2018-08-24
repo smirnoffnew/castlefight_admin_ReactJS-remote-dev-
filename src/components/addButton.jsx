@@ -55,7 +55,9 @@ class AddButton extends Component {
                     contentLabel="Example Modal"
                     ariaHideApp={false}
                 >
-                    <FormComponent closeModal={this.closeModal}/>
+                    <FormComponent closeModal={this.closeModal}
+                                   components={[]}
+                                   name={'default_name'}/>
                 </Modal>
             </div>
         );

@@ -16,8 +16,16 @@ class ContentComponent extends Component {
                 columns: []
             }
 
-        }
+        };
     }
+
+    makeId = () => {
+        let text = 'ContentComponen';
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (let i = 0; i < 10; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    };
 
     removeRecord = (entity, id) => {
         console.log('delete', entity, ' ', id);
@@ -33,13 +41,27 @@ class ContentComponent extends Component {
             case 'knights':
             return axios.get('http://178.128.163.251:5555/v1/knights')
                     .then(response => {
-                        console.log('asdfasdf', response.data);
+                        console.log('response', response.data);
                         this.setState(() => {
                             return {
                                 isLoaded: true,
                                 entity: 'knights',
                                 tableComponentProps: {
-                                    data: response.data,
+                                    data: response.data.map((entityItem)=>{
+                                            let components = entityItem.components.map((componentItem)=>{
+                                            let values = Object
+                                                .keys(componentItem.values)
+                                                .map(key=>
+                                                    ({
+                                                        name:key,
+                                                        value:componentItem.values[key],
+                                                        uniqueId: this.makeId()
+                                                    })
+                                                );
+                                                return {...componentItem, values, uniqueId: this.makeId()}
+                                            });
+                                            return {...entityItem, components};
+                                        }),
                                     columns: ['Name', 'Components', 'Edit', 'Delete'],
                                 }
                             };

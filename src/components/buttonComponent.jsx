@@ -41,6 +41,7 @@ class ButtonComponent extends Component {
     };
 
     render() {
+        // console.log('buttonComponent', this.props.data.components);
         return (
             <div className={this.props.label === 'add' ? 'add-btn-container col-50' : ''}>
                 <button className={`${this.props.label}-btn`} onClick={this.openModal}>

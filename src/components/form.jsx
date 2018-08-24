@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import Skills from "./skills";
-
-const axios = require("axios");
+import KnightFormItemComponent from "./knightFormItemComponent";
+import axios from 'axios';
 
 class FormComponent extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             abilities: [
                 {
@@ -279,90 +277,24 @@ class FormComponent extends Component {
                     }
                 }
             ],
-            name: 'dafaultName',
-            components: [
-                {
-                    uniqueId: this.makeid(),
-                    type: "com.anygames.castlefight.components.Hp",
-                    defaultValue: null,
-                    values: [
-                        {
-                            name: "1",
-                            value: '20.0',
-                            uniqueId: this.makeid()
-                        },
-                        {
-                            name: "2",
-                            value: "30",
-                            uniqueId: this.makeid()
-                        }
-                    ]
-                }
-            ],
-        }
-
-        let trueData =
-            {
-                "components": [
-                    {
-                        "type": "com.anygames.castlefight.components.Hp",
-                        "defaultValue": null,
-                        "values": {
-                            "1": 20.0,
-                            "2": 30.0,
-                            "3": 40.0
-                        }
-                    },
-
-                    {
-                        "type": "com.anygames.castlefight.components.Speed",
-                        "defaultValue": null,
-                        "values": {
-                            "1": 30.0,
-                            "2": 70.0,
-                            "3": 10.0
-                        }
-                    },
-
-                    {
-                        "type": "com.anygames.castlefight.components.Cooldown",
-                        "defaultValue": null,
-                        "values": {
-                            "1": 60.0,
-                            "2": 70.0,
-                            "3": 10.0
-                        }
-                    },
-
-                    {
-                        "type": "com.anygames.castlefight.components.MeleeDps",
-                        "defaultValue": null,
-                        "values": {
-                            "1": 60.0,
-                            "2": 70.0,
-                            "3": 10.0
-                        }
-                    }
-                ],
-                "name": "PoorKnight"
-            };
+            name: this.props.name,
+            components: this.props.components
+        };
     }
-    configData = () => {
-        let componentTrueStructure = [];
-        this.state.components.forEach((item) => {
-            let valuesObject = {};
-            let trueItem = {};
-            item.values.forEach((inputItem) => {
-                valuesObject[inputItem.name] = inputItem.value;
-            });
 
-            trueItem.type = item.type;
-            trueItem.defaultValue = item.defaultValue;
-            trueItem.values = valuesObject;
-            componentTrueStructure.push(trueItem);
-        });
-        return componentTrueStructure;
-    }
+    // configData = (components) => {
+    //    return components.map((item) => {
+    //
+    //         let values = {};
+    //
+    //         item.values.forEach((key) => {
+    //             values[inputItem.name] = inputItem.value;
+    //         });
+    //
+    //         return {...item, values}
+    //     });
+    //
+    // }
 
     getAbilities = () => {
         axios
@@ -372,6 +304,7 @@ class FormComponent extends Component {
     }
 
     componentDidMount(){
+
     }
 
     makeid() {
@@ -465,10 +398,10 @@ class FormComponent extends Component {
                             values: item.values.map(
                                 (inputItem) =>
                                     inputItem.uniqueId === inputId
-                                        ?
-                                        param === 'name' ? {...inputItem, name: eventTargetValue} : {...inputItem, value: eventTargetValue}
-                                        :
-                                        inputItem
+                                    ?
+                                    param === 'name' ? {...inputItem, name: eventTargetValue} : {...inputItem, value: eventTargetValue}
+                                    :
+                                    inputItem
                             ),
                         }
                     } else {
@@ -481,19 +414,19 @@ class FormComponent extends Component {
 
     saveForm = (e) => {
         console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++', e.target);
-        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++',this.configData());
+        console.log('+++++++++++++++++++++++save++++++++++++++++++++++++++',this.state);
         e.preventDefault();
 
         axios.post(`http://178.128.163.251:5555/v1/knights`,
             {
-                "components": this.configData(),
-                "name": "PoorKnight"
+                "components": this.state.components,
+                "name": this.state.name
             })
             .then(res => {
                 console.log('-------------------------------SAVED----------------------------------', res);
             })
 
-    }
+    };
 
     render() {
         return (
@@ -507,23 +440,20 @@ class FormComponent extends Component {
                             <button type="reset" onClick={this.addSkillItem}>Add++</button>
                             <hr/>
                             {
-                                this.state.components.map((item, idx) => {
-                                    return (
-                                        <Skills
-                                            key={idx}
-                                            idx = {idx}
-                                            deleteSkillItem = {() => this.deleteSkillItem(item.uniqueId)}
-                                            onSelectSkillItem = {this.onSelectSkillItem}
+                                this.state.components.map((item) =>
+                                   (<KnightFormItemComponent
+                                        key={this.makeid()}
+                                        data = {item}
+                                        abilities = {this.state.abilities}
 
-                                            changeValueInput = { this.changeValueInput }
-                                            addValueInput = {() => this.addValueInput(item.uniqueId)}
-                                            deleteValueInput = {this.deleteValueInput}
+                                        deleteSkillItem = {() => this.deleteSkillItem(item.uniqueId)}
+                                        onSelectSkillItem = {this.onSelectSkillItem}
 
-                                            data = {item}
-                                            abilities = {this.state.abilities}
-                                        />
-                                    )
-                                })
+                                        addValueInput = {() => this.addValueInput(item.uniqueId)}
+                                        deleteValueInput = {this.deleteValueInput}
+                                        changeValueInput = { this.changeValueInput }
+                                    />)
+                                )
                             }
                         </div>
                         <div className="modal-footer">

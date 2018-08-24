@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
 
-class Skills extends Component {
+class KnightFormItemComponent extends Component {
+
+    makeKey() {
+        let text = "SkillsComponent";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (let i = 0; i < 10; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    }
 
     render() {
+        // console.log('skills', this.props.data);
         return (
 
             <div idx={this.props.idx}>
@@ -27,13 +36,15 @@ class Skills extends Component {
 
                 {
                     this.props.data.values.map( (item, index) =>
-                        <div className="new-inputs" key={index}>
+                        <div key={this.makeKey()} className="new-inputs" >
                             <input
+                                key={this.makeKey()}
                                 type="text"
                                 value={item.name}
-                                onChange={ (e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name') }
+                                onChange={(e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name')}
                             />
                             <input
+                                key={this.makeKey()}
                                 type="text"
                                 value={item.value}
                                 onChange={ (e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value') }
@@ -53,4 +64,4 @@ class Skills extends Component {
     }
 }
 
-export default Skills;
+export default KnightFormItemComponent;
