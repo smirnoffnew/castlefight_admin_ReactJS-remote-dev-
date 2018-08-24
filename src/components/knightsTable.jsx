@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
+import ButtonComponent from "./buttonComponent";
 import deleteIcon from "../assets/images/de.png";
-import EditButton from "./editButton";
 
 class TableComponent extends Component {
     constructor(props) {
@@ -46,7 +46,7 @@ class TableComponent extends Component {
                                     }
                                 </td>
                                 <td className="center-btn-align">
-                                    <EditButton/>
+                                    <ButtonComponent data={rowContentItem} label='edit'/>
                                 </td>
                                 <td className="center-btn-align2">
                                     <button className="delete-btn" onClick={() => this.props.removeRecord(this.props.entity,rowContentItem.name)}>

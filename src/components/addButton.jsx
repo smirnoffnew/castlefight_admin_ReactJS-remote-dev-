@@ -51,7 +51,6 @@ class AddButton extends Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
-                    // onRequestClose={this.closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
                     ariaHideApp={false}

@@ -279,7 +279,8 @@ class FormComponent extends Component {
                     }
                 }
             ],
-            skills: [
+            name: 'dafaultName',
+            components: [
                 {
                     uniqueId: this.makeid(),
                     type: "com.anygames.castlefight.components.Hp",
@@ -301,7 +302,6 @@ class FormComponent extends Component {
         }
 
         let trueData =
-
             {
                 "components": [
                     {
@@ -349,7 +349,7 @@ class FormComponent extends Component {
     }
     configData = () => {
         let componentTrueStructure = [];
-        this.state.skills.forEach((item) => {
+        this.state.components.forEach((item) => {
             let valuesObject = {};
             let trueItem = {};
             item.values.forEach((inputItem) => {
@@ -375,19 +375,17 @@ class FormComponent extends Component {
     }
 
     makeid() {
-        let text = "";
+        let text = "FormComponent";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
         for (let i = 0; i < 10; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
-
         return text;
     }
 
     addSkillItem = (e) => {
         this.setState( (prevState) =>  ({
-                skills: [
-                    ...prevState.skills,
+            components: [
+                    ...prevState.components,
                     { name: "", uniqueId:this.makeid(), values:[] }
                 ]
             })
@@ -397,7 +395,7 @@ class FormComponent extends Component {
     deleteSkillItem = (id) => {
         this.setState((prevState) => {
             return{
-                skills: [...prevState.skills.filter(item => item.uniqueId !== id)]
+                components: [...prevState.components.filter(item => item.uniqueId !== id)]
             }
         });
     };
@@ -407,7 +405,7 @@ class FormComponent extends Component {
         let componentSelect = this.state.abilities.filter( item => selectId === item.type )[0];
         this.setState((prevState) => {
             return{
-                skills: [...prevState.skills.map((item) => {
+                components: [...prevState.components.map((item) => {
                     if (item.uniqueId === componentId) {
                         let newInputArray = Object.keys(componentSelect.values).map((key)=>{
 
@@ -431,7 +429,7 @@ class FormComponent extends Component {
     addValueInput = (componentId) => {
         this.setState((prevState) => {
             return {
-                skills: [...prevState.skills.map((item) =>
+                components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
                     ?
                     {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: this.makeid()}]}
@@ -445,7 +443,7 @@ class FormComponent extends Component {
     deleteValueInput = (componentId, inputId) => {
         this.setState((prevState) => {
             return {
-                skills: [...prevState.skills.map((item) =>
+                components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
                     ?
                     {...item, values: item.values.filter(item => item.uniqueId !== inputId)}
@@ -460,7 +458,7 @@ class FormComponent extends Component {
         let eventTargetValue = e.target.value;
         this.setState((prevState) => {
             return {
-                skills: [...prevState.skills.map((item) => {
+                components: [...prevState.components.map((item) => {
                     if (item.uniqueId === componentId) {
                         return {
                             ...item,
@@ -498,8 +496,6 @@ class FormComponent extends Component {
     }
 
     render() {
-        let {skills} = this.state;
-
         return (
             <div>
                 <form >
@@ -511,7 +507,7 @@ class FormComponent extends Component {
                             <button type="reset" onClick={this.addSkillItem}>Add++</button>
                             <hr/>
                             {
-                                skills.map((item, idx) => {
+                                this.state.components.map((item, idx) => {
                                     return (
                                         <Skills
                                             key={idx}

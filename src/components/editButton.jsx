@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import editIcon from "../assets/images/edit-icon.png";
 import '../App.css';
 import Modal from "react-modal";
-import EditFormComponent from "./editForm";
+import FormComponent from "./form";
 
 const editButtonStyles = {
     content: {
@@ -25,7 +25,6 @@ class EditButton extends Component {
 
         this.openEditModal = this.openEditModal.bind(this);
         this.afterOpenEditModal = this.afterOpenEditModal.bind(this);
-        this.closeEditModal = this.closeEditModal.bind(this);
     }
 
     openEditModal() {
@@ -37,7 +36,7 @@ class EditButton extends Component {
         // this.subtitle.style.color = '#f00';
     }
 
-    closeEditModal() {
+    closeModal = () => {
         this.setState({editModalIsOpen: false});
     }
 
@@ -50,12 +49,12 @@ class EditButton extends Component {
                 <Modal
                     isOpen={this.state.editModalIsOpen}
                     onAfterOpen={this.afterOpenEditModal}
-                    // onRequestClose={this.closeModal}
                     style={editButtonStyles}
                     contentLabel="Example Modal"
                     ariaHideApp={false}
                 >
-                    <EditFormComponent closeEditModal={this.closeEditModal}/>
+                    {/*<EditFormComponent closeEditModal={this.closeEditModal}/>*/}
+                    <FormComponent closeModal={this.closeModal}/>
                 </Modal>
             </div>
         );
