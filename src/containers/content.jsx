@@ -33,6 +33,7 @@ class ContentComponent extends Component {
             case 'knights':
             return axios.get('http://178.128.163.251:5555/v1/knights')
                     .then(response => {
+                        console.log('asdfasdf', response.data);
                         this.setState(() => {
                             return {
                                 isLoaded: true,
@@ -58,12 +59,12 @@ class ContentComponent extends Component {
         switch(param) {
             case 'knights':
                 return <KnightsTable content = {this.state.tableComponentProps}
-                                       removeRecord = {this.removeRecord}
-                                       entity = {this.state.entity}/>;
+                                     removeRecord = {this.removeRecord}
+                                     entity = {this.state.entity}/>;
             default:
-                return  <KnightsTable content = {this.state.tableComponentProps}
-                                        removeRecord = {this.removeRecord}
-                                        entity = {this.state.entity}/>;
+                return <KnightsTable content = {this.state.tableComponentProps}
+                                     removeRecord = {this.removeRecord}
+                                     entity = {this.state.entity}/>;
         }
     };
 

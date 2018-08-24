@@ -14,22 +14,12 @@ class TableComponent extends Component {
         };
     }
 
-    handleRemoveRow = () => {
-        console.log('pizda !!!!!!!!!!!!!!!! delete');
-        this.setState((prevState) => {
-            return {
-                // rows: [...prevState.skills.filter(item => item.uniqueId !== id)]
-            }
-        });
-    };
 
     makeKey() {
-        let text = "";
+        let text = 'TableComponent';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
         for (let i = 0; i < 10; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
-
         return text;
     }
 
@@ -53,7 +43,6 @@ class TableComponent extends Component {
                                         rowContentItem.components.map((componentItem) =>
                                             <div key={this.makeKey()}>{componentItem.type}</div>
                                         )
-
                                     }
                                 </td>
                                 <td className="center-btn-align">

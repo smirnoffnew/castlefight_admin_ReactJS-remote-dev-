@@ -317,32 +317,14 @@ class FormComponent extends Component {
         return componentTrueStructure;
     }
 
+    getAbilities = () => {
+        axios
+            .get('http://178.128.163.251:5555/v1/knights/abilities')
+            .then( response => console.log(response));
+
+    }
+
     componentDidMount(){
-        const _this = this;
-        axios.get('http://178.128.163.251:5555/v1/knights')
-            .then( heroSkills => {
-                console.log("heroSkills ------- ", heroSkills);
-                console.log("heroSkills +++++++ ", heroSkills.data[0].name);
-                console.log("heroSkills ******* ", heroSkills.data.map(person => ({value: person.components})));
-                let result = heroSkills.data.map(person => ({value: person.components}))
-
-                console.log('result ----------', result);
-                _this.setState((prevState) => ({
-                    components: result[0].value
-
-
-                    // components: Object.keys(result).map(function(key, index) {
-                    //         console.log(result[key].value);
-                    //     })
-                }))
-                // console.log('~~~~~~~~~~',result.value.map( getType => ({value: getType.value})));
-                // Object.keys(result).map(function(key, index) {
-                //     console.log(result[key]);
-                // });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     makeid() {
