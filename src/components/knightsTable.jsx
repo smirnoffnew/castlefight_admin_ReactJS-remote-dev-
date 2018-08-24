@@ -24,7 +24,6 @@ class TableComponent extends Component {
     }
 
     render() {
-        console.log('table',  this.props.content.data);
         return (
             <div className = "table-container">
                 <h1>{this.props.content.entity}</h1>

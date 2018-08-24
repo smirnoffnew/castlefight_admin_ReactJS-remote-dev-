@@ -25,7 +25,7 @@ class ContentComponent extends Component {
         return text;
     };
 
-    removeRecord = (entity, id) => { debugger;
+    removeRecord = (entity, id) => {
         console.log('delete', entity, ' ', id);
         axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
             .then(() => this.getData(this.state.entity))
@@ -37,37 +37,37 @@ class ContentComponent extends Component {
     getData = (param) => {
         switch(param) {
             case 'knights':
-            return axios.get('http://178.128.163.251:5555/v1/knights')
-                    .then(response => {
-                        console.log('response', response.data);
-                        this.setState(() => {
-                            return {
-                                isLoaded: true,
-                                entity: 'knights',
-                                tableComponentProps: {
-                                    data: response.data.map((entityItem)=>{
-                                            let components = entityItem.components.map((componentItem)=>{
-                                            let values = Object
-                                                .keys(componentItem.values)
-                                                .map(key=>
-                                                    ({
-                                                        name:key,
-                                                        value:componentItem.values[key],
-                                                        uniqueId: this.makeId()
-                                                    })
-                                                );
-                                                return {...componentItem, values, uniqueId: this.makeId()}
-                                            });
-                                            return {...entityItem, components};
-                                        }),
-                                    columns: ['Name', 'Components', 'Edit', 'Delete'],
-                                }
-                            };
-                        });
-                    })
-                    .catch(function (error) {
-                        console.error(error);
+            return axios
+                .get('http://178.128.163.251:5555/v1/knights')
+                .then(response => {
+                    this.setState(() => {
+                        return {
+                            isLoaded: true,
+                            entity: 'knights',
+                            tableComponentProps: {
+                                data: response.data.map((entityItem)=>{
+                                        let components = entityItem.components.map((componentItem)=>{
+                                        let values = Object
+                                            .keys(componentItem.values)
+                                            .map(key=>
+                                                ({
+                                                    name:key,
+                                                    value:componentItem.values[key],
+                                                    uniqueId: this.makeId()
+                                                })
+                                            );
+                                            return {...componentItem, values, uniqueId: this.makeId()}
+                                        });
+                                        return {...entityItem, components};
+                                    }),
+                                columns: ['Name', 'Components', 'Edit', 'Delete'],
+                            }
+                        };
                     });
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
         }
     };
 

@@ -422,7 +422,14 @@ class KnightFormComponent extends Component {
 
     saveForm = (e) => {
         e.preventDefault();
-        axios.post(`http://178.128.163.251:5555/v1/knights`,
+        let url = this.props.editFlag
+            ?
+            `http://178.128.163.251:5555/v1/knights/${this.state.name}`
+            :
+            `http://178.128.163.251:5555/v1/knights`;
+
+        axios
+            .post(url,
             {
                 "components": this.formatComponentsData(this.state.components),
                 "name": this.state.name
@@ -434,6 +441,12 @@ class KnightFormComponent extends Component {
 
     };
 
+    changeInputNameValue = (e) => {
+        let value = e.target.value;
+        this.setState(prevState => ({...prevState, name: value}));
+    };
+
+
     render() {
         return (
             <div>
@@ -444,6 +457,14 @@ class KnightFormComponent extends Component {
                         </div>
                         <div className="modal-body">
                             <button type="reset" onClick={this.addSkillItem}>Add++</button>
+                            <div className="new-inputs" >
+                                <label style={{'marginRight':'15px'}}>Name:</label>
+                                <input
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={(e)=>this.changeInputNameValue(e)}
+                                />
+                            </div>
                             <hr/>
                             {
                                 this.state.components.map((item) =>

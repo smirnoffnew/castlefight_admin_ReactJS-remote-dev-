@@ -59,7 +59,7 @@ class ButtonComponent extends Component {
                         closeModal={this.closeModal}
                         components={this.props.data.components}
                         name={this.props.data.name}
-
+                        editFlag={true}
                         getData={this.getData}/>
                 </Modal>
             </div>
