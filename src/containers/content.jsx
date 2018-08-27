@@ -30,77 +30,93 @@ class ContentComponent extends Component {
     getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
         console.log('slug', slug)
-        // switch (slug) {
-        //     case 'levels':
+        switch (slug) {
+            //     case 'levels':
 
-        //         return axios
-        //             .get('http://178.128.163.251:5555/v1/' + slug)
-        //             .then(response => {
-        //                 console.log('response', response)
-        //                 this.setState(() => {
-        //                     return {
-        //                         isLoaded: true,
-        //                         entity: slug,
-        //                         tableComponentProps: {
-        //                             data: response.data.map((entityItem) => {
-        //                                 console.log('entityItem', entityItem)
-        //                                 return { ...entityItem };
-        //                             })
-        //                         }
-        //                     };
-        //                 });
-        //             })
-        //             .catch(function (error) {
-        //                 console.error(error);
-        //             });
+            //         return axios
+            //             .get('http://178.128.163.251:5555/v1/' + slug)
+            //             .then(response => {
+            //                 const { data } = response;
+            //                 console.log('response', response)
+            //                 this.setState(() => {
+            //                     return {
+            //                         isLoaded: true,
+            //                         entity: slug,
+            //                         tableComponentProps: {
+            //                             data: data.map((entityItem) => {
+            //                                 console.log('entityItem', entityItem)
+            //                                 return { ...entityItem };
+            //                             })
+            //                         }
+            //                     };
+            //                 });
+            //             })
+            //             .catch(function (error) {
+            //                 console.error(error);
+            //             });
 
-        //     case 'settings':
-        //         const trueSlug = 'commons/farm'
-        //         console.log('trueSlug', trueSlug)
-        //         return axios
-        //             .get('http://178.128.163.251:5555/v1/' + trueSlug)
-        //             .then(response => {
-        //                 console.log('response', response)
-        //                 this.setState(() => {
-        //                     return {
-        //                         isLoaded: true,
-        //                         entity: slug,
-        //                         tableComponentProps: {
-        //                             data: response.data.map((entityItem) => {
-        //                                 console.log('entityItem', entityItem)
-        //                                 let components = entityItem.map((componentItem) => {
-        //                                     let values = Object
-        //                                         .keys(componentItem.values ? componentItem.values : [])
-        //                                         .map(key =>
-        //                                             ({
-        //                                                 name: key,
-        //                                                 value: componentItem.values[key],
-        //                                                 uniqueId: helper.makeId()
-        //                                             })
-        //                                         );
-        //                                     return { ...componentItem, values, uniqueId: helper.makeId() }
-        //                                 });
-        //                                 return { ...entityItem, components };
-        //                             })
-        //                         }
-        //                     };
-        //                 });
-        //             })
-        //             .catch(function (error) {
-        //                 console.error(error);
-        //             });
+            case 'settings':
+                const trueSlug = 'commons/farm'
+                console.log('trueSlug', trueSlug)
+                return axios
+                    .get('http://178.128.163.251:5555/v1/' + trueSlug)
+                    .then(response => {
+                        const { data } = response;
+                        console.log('response', data)
+                        this.setState(() => {
+                            let output = [], i = 0;
+                            for (let i in data) {
+                                let value = data[i]
+                                if (i == 'farmIndexAndPositions') {
+                                    output[i] = []
+                                    for (let val in value) {
+                                        output[i].push(<div>{'' + value[val].x + ' ' + value[val].y}</div>)
+                                    }
+                                } else if (typeof value === 'object') {
+                                    output[i] = []
+                                    for (let val in value) {
+                                        output[i].push(<div>{value[val]}</div>)
+                                    }
+                                } else {
+                                    output.push(<div>{value}</div>)
+                                }
+                                i++
+                            }
 
-            // default:
+                            console.log('output', output)
+
+                            return {
+                                isLoaded: true,
+                                entity: slug,
+                                tableComponentProps: {
+                                    data: output,
+                                    columns: [
+                                        'Farm Index And Costs',
+                                        'Farm Index And Outputs',
+                                        'Farm Index And Positions',
+                                        'Initial Farm Count',
+                                        'Edit',
+                                        'Delete'
+                                    ],
+                                }
+                            };
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+
+            default:
                 return axios
                     .get('http://178.128.163.251:5555/v1/' + slug)
                     .then(response => {
-                        console.log('response', response)
-                        console.log('data', response.data)
+                        const { data } = response;
+                        console.log('response', data)
                         this.setState(() => ({
                             isLoaded: true,
                             entity: slug,
                             tableComponentProps: {
-                                data: response.data.map((entityItem) => {
+                                data: data.map((entityItem) => {
                                     console.log('entityItem', entityItem)
                                     let components = entityItem.components.map((componentItem) => {
                                         let values = Object
@@ -123,7 +139,7 @@ class ContentComponent extends Component {
                     .catch(function (error) {
                         console.error(error);
                     });
-        // }
+        }
     };
 
     componentDidMount() {

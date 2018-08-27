@@ -309,7 +309,7 @@ class KnightFormComponent extends Component {
     addSkillItem = (e) => {
         let generateNewFormElement = {
             ...this.state.abilities[0],
-            uniqueId: helper.makeid(),
+            uniqueId: helper.makeId(),
         };
 
         this.setState( (prevState) =>  ({
@@ -345,7 +345,7 @@ class KnightFormComponent extends Component {
                             return {
                                 name:key,
                                 value:componentSelect.values[key],
-                                uniqueId: helper.makeid(),
+                                uniqueId: helper.makeId(),
                             }
                         });
                         return {
@@ -368,7 +368,7 @@ class KnightFormComponent extends Component {
                 components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
                     ?
-                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: helper.makeid()}]}
+                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: helper.makeId()}]}
                     :
                     item
                 )]
@@ -464,7 +464,7 @@ class KnightFormComponent extends Component {
                             {
                                 this.state.components.map((item) =>
                                    (<KnightFormItemComponent
-                                        key={helper.makeid()}
+                                        key={helper.makeId()}
                                         data = {item}
                                         abilities = {this.state.abilities}
 

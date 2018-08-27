@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-
-export default class Helper extends Component {
+export default class Helper {
     makeId() {
         let text = '';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
