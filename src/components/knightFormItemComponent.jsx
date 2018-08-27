@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
+import Helper from "../helper";
+
+const helper = new Helper;
 
 class KnightFormItemComponent extends Component {
-
-    makeKey() {
-        let text = "SkillsComponent";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < 10; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;
-    }
-
     render() {
         console.log('KnightFormItemComponent', this.props.data);
         return (
@@ -39,15 +33,15 @@ class KnightFormItemComponent extends Component {
 
                 {
                     this.props.data.values.map( item =>
-                        <div key={this.makeKey()} className="new-inputs" >
+                        <div key={helper.makeId()} className="new-inputs" >
                             <input
-                                key={this.makeKey()}
+                                key={helper.makeId()}
                                 type="text"
                                 value={item.name}
                                 onChange={(e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name')}
                             />
                             <input
-                                key={this.makeKey()}
+                                key={helper.makeId()}
                                 type="text"
                                 value={item.value}
                                 onChange={ (e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value') }

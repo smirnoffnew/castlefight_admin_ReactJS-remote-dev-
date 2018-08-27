@@ -1,7 +1,10 @@
-import React, {Component} from 'react';
-import Table from "../components/knightsTable";
+import React, { Component } from 'react';
+import Table from "../components/Table";
 import AddButton from "../components/addButton";
+import Helper from "../helper";
 import axios from "axios";
+
+const helper = new Helper;
 
 class ContentComponent extends Component {
     constructor(props) {
@@ -10,19 +13,10 @@ class ContentComponent extends Component {
             isLoaded: false,
             entity: '',
             tableComponentProps: {
-                data: [],
-                columns: []
+                data: []
             }
         };
     }
-
-    makeId = () => {
-        let text = 'ContentComponen';
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < 10; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;
-    };
 
     removeRecord = (entity, id) => {
         console.log('delete', entity, ' ', id);
@@ -33,47 +27,102 @@ class ContentComponent extends Component {
             });
     };
 
-    getData = (param) => {
-
-        console.log('history', this.props.history.location.pathname.substr(1) );
-
+    getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
+        console.log('slug', slug)
+        // switch (slug) {
+        //     case 'levels':
 
-        this.setState({ entity: slug });
+        //         return axios
+        //             .get('http://178.128.163.251:5555/v1/' + slug)
+        //             .then(response => {
+        //                 console.log('response', response)
+        //                 this.setState(() => {
+        //                     return {
+        //                         isLoaded: true,
+        //                         entity: slug,
+        //                         tableComponentProps: {
+        //                             data: response.data.map((entityItem) => {
+        //                                 console.log('entityItem', entityItem)
+        //                                 return { ...entityItem };
+        //                             })
+        //                         }
+        //                     };
+        //                 });
+        //             })
+        //             .catch(function (error) {
+        //                 console.error(error);
+        //             });
 
-        // switch(param) {
-        //     case 'knights':
-            return axios
-                .get('http://178.128.163.251:5555/v1/' + slug)
-                .then(response => {
-                    this.setState(() => {
-                        return {
+        //     case 'settings':
+        //         const trueSlug = 'commons/farm'
+        //         console.log('trueSlug', trueSlug)
+        //         return axios
+        //             .get('http://178.128.163.251:5555/v1/' + trueSlug)
+        //             .then(response => {
+        //                 console.log('response', response)
+        //                 this.setState(() => {
+        //                     return {
+        //                         isLoaded: true,
+        //                         entity: slug,
+        //                         tableComponentProps: {
+        //                             data: response.data.map((entityItem) => {
+        //                                 console.log('entityItem', entityItem)
+        //                                 let components = entityItem.map((componentItem) => {
+        //                                     let values = Object
+        //                                         .keys(componentItem.values ? componentItem.values : [])
+        //                                         .map(key =>
+        //                                             ({
+        //                                                 name: key,
+        //                                                 value: componentItem.values[key],
+        //                                                 uniqueId: helper.makeId()
+        //                                             })
+        //                                         );
+        //                                     return { ...componentItem, values, uniqueId: helper.makeId() }
+        //                                 });
+        //                                 return { ...entityItem, components };
+        //                             })
+        //                         }
+        //                     };
+        //                 });
+        //             })
+        //             .catch(function (error) {
+        //                 console.error(error);
+        //             });
+
+            // default:
+                return axios
+                    .get('http://178.128.163.251:5555/v1/' + slug)
+                    .then(response => {
+                        console.log('response', response)
+                        console.log('data', response.data)
+                        this.setState(() => ({
                             isLoaded: true,
+                            entity: slug,
                             tableComponentProps: {
-                                data: response.data.map((entityItem)=>{
+                                data: response.data.map((entityItem) => {
                                     console.log('entityItem', entityItem)
-                                        let components = entityItem.components.map((componentItem)=>{
-                                            let values = Object
-                                                .keys(componentItem.values ? componentItem.values : [])
-                                                .map(key=>
-                                                    ({
-                                                        name:key,
-                                                        value:componentItem.values[key],
-                                                        uniqueId: this.makeId()
-                                                    })
-                                                );
-                                            return {...componentItem, values, uniqueId: this.makeId()}
-                                        });
-                                        return {...entityItem, components};
-                                    }),
+                                    let components = entityItem.components.map((componentItem) => {
+                                        let values = Object
+                                            .keys(componentItem.values ? componentItem.values : [])
+                                            .map(key =>
+                                                ({
+                                                    name: key,
+                                                    value: componentItem.values[key],
+                                                    uniqueId: helper.makeId()
+                                                })
+                                            );
+                                        return { ...componentItem, values, uniqueId: helper.makeId() }
+                                    });
+                                    return { ...entityItem, components };
+                                }),
                                 columns: ['Name', 'Components', 'Edit', 'Delete'],
                             }
-                        };
+                        }));
+                    })
+                    .catch(function (error) {
+                        console.error(error);
                     });
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
         // }
     };
 
@@ -81,23 +130,42 @@ class ContentComponent extends Component {
         this.getData();
     };
 
+    componentWillReceiveProps() {
+        this.getData();
+    }
+
     render() {
+
+        console.log('props', this.state.tableComponentProps)
+
         return (
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
-                <AddButton getData={this.getData}/>
-                <button className="back-btn" onClick={this.props.history.goBack}>←</button>
+                <AddButton getData={this.getData} />
                 {
                     this.state.isLoaded
-                    ?
+                        ?
                         <Table
                             getData={this.getData}
                             content={this.state.tableComponentProps}
                             removeRecord={this.removeRecord}
-                            entity={this.state.entity} 
+                            entity={this.state.entity}
                         />
-                    :
-                        <h1>LOADING...</h1>
+                        :
+                        <div className="sk-fading-circle">
+                            <div className="sk-circle1 sk-circle"></div>
+                            <div className="sk-circle2 sk-circle"></div>
+                            <div className="sk-circle3 sk-circle"></div>
+                            <div className="sk-circle4 sk-circle"></div>
+                            <div className="sk-circle5 sk-circle"></div>
+                            <div className="sk-circle6 sk-circle"></div>
+                            <div className="sk-circle7 sk-circle"></div>
+                            <div className="sk-circle8 sk-circle"></div>
+                            <div className="sk-circle9 sk-circle"></div>
+                            <div className="sk-circle10 sk-circle"></div>
+                            <div className="sk-circle11 sk-circle"></div>
+                            <div className="sk-circle12 sk-circle"></div>
+                        </div>
                 }
             </div>
         );

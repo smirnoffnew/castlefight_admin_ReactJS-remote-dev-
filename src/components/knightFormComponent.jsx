@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import KnightFormItemComponent from "./knightFormItemComponent";
+import Helper from "../helper";
 import axios from 'axios';
+
+const helper = new Helper;
 
 class KnightFormComponent extends Component {
     constructor(props) {
@@ -303,18 +306,10 @@ class KnightFormComponent extends Component {
     componentDidMount(){
     }
 
-    makeid() {
-        let text = "FormComponent";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < 10; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;
-    }
-
     addSkillItem = (e) => {
         let generateNewFormElement = {
             ...this.state.abilities[0],
-            uniqueId:this.makeid(),
+            uniqueId: helper.makeid(),
         };
 
         this.setState( (prevState) =>  ({
@@ -350,7 +345,7 @@ class KnightFormComponent extends Component {
                             return {
                                 name:key,
                                 value:componentSelect.values[key],
-                                uniqueId: this.makeid(),
+                                uniqueId: helper.makeid(),
                             }
                         });
                         return {
@@ -373,7 +368,7 @@ class KnightFormComponent extends Component {
                 components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
                     ?
-                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: this.makeid()}]}
+                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: helper.makeid()}]}
                     :
                     item
                 )]
@@ -469,7 +464,7 @@ class KnightFormComponent extends Component {
                             {
                                 this.state.components.map((item) =>
                                    (<KnightFormItemComponent
-                                        key={this.makeid()}
+                                        key={helper.makeid()}
                                         data = {item}
                                         abilities = {this.state.abilities}
 
