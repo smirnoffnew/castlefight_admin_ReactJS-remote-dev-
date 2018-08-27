@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import KnightsTable from "../components/knightsTable";
+import Table from "../components/knightsTable";
 import AddButton from "../components/addButton";
 import axios from "axios";
 
@@ -8,12 +8,11 @@ class ContentComponent extends Component {
         super(props)
         this.state = {
             isLoaded: false,
-            entity: 'knights',
+            entity: '',
             tableComponentProps: {
                 data: [],
                 columns: []
             }
-
         };
     }
 
@@ -28,34 +27,41 @@ class ContentComponent extends Component {
     removeRecord = (entity, id) => {
         console.log('delete', entity, ' ', id);
         axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
-            .then(() => this.getData(this.state.entity))
+            .then(() => this.getData())
             .catch(function (error) {
                 console.error(error);
             });
     };
 
     getData = (param) => {
-        switch(param) {
-            case 'knights':
+
+        console.log('history', this.props.history.location.pathname.substr(1) );
+
+        const slug = this.props.history.location.pathname.substr(1);
+
+        this.setState({ entity: slug });
+
+        // switch(param) {
+        //     case 'knights':
             return axios
-                .get('http://178.128.163.251:5555/v1/knights')
+                .get('http://178.128.163.251:5555/v1/' + slug)
                 .then(response => {
                     this.setState(() => {
                         return {
                             isLoaded: true,
-                            entity: 'knights',
                             tableComponentProps: {
                                 data: response.data.map((entityItem)=>{
+                                    console.log('entityItem', entityItem)
                                         let components = entityItem.components.map((componentItem)=>{
-                                        let values = Object
-                                            .keys(componentItem.values)
-                                            .map(key=>
-                                                ({
-                                                    name:key,
-                                                    value:componentItem.values[key],
-                                                    uniqueId: this.makeId()
-                                                })
-                                            );
+                                            let values = Object
+                                                .keys(componentItem.values ? componentItem.values : [])
+                                                .map(key=>
+                                                    ({
+                                                        name:key,
+                                                        value:componentItem.values[key],
+                                                        uniqueId: this.makeId()
+                                                    })
+                                                );
                                             return {...componentItem, values, uniqueId: this.makeId()}
                                         });
                                         return {...entityItem, components};
@@ -68,28 +74,11 @@ class ContentComponent extends Component {
                 .catch(function (error) {
                     console.error(error);
                 });
-        }
+        // }
     };
 
     componentDidMount() {
-        this.getData(this.state.entity);
-    };
-
-    renderSwitch = (param) => {
-        switch(param) {
-            case 'knights':
-                return <KnightsTable
-                            getData={this.getData}
-                            content = {this.state.tableComponentProps}
-                            removeRecord = {this.removeRecord}
-                            entity = {this.state.entity}/>;
-            default:
-                return <KnightsTable
-                            getData={this.getData}
-                            content = {this.state.tableComponentProps}
-                            removeRecord = {this.removeRecord}
-                            entity = {this.state.entity}/>;
-        }
+        this.getData();
     };
 
     render() {
@@ -97,12 +86,18 @@ class ContentComponent extends Component {
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
                 <AddButton getData={this.getData}/>
+                <button className="back-btn" onClick={this.props.history.goBack}>←</button>
                 {
                     this.state.isLoaded
                     ?
-                    this.renderSwitch(this.state.entity)
+                        <Table
+                            getData={this.getData}
+                            content={this.state.tableComponentProps}
+                            removeRecord={this.removeRecord}
+                            entity={this.state.entity} 
+                        />
                     :
-                    <h1>LOADING...</h1>
+                        <h1>LOADING...</h1>
                 }
             </div>
         );

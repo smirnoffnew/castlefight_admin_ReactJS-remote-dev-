@@ -15,7 +15,6 @@
 
 .App-header {
   background-color: #222;
-  height: 140px;
   padding: 0px;
   color: white;
   position: fixed;
@@ -33,20 +32,36 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
+
 /* ------------------------------------------ */
-.container{
+
+.container {
   width: 100%;
-  height: calc(100vh - 195px);
-  margin-top: 140px;
-    overflow: auto;
+  height: calc(100vh - 110px);
+  margin-top: calc(28px + 0.67em * 3);
+  overflow: auto;
 }
 
 .table-container {
   width: 90%;
   margin: auto;
+}
+
+.back-btn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  font-size: 1.5em;
+  position: absolute;
+  top: -3px;
+  left: 55px;
 }
 
 .add-btn-container {
@@ -57,86 +72,101 @@
 
 .add-btn,
 .edit-btn,
-.delete-btn{
+.delete-btn {
   display: flex;
   align-items: center;
   margin: 0 auto;
 }
-.edit-btn{
+
+.edit-btn {
   padding: 6px;
 }
-.add-btn-icon{
+
+.add-btn-icon {
   width: 24px;
   height: 24px;
 }
-.edit-btn-icon{
+
+.edit-btn-icon {
   width: 14px;
   height: 14px;
 }
-.delete-btn-icon{
+
+.delete-btn-icon {
   width: 16px;
   height: 24px;
 }
 
-
 /* modal */
 
-.modal-header{
+.modal-header {
   display: flex;
   justify-content: space-between;
   background-color: lightgrey;
   padding: 0 10px;
 }
-.modal-header .close{
+
+.modal-header .close {
   align-self: center;
 }
-.modal-content{
+
+.modal-content {
   width: 665px;
 }
-.modal-body{
+
+.modal-body {
   margin: 20px 0;
   padding: 0 10px;
 }
-.modal-footer{
+
+.modal-footer {
   display: flex;
   justify-content: space-evenly;
   margin: 25px;
 }
-.ReactModal__Overlay--after-open{
-  background-color: rgba(15, 15, 15, 0.95) !important;
 
+.ReactModal__Overlay--after-open {
+  background-color: rgba(15, 15, 15, 0.95) !important;
 }
-.ReactModal__Body--open .ReactModalPortal .ReactModal__Overlay--after-open .ReactModal__Content--after-open{
+
+.ReactModal__Body--open .ReactModalPortal .ReactModal__Overlay--after-open .ReactModal__Content--after-open {
   padding: 0 !important;
   max-height: calc(100vh - 85px);
   overflow-y: scroll !important;
 }
+
 ::-webkit-scrollbar,
-::-moz-viewport-scroll{
+::-moz-viewport-scroll {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent;
+  /* make scrollbar transparent */
 }
-.select-skill{
+
+.select-skill {
   float: left;
 }
-.new-inputs{
+
+.new-inputs {
   text-align: right;
   /*margin-right: 68px;*/
 }
-.btn-add-value{
+
+.btn-add-value {
   text-align: right;
   margin-top: 5px;
 }
-.btn-edit-input{
+
+.btn-edit-input {
   text-align: right;
   margin-bottom: 5px;
 }
 
-.btn-remove-select{
+.btn-remove-select {
   text-align: left;
   margin-bottom: 10px;
 }
-footer{
+
+footer {
   position: fixed;
   right: 0;
   left: 0;
@@ -146,22 +176,29 @@ footer{
 }
 
 /*table styles*/
-table, th, td {
-    border: 1px solid rgba(0,0,0,0.12);
+
+table,
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
+
 table {
-    width: 100%;
-    display: table;
-    border-collapse: collapse;
-    border-spacing: 0;
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-table > thead > tr th {
-    line-height: 40px;
+
+table>thead>tr th {
+  line-height: 40px;
 }
-table > tbody > tr:nth-child(odd) {
-    background-color: rgba(242, 242, 242, 0.9);
+
+table>tbody>tr:nth-child(odd) {
+  background-color: rgba(242, 242, 242, 0.9);
 }
-table > tbody > tr > td {
-    border-radius: 0;
-    padding: 5px;
+
+table>tbody>tr>td {
+  border-radius: 0;
+  padding: 5px;
 }
