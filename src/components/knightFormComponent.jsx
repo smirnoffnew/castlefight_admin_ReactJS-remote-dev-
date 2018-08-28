@@ -430,7 +430,7 @@ class KnightFormComponent extends Component {
                 "name": this.state.name
             })
             .then( () => {
-                this.props.getData('knights');
+                this.props.getData();
                 this.props.closeModal();
             })
 
