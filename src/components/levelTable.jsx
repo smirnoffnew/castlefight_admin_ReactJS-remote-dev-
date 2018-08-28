@@ -49,11 +49,11 @@ class TableRow extends Component {
 
     render() {
         let values = {};
-        const tdOutput = this.state.content.map((row, index) => {
-            values[row.name] = row.value;
+        const tdOutput = this.state.content.map((column, index) => {
+            values[column.name] = column.value;
             return (
                 <td key={index}>
-                    {row.value}
+                    {column.value}
                 </td>
             )
         })
@@ -99,9 +99,9 @@ class TableComponent extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.props.content.map((tabel, index) => (
+                            this.props.content.map((row, index) => (
                                 <TableRow
-                                    data={tabel}
+                                    data={row}
                                     key={index}
                                     removeRecord={this.props.removeRecord}
                                 />
