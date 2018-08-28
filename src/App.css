@@ -47,6 +47,25 @@
 
 /* ------------------------------------------ */
 
+.form-container {
+  width: 80%;
+  margin: auto;
+  height: 100%;
+  padding-top: 50px;
+}
+.form-input-container {
+  text-align: left;
+  margin-left: 15px;
+}
+
+.form-input-container label {
+  margin-right: 15px;
+}
+.editable-list-input-container {
+
+}
+
+
 .container {
   width: 100%;
   height: calc(100vh - 110px);
