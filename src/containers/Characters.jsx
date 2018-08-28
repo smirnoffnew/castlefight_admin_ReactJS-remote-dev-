@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddButton from "../components/addButton";
 import Loading from "../components/loading";
-import Table from "../components/Table";
+import Table from "../components/CharactersTable";
 import axios from "axios";
 
 class TableContainer extends Component {
@@ -54,7 +54,7 @@ class TableContainer extends Component {
             });
     };
 
-    getColumn = () => {
+    getColumns = () => {
         return  ['Name', 'Components', 'Edit', 'Delete'];
     };
 
@@ -73,10 +73,11 @@ class TableContainer extends Component {
                     this.state.isLoaded
                         ?
                         <Table
-                            getData={this.getData}
-                            content={this.state.tableComponentProps}
-                            removeRecord={this.removeRecord}
+                            columns = {this.getColumns()}
+                            rows = {this.getRows()}
                             entity={this.state.entity}
+                            getData={this.getData}
+                            removeRecord={this.removeRecord}
                         />
                         :
                         <Loading />
