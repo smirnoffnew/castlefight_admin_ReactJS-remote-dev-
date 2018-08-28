@@ -1,11 +1,15 @@
 .App {
   text-align: center;
-  min-width: 992px;
 }
 
 .col-50 {
   width: 50%;
   float: left;
+  margin: 20px 0;
+}
+
+.col-50.withButton button {
+  height: 28px;
 }
 
 .App-logo {
@@ -78,16 +82,6 @@
   margin: auto;
 }
 
-.back-btn {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 15px;
-  font-size: 1.5em;
-  position: absolute;
-  top: -3px;
-  left: 55px;
-}
-
 .add-btn-container {
   margin-left: auto;
   margin-right: auto;
@@ -119,6 +113,14 @@
 .delete-btn-icon {
   width: 16px;
   height: 24px;
+}
+
+.table-btn {
+  text-align: right;
+}
+
+.table-btn button {
+  margin: 10px;
 }
 
 /* modal */
@@ -212,6 +214,7 @@ table {
   display: table;
   border-collapse: collapse;
   border-spacing: 0;
+  margin-bottom: 30px;
 }
 
 table>thead>tr th {
