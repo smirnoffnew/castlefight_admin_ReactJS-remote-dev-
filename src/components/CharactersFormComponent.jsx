@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
+import Helper from "../helper";
 
 class CharactersFormComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.helper = new Helper();
+    }
     render() {
         return (
             <div>
@@ -16,7 +21,7 @@ class CharactersFormComponent extends Component {
                         {
                             this.props.abilities.map((item) =>
                                 <option
-                                    key={item.uniqueId}
+                                    key={this.helper.makeId()}
                                     value={item.type} >
                                     {item.type}
                                 </option>
@@ -31,7 +36,7 @@ class CharactersFormComponent extends Component {
                 </div>
                 {
                     this.props.data.values.map(item => (
-                        <div key={item.uniqueId} className="new-inputs">
+                        <div key={this.helper.makeId()} className="new-inputs">
                             <input
                                 type="text"
                                 value={item.nameInput}

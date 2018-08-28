@@ -15,26 +15,22 @@ class CharactersForm extends Component {
     }
 
     componentDidMount() {
-        console.log('this.components CharactersForm state', this.state.components);
+        //console.log('this.components CharactersForm state', this.state.components);
         // console.log('this.components CharactersForm props', this.props.components);
     }
 
     formaterData = (components) => {
-        console.log('components 1', components);
         return components.map((item) => {
             let values = {};
             item.values.forEach((inputItem) => {
                 values[inputItem.nameInput] = inputItem.valueInput;
             });
             delete  item.uniqueId;
-            console.log('components 2', {...item, values});
             return {...item, values}
         });
     };
 
     addNewComponent = () => {
-        console.log('asdfasdfasdfasdf', this.state);
-
         let generateNewFormElement = {
             ...this.state.abilities[0],
             uniqueId: this.helper.makeId(),
@@ -49,8 +45,6 @@ class CharactersForm extends Component {
                 ]
             }}
         );
-
-        console.log('asdfasdfasdfasdf', this.state);
 
         this.setSelectComponent(generateNewFormElement.uniqueId, this.state.abilities[0])
     };
@@ -200,7 +194,7 @@ class CharactersForm extends Component {
                             {
                                 this.state.components.map((item) =>
                                     (<CharactersFormComponent
-                                        key={item.uniqueId}
+                                        key={this.helper.makeId()}
                                         data={item}
                                         abilities={this.state.abilities}
                                         deleteComponent={() => this.deleteComponent(item.uniqueId)}
