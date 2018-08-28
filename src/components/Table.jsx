@@ -18,7 +18,7 @@ class TableComponent extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.props.content.data.map((rowContentItem) =>
+                            this.props.content.data.map((rowContentItem) => (
                                 <tr key={helper.makeId()}>
                                     <td>{rowContentItem.name}</td>
                                     <td>
@@ -40,6 +40,7 @@ class TableComponent extends Component {
                                         </button>
                                     </td>
                                 </tr>
+                            )
                             )
                         }
                     </tbody>

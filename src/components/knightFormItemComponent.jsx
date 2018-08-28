@@ -4,8 +4,31 @@ import Helper from "../helper";
 const helper = new Helper;
 
 class KnightFormItemComponent extends Component {
+    renderInputs() {
+        let output = []
+        for (let item in this.props.data.values) {
+            output.push(
+                <div key={helper.makeId()} className="new-inputs" >
+                    <input
+                        key={helper.makeId()}
+                        type="text"
+                        value={item}
+                        onChange={(e) => this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name')}
+                    />
+                    <input
+                        key={helper.makeId()}
+                        type="text"
+                        value={this.props.data.values[item]}
+                        onChange={(e) => this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value')}
+                    />
+                    <button type="reset" onClick={() => this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>delete prop</button>
+                </div>
+            )
+        }
+        return output
+    }
+
     render() {
-        console.log('KnightFormItemComponent', this.props.data);
         return (
             <div>
                 <div className="btn-remove-select">
@@ -30,27 +53,7 @@ class KnightFormItemComponent extends Component {
                     <label style={{'marginRight':'75px'}}>Name property</label>
                     <label>Value property</label>
                 </div>
-
-                {
-                    this.props.data.values.map( item =>
-                        <div key={helper.makeId()} className="new-inputs" >
-                            <input
-                                key={helper.makeId()}
-                                type="text"
-                                value={item.name}
-                                onChange={(e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name')}
-                            />
-                            <input
-                                key={helper.makeId()}
-                                type="text"
-                                value={item.value}
-                                onChange={ (e)=>this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value') }
-                            />
-                            <button type="reset" onClick={()=>this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>delete prop</button>
-                        </div>
-                    )
-                }
-
+                {this.renderInputs()}
                 <div className="btn-edit-input">
                     <button type="reset" onClick={()=>this.props.addValueInput(this.props.data.uniqueId)}>+1</button>
                 </div>
