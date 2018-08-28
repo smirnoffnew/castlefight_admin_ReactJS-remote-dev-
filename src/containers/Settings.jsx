@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ContentComponent from './ContentComponent'
+import AddButton from "../components/addButton";
+import Loading from "../components/loading";
 import axios from "axios";
 
 class TableContainer extends Component {
@@ -85,13 +86,17 @@ class TableContainer extends Component {
 
     render() {
         return (
-            <ContentComponent
-                entity={this.state.entity}
-                getData={this.getData}
-                isLoaded={false} // this.state.isLoaded
-            >
-                Working in progress
-            </ContentComponent>
+            <div className="container">
+                <h2 className="col-50">{this.state.entity}</h2>
+                <AddButton getData={this.getData} />
+                {
+                    false // this.state.isLoaded
+                        ?
+                        'Working in progress'
+                        :
+                        <Loading />
+                }
+            </div>
         )
     }
 }

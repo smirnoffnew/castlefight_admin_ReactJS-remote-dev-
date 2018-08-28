@@ -4,7 +4,7 @@ import HeaderComponent from "./components/header";
 import FooterComponent from "./components/footer";
 // import Sidebar from "./components/sidebar";
 
-import Table from "./containers/Table";
+import Characters from "./containers/Characters";
 import Levels from "./containers/Levels";
 import Settings from "./containers/Settings";
 import NotFound from "./containers/notFound";
@@ -21,7 +21,7 @@ class App extends Component {
                     <HeaderComponent />
                     {/*<Sidebar/>*/}
                     <Switch>
-                        <Route exact path="/(knights|allies|enemies)" component={Table} />
+                        <Route exact path="/(knights|allies|enemies)" component={Characters} />
                         <Route exact path="/levels" component={Levels} />
                         <Route exact path="/settings" component={Settings} />
                         <Redirect from="/" to="/knights" />
