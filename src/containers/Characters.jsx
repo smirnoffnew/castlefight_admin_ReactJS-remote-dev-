@@ -6,7 +6,7 @@ import axios from "axios";
 
 class TableContainer extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             isLoaded: false,
             entity: '',
@@ -16,9 +16,17 @@ class TableContainer extends Component {
         };
     }
 
+    componentDidMount() {
+        this.getData();
+    };
+
+    componentWillReceiveProps() {
+        this.getData();
+    };
+
     removeRecord = (entity, id) => {
-        console.log('delete', entity, ' ', id);
-        axios.delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
+        axios
+            .delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
             .then(() => this.getData())
             .catch(function (error) {
                 console.error(error);
@@ -27,32 +35,34 @@ class TableContainer extends Component {
 
     getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
-        console.log('slug', slug)
-        axios.get('http://178.128.163.251:5555/v1/' + slug)
+        axios
+            .get('http://178.128.163.251:5555/v1/' + slug)
             .then(response => {
-                const { data } = response;
-                console.log('response', data)
                 this.setState(() => ({
                     entity: slug,
                     isLoaded: true,
                     tableComponentProps: {
-                        data: data,
+                        data: response.data,
                         columns: ['Name', 'Components', 'Edit', 'Delete'],
                     }
                 }));
+
+                console.log('response.data',  response.data);
             })
             .catch(function (error) {
                 console.error(error);
             });
-    }
-
-    componentDidMount() {
-        this.getData();
     };
 
-    componentWillReceiveProps() {
-        this.getData();
-    }
+    getColumn = () => {
+        return  ['Name', 'Components', 'Edit', 'Delete'];
+    };
+
+    getRows = () => {
+        return this.state.tableComponentProps.data;
+    };
+
+
 
     render() {
         return (
@@ -73,7 +83,7 @@ class TableContainer extends Component {
                 }
             </div>
         )
-    }
+    };
 }
 
 export default TableContainer;

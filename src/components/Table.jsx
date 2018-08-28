@@ -20,7 +20,9 @@ class TableComponent extends Component {
                         {
                             this.props.content.data.map((rowContentItem) => (
                                 <tr key={helper.makeId()}>
+
                                     <td>{rowContentItem.name}</td>
+
                                     <td>
                                         {
                                             rowContentItem.components.map((componentItem) =>
@@ -28,12 +30,14 @@ class TableComponent extends Component {
                                             )
                                         }
                                     </td>
+
                                     <td className="center-btn-align">
                                         <ButtonComponent
                                             data={rowContentItem}
                                             label='edit'
                                             getData={this.props.getData} />
                                     </td>
+
                                     <td className="center-btn-align2">
                                         <button className="delete-btn" onClick={() => this.props.removeRecord(this.props.entity, rowContentItem.name)}>
                                             <img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
