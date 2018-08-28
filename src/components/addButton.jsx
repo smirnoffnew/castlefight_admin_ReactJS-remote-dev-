@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import addIcon from "../assets/images/icon-add.png";
 import '../App.css';
-import KnightFormComponent from "./knightFormComponent";
+import CharactersForm from "./CharactersForm";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -25,14 +25,14 @@ class AddButton extends Component {
 
     openModal = () => {
         this.setState({modalIsOpen: true});
-    }
+    };
 
     afterOpenModal = () => {
-    }
+    };
 
     closeModal = () => {
         this.setState({modalIsOpen: false});
-    }
+    };
 
     render() {
         return (
@@ -48,7 +48,7 @@ class AddButton extends Component {
                     contentLabel="Example Modal"
                     ariaHideApp={false}
                 >
-                    <KnightFormComponent
+                    <CharactersForm
                         closeModal={this.closeModal}
                         components={[]}
                         name={'default_name'}

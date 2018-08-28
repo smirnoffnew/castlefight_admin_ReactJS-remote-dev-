@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddButton from "../components/addButton";
-import Loading from "../components/loading";
-import Table from "../components/CharactersTable";
+import Loading from "../components/common/loading";
+import CharactersTable from "../components/CharactersTable";
 import axios from "axios";
 
 class TableContainer extends Component {
@@ -63,7 +63,6 @@ class TableContainer extends Component {
     };
 
 
-
     render() {
         return (
             <div className="container">
@@ -72,7 +71,7 @@ class TableContainer extends Component {
                 {
                     this.state.isLoaded
                         ?
-                        <Table
+                        <CharactersTable
                             columns = {this.getColumns()}
                             rows = {this.getRows()}
                             entity={this.state.entity}

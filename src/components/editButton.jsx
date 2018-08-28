@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
-import KnightFormComponent from "./knightFormComponent";
+import CharactersForm from "./CharactersForm";
 import addIconPath from "../assets/images/icon-add.png";
 import editIconPath from "../assets/images/edit-icon.png";
 import '../App.css';
-
-
 
 const customStyles = {
     content: {
@@ -18,7 +16,7 @@ const customStyles = {
     }
 };
 
-class ButtonComponent extends Component {
+class EditButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,7 +39,6 @@ class ButtonComponent extends Component {
     };
 
     render() {
-        // console.log('buttonComponent', this.props.data.components);
         return (
             <div className={this.props.label === 'add' ? 'add-btn-container col-50' : ''}>
                 <button className={`${this.props.label}-btn`} onClick={this.openModal}>
@@ -55,7 +52,7 @@ class ButtonComponent extends Component {
                         contentLabel={this.state.label}
                         ariaHideApp={false}>
 
-                    <KnightFormComponent
+                    <CharactersForm
                         closeModal={this.closeModal}
                         components={this.props.data.components}
                         name={this.props.data.name}
@@ -67,4 +64,4 @@ class ButtonComponent extends Component {
     }
 }
 
-export default ButtonComponent;
+export default EditButton;

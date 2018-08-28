@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router';
-import HeaderComponent from "./components/header";
-import FooterComponent from "./components/footer";
+import HeaderComponent from "./components/common/header";
+import FooterComponent from "./components/common/footer";
 // import Sidebar from "./components/sidebar";
 
 import Characters from "./containers/Characters";

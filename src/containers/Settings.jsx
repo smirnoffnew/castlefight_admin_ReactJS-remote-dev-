@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Loading from "../components/loading";
+import Loading from "../components/common/loading";
 import axios from "axios";
 import Helper from "../helper";
 

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import KnightFormItemComponent from "./knightFormItemComponent";
+import CharactersFormItem from "./CharactersFormItem";
 import Helper from "../helper";
 import axios from 'axios';
 
-const helper = new Helper;
 
-class KnightFormComponent extends Component {
+class CharactersForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -283,10 +282,14 @@ class KnightFormComponent extends Component {
             name: this.props.name,
             components: this.props.components
         };
+        this.helper = new Helper();
+    }
+
+    componentDidMount() {
     }
 
     formatComponentsData = (components) => {
-       return components.map((item) => {
+        return components.map((item) => {
             let values = {};
             item.values.forEach((inputItem) => {
                 values[inputItem.name] = inputItem.value;
@@ -300,22 +303,20 @@ class KnightFormComponent extends Component {
     getAbilities = () => {
         axios
             .get('http://178.128.163.251:5555/v1/knights/abilities')
-            .then( response => console.log(response));
-    }
+            .then(response => console.log(response));
+    };
 
-    componentDidMount(){
-    }
 
     addSkillItem = (e) => {
         let generateNewFormElement = {
             ...this.state.abilities[0],
-            uniqueId: helper.makeId(),
+            uniqueId: this.helper.makeId(),
         };
 
-        this.setState( (prevState) =>  ({
-            components: [
+        this.setState((prevState) => ({
+                components: [
                     ...prevState.components,
-                    {...generateNewFormElement }
+                    {...generateNewFormElement}
                 ]
             })
         );
@@ -325,27 +326,27 @@ class KnightFormComponent extends Component {
 
     deleteSkillItem = (id) => {
         this.setState((prevState) => {
-            return{
+            return {
                 components: [...prevState.components.filter(item => item.uniqueId !== id)]
             }
         });
     };
 
     onSelectSkillItem = (componentId, selectedValue) => {
-        let componentSelect = this.state.abilities.filter(item => selectedValue.target.value === item.type )[0];
+        let componentSelect = this.state.abilities.filter(item => selectedValue.target.value === item.type)[0];
         this.setSelect(componentId, componentSelect);
     };
 
     setSelect = (componentId, componentSelect) => {
         this.setState((prevState) => {
-            return{
+            return {
                 components: [...prevState.components.map((item) => {
                     if (item.uniqueId === componentId) {
-                        let newInputArray = Object.keys(componentSelect.values).map((key)=>{
+                        let newInputArray = Object.keys(componentSelect.values).map((key) => {
                             return {
-                                name:key,
-                                value:componentSelect.values[key],
-                                uniqueId: helper.makeId(),
+                                name: key,
+                                value: componentSelect.values[key],
+                                uniqueId: this.helper.makeId(),
                             }
                         });
                         return {
@@ -360,17 +361,17 @@ class KnightFormComponent extends Component {
 
             }
         })
-    }
+    };
 
     addValueInput = (componentId) => {
         this.setState((prevState) => {
             return {
                 components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
-                    ?
-                    {...item, values: [...item.values, {name: "2", value:  1234, uniqueId: helper.makeId()}]}
-                    :
-                    item
+                        ?
+                        {...item, values: [...item.values, {name: "2", value: 1234, uniqueId: this.helper.makeId()}]}
+                        :
+                        item
                 )]
             }
         });
@@ -381,10 +382,10 @@ class KnightFormComponent extends Component {
             return {
                 components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
-                    ?
-                    {...item, values: item.values.filter(item => item.uniqueId !== inputId)}
-                    :
-                    item
+                        ?
+                        {...item, values: item.values.filter(item => item.uniqueId !== inputId)}
+                        :
+                        item
                 )]
             }
         });
@@ -401,10 +402,13 @@ class KnightFormComponent extends Component {
                             values: item.values.map(
                                 (inputItem) =>
                                     inputItem.uniqueId === inputId
-                                    ?
-                                    param === 'name' ? {...inputItem, name: eventTargetValue} : {...inputItem, value: eventTargetValue}
-                                    :
-                                    inputItem
+                                        ?
+                                        param === 'name' ? {...inputItem, name: eventTargetValue} : {
+                                            ...inputItem,
+                                            value: eventTargetValue
+                                        }
+                                        :
+                                        inputItem
                             ),
                         }
                     } else {
@@ -425,11 +429,11 @@ class KnightFormComponent extends Component {
 
         axios
             .post(url,
-            {
-                "components": this.formatComponentsData(this.state.components),
-                "name": this.state.name
-            })
-            .then( () => {
+                {
+                    "components": this.formatComponentsData(this.state.components),
+                    "name": this.state.name
+                })
+            .then(() => {
                 this.props.getData();
                 this.props.closeModal();
             })
@@ -445,35 +449,35 @@ class KnightFormComponent extends Component {
     render() {
         return (
             <div>
-                <form >
+                <form>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Adding hero skills</h5>
                         </div>
                         <div className="modal-body">
                             <button type="reset" onClick={this.addSkillItem}>Add++</button>
-                            <div className="new-inputs" >
-                                <label style={{'marginRight':'15px'}}>Name:</label>
+                            <div className="new-inputs">
+                                <label style={{'marginRight': '15px'}}>Name:</label>
                                 <input
                                     type="text"
                                     value={this.state.name}
-                                    onChange={(e)=>this.changeInputNameValue(e)}
+                                    onChange={(e) => this.changeInputNameValue(e)}
                                 />
                             </div>
                             <hr/>
                             {
                                 this.state.components.map((item) =>
-                                   (<KnightFormItemComponent
-                                        key={helper.makeId()}
-                                        data = {item}
-                                        abilities = {this.state.abilities}
+                                    (<CharactersFormItem
+                                        key={this.helper.makeId()}
+                                        data={item}
+                                        abilities={this.state.abilities}
 
-                                        deleteSkillItem = {() => this.deleteSkillItem(item.uniqueId)}
-                                        onSelectSkillItem = {this.onSelectSkillItem}
+                                        deleteSkillItem={() => this.deleteSkillItem(item.uniqueId)}
+                                        onSelectSkillItem={this.onSelectSkillItem}
 
-                                        addValueInput = {() => this.addValueInput(item.uniqueId)}
-                                        deleteValueInput = {this.deleteValueInput}
-                                        changeValueInput = { this.changeValueInput }
+                                        addValueInput={() => this.addValueInput(item.uniqueId)}
+                                        deleteValueInput={this.deleteValueInput}
+                                        changeValueInput={this.changeValueInput}
                                     />)
                                 )
                             }
@@ -491,4 +495,4 @@ class KnightFormComponent extends Component {
     }
 }
 
-export default KnightFormComponent;
+export default CharactersForm;

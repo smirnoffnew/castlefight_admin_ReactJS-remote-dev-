@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ButtonComponent from "./buttonComponent";
+import EditButton from "./editButton";
 import Helper from "../helper";
 import deleteIcon from "../assets/images/de.png";
 
@@ -34,7 +34,7 @@ class CharactersTable extends Component {
                                     </td>
 
                                     <td className="center-btn-align">
-                                        <ButtonComponent
+                                        <EditButton
                                             data={row}
                                             label='edit'
                                             getData={this.props.getData} />

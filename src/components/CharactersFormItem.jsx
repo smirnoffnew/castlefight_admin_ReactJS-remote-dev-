@@ -3,9 +3,9 @@ import Helper from "../helper";
 
 const helper = new Helper;
 
-class KnightFormItemComponent extends Component {
+class CharactersFormItem extends Component {
     renderInputs() {
-        let output = []
+        let output = [];
         for (let item in this.props.data.values) {
             output.push(
                 <div key={helper.makeId()} className="new-inputs" >
@@ -29,6 +29,7 @@ class KnightFormItemComponent extends Component {
     }
 
     render() {
+        console.log('this.props', this.props);
         return (
             <div>
                 <div className="btn-remove-select">
@@ -64,4 +65,4 @@ class KnightFormItemComponent extends Component {
     }
 }
 
-export default KnightFormItemComponent;
+export default CharactersFormItem;
