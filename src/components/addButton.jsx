@@ -16,28 +16,27 @@ const customStyles = {
 };
 
 class AddButton extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            modalIsOpen: false
+            modalIsOpen: false,
+            abilities: this.props.abilities
         };
     }
 
-    openModal = () => {
-        this.setState({modalIsOpen: true});
+    toggleModal = () => {
+        this.setState((prevState) => ({...prevState, modalIsOpen: !prevState.modalIsOpen}));
     };
 
     afterOpenModal = () => {
-    };
 
-    closeModal = () => {
-        this.setState({modalIsOpen: false});
     };
 
     render() {
         return (
             <div className="add-btn-container col-50">
-                <button className="add-btn" onClick={this.openModal}>
+                <button className="add-btn" onClick={this.toggleModal}>
                     <img src={addIcon} className="add-btn-icon" alt="Add"/>
                     <span>Add</span>
                 </button>
@@ -49,12 +48,12 @@ class AddButton extends Component {
                     ariaHideApp={false}
                 >
                     <CharactersForm
-                        closeModal={this.closeModal}
-                        components={[]}
+                        entity={this.props.entity}
+                        abilities={this.state.abilities}
                         name={'default_name'}
-                        editFlag={false}
-                        getData={this.props.getData}
-                    />
+                        components={[]}
+                        closeModal={this.toggleModal}
+                        getData={this.props.getData}/>
                 </Modal>
             </div>
         );

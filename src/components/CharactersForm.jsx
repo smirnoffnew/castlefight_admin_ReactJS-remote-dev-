@@ -1,284 +1,15 @@
 import React, {Component} from 'react';
-import CharactersFormItem from "./CharactersFormItem";
+import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../helper";
 import axios from 'axios';
+import EditButton from "./editButton";
 
 
 class CharactersForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            abilities: [
-                {
-                    "type": "com.anygames.castlefight.components.Hp",
-                    "defaultValue": null,
-                    "values": {
-                        "10": 20.0,
-                        "2": 30.0,
-                        "3": 40.0
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Speed",
-                    "defaultValue": null,
-                    "values": {
-                        "11": 60.0,
-                        "2": 70.0,
-                        "3": 10.0
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Cooldown",
-                    "defaultValue": null,
-                    "values": {
-                        "12": 60.0,
-                        "2": 70.0,
-                        "3": 10.0
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MeleeDps",
-                    "defaultValue": null,
-                    "values": {
-                        "13": 60.0,
-                        "2": 70.0,
-                        "3": 10.0
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Prefab",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Cost",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.NumberPercentage",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MeleeAttackRadius",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.SummonCost",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.ProjectileSpeed",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.RangeDps",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MaxGoldReward",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Aps",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.RestoreHpPerSec",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Name",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.UpgradeCost",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.PumpkinRewardChancePercentage",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.ThresholdCompanyLevel",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Distance",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MinGoldReward",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.MapComponent",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.RangeAttackRadius",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MaxOE",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MaxPumpkinReward",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.MinPumpkinReward",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.Time",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                },
-
-                {
-                    "type": "com.anygames.castlefight.components.GoldRewardChancePercentag",
-                    "defaultValue": null,
-                    "values": {
-                        "1": 50.0,
-                        "2": 60.0,
-                        "3": 70
-                    }
-                }
-            ],
+            abilities: this.props.abilities,
             name: this.props.name,
             components: this.props.components
         };
@@ -286,79 +17,64 @@ class CharactersForm extends Component {
     }
 
     componentDidMount() {
+        console.log('this.components CharactersForm state', this.state.components);
+        // console.log('this.components CharactersForm props', this.props.components);
     }
 
-    formatComponentsData = (components) => {
+    formaterData = (components) => {
+        console.log('components 1', components);
         return components.map((item) => {
             let values = {};
             item.values.forEach((inputItem) => {
-                values[inputItem.name] = inputItem.value;
+                values[inputItem.nameInput] = inputItem.valueInput;
             });
             delete  item.uniqueId;
+            console.log('components 2', {...item, values});
             return {...item, values}
         });
-
     };
 
-    getAbilities = () => {
-        axios
-            .get('http://178.128.163.251:5555/v1/knights/abilities')
-            .then(response => console.log(response));
-    };
-
-
-    addSkillItem = (e) => {
+    addNewComponent = () => {
         let generateNewFormElement = {
             ...this.state.abilities[0],
             uniqueId: this.helper.makeId(),
         };
 
-        this.setState((prevState) => ({
-                components: [
-                    ...prevState.components,
-                    {...generateNewFormElement}
-                ]
-            })
-        );
-
-        this.setSelect(generateNewFormElement.uniqueId, this.state.abilities[0])
-    };
-
-    deleteSkillItem = (id) => {
         this.setState((prevState) => {
             return {
-                components: [...prevState.components.filter(item => item.uniqueId !== id)]
+                ...prevState,
+                components: [
+                    ...prevState.components,
+                    generateNewFormElement
+                ]
+            }}
+        );
+
+        console.log('asdfasdfasdfasdf', this.state);
+
+        this.setSelectComponent(generateNewFormElement.uniqueId, this.state.abilities[0])
+    };
+
+    deleteComponent = (componentId) => {
+        this.setState((prevState) => {
+            return {
+                components: [...prevState.components.filter(item => item.uniqueId !== componentId)]
             }
         });
     };
 
-    onSelectSkillItem = (componentId, selectedValue) => {
+    onSelectComponent = (componentId, selectedValue) => {
         let componentSelect = this.state.abilities.filter(item => selectedValue.target.value === item.type)[0];
-        this.setSelect(componentId, componentSelect);
+        this.setSelectComponent(componentId, componentSelect);
     };
 
-    setSelect = (componentId, componentSelect) => {
+    setSelectComponent = (componentId, componentSelect) => {
         this.setState((prevState) => {
             return {
-                components: [...prevState.components.map((item) => {
-                    if (item.uniqueId === componentId) {
-                        let newInputArray = Object.keys(componentSelect.values).map((key) => {
-                            return {
-                                name: key,
-                                value: componentSelect.values[key],
-                                uniqueId: this.helper.makeId(),
-                            }
-                        });
-                        return {
-                            ...item,
-                            values: newInputArray,
-                            type: componentSelect.type
-                        }
-                    } else {
-                        return item;
-                    }
-                })]
-
+                ...prevState,
+                components: [
+                    ...prevState.components.map(item => item.uniqueId === componentId ? componentSelect : item)
+                ]
             }
         })
     };
@@ -366,12 +82,22 @@ class CharactersForm extends Component {
     addValueInput = (componentId) => {
         this.setState((prevState) => {
             return {
-                components: [...prevState.components.map((item) =>
-                    item.uniqueId === componentId
-                        ?
-                        {...item, values: [...item.values, {name: "2", value: 1234, uniqueId: this.helper.makeId()}]}
-                        :
-                        item
+                components: [...prevState.components.map((component) =>
+                    component.uniqueId === componentId
+                    ?
+                    {
+                        ...component,
+                        values: [
+                            ...component.values,
+                            {
+                                nameInput: component.values.length > 1 ? Number(component.values[component.values.length-1].nameInput) + 1 : 1,
+                                valueInput: 10,
+                                uniqueId: this.helper.makeId()
+                            }
+                        ]
+                    }
+                    :
+                    component
                 )]
             }
         });
@@ -382,10 +108,13 @@ class CharactersForm extends Component {
             return {
                 components: [...prevState.components.map((item) =>
                     item.uniqueId === componentId
-                        ?
-                        {...item, values: item.values.filter(item => item.uniqueId !== inputId)}
-                        :
-                        item
+                    ?
+                    {
+                        ...item,
+                        values: item.values.filter(item => item.uniqueId !== inputId)
+                    }
+                    :
+                    item
                 )]
             }
         });
@@ -395,24 +124,25 @@ class CharactersForm extends Component {
         let eventTargetValue = e.target.value;
         this.setState((prevState) => {
             return {
-                components: [...prevState.components.map((item) => {
-                    if (item.uniqueId === componentId) {
+                components: [...prevState.components.map((component) => {
+                    if (component.uniqueId === componentId) {
+                        let valueObject = {};
+                        valueObject[`${param}Input`] = eventTargetValue;
                         return {
-                            ...item,
-                            values: item.values.map(
-                                (inputItem) =>
-                                    inputItem.uniqueId === inputId
+                            ...component,
+                            values: component.values.map(inputItem =>(
+                                        inputItem.uniqueId === inputId
                                         ?
-                                        param === 'name' ? {...inputItem, name: eventTargetValue} : {
+                                        {
                                             ...inputItem,
-                                            value: eventTargetValue
+                                            ...valueObject
                                         }
                                         :
                                         inputItem
-                            ),
+                                    )),
                         }
                     } else {
-                        return item;
+                        return component;
                     }
                 })]
             }
@@ -421,28 +151,26 @@ class CharactersForm extends Component {
 
     saveForm = (e) => {
         e.preventDefault();
-        let url = this.props.editFlag
-            ?
-            `http://178.128.163.251:5555/v1/knights/${this.state.name}`
-            :
-            `http://178.128.163.251:5555/v1/knights`;
-
         axios
-            .post(url,
+            .post('http://178.128.163.251:5555/v1/knights',
                 {
-                    "components": this.formatComponentsData(this.state.components),
+                    "components": this.formaterData(this.state.components),
                     "name": this.state.name
                 })
             .then(() => {
                 this.props.getData();
                 this.props.closeModal();
             })
-
     };
 
-    changeInputNameValue = (e) => {
+    changeNameValue = (e) => {
         let value = e.target.value;
-        this.setState(prevState => ({...prevState, name: value}));
+        this.setState(prevState => (
+            {
+                ...prevState,
+                name: value
+            }
+        ));
     };
 
 
@@ -455,26 +183,28 @@ class CharactersForm extends Component {
                             <h5 className="modal-title">Adding hero skills</h5>
                         </div>
                         <div className="modal-body">
-                            <button type="reset" onClick={this.addSkillItem}>Add++</button>
+                            <button
+                                type="reset"
+                                onClick={this.addNewComponent}>
+                                Add Component
+                            </button>
                             <div className="new-inputs">
                                 <label style={{'marginRight': '15px'}}>Name:</label>
                                 <input
                                     type="text"
                                     value={this.state.name}
-                                    onChange={(e) => this.changeInputNameValue(e)}
+                                    onChange={(e) => this.changeNameValue(e)}
                                 />
                             </div>
                             <hr/>
                             {
                                 this.state.components.map((item) =>
-                                    (<CharactersFormItem
-                                        key={this.helper.makeId()}
+                                    (<CharactersFormComponent
+                                        key={item.uniqueId}
                                         data={item}
                                         abilities={this.state.abilities}
-
-                                        deleteSkillItem={() => this.deleteSkillItem(item.uniqueId)}
-                                        onSelectSkillItem={this.onSelectSkillItem}
-
+                                        deleteComponent={() => this.deleteComponent(item.uniqueId)}
+                                        onSelectComponent={this.onSelectComponent}
                                         addValueInput={() => this.addValueInput(item.uniqueId)}
                                         deleteValueInput={this.deleteValueInput}
                                         changeValueInput={this.changeValueInput}
@@ -483,9 +213,18 @@ class CharactersForm extends Component {
                             }
                         </div>
                         <div className="modal-footer">
-                            <button type="reset" onClick={this.saveForm} className="btn btn-save">Save</button>
-                            <button type="reset" className="btn btn-close" data-dismiss="modal"
-                                    onClick={this.props.closeModal}>Close
+                            <button
+                                type="reset"
+                                onClick={this.saveForm}
+                                className="btn btn-save">
+                                Save
+                            </button>
+                            <button
+                                type="reset"
+                                className="btn btn-close"
+                                data-dismiss="modal"
+                                onClick={this.props.closeModal}>
+                                Close
                             </button>
                         </div>
                     </div>

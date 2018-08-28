@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
 import CharactersForm from "./CharactersForm";
-import addIconPath from "../assets/images/icon-add.png";
 import editIconPath from "../assets/images/edit-icon.png";
 import '../App.css';
 
@@ -21,30 +20,26 @@ class EditButton extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            label: 'add',
-            data: {}
+            record: this.props.record,
+            abilities: this.props.abilities
         };
     }
 
-    openModal = () => {
-        this.setState({modalIsOpen: true});
+    toggleModal = () => {
+        this.setState((prevState) => ({...prevState, modalIsOpen: !prevState.modalIsOpen}));
     };
 
     afterOpenModal = () => {
 
     };
 
-    closeModal = () => {
-        this.setState({modalIsOpen: false});
-    };
-
     render() {
         return (
-            <div className={this.props.label === 'add' ? 'add-btn-container col-50' : ''}>
-                <button className={`${this.props.label}-btn`} onClick={this.openModal}>
-                    <img src={this.props.label === 'add' ? addIconPath : editIconPath}
-                         className={`${this.props.label}-btn-icon`}
-                         alt="Add"/>
+            <div>
+                <button className={`edit-btn`} onClick={this.toggleModal}>
+                    <img src={editIconPath}
+                         className={'edit-btn-icon'}
+                         alt="Edit"/>
                 </button>
                 <Modal  isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
@@ -53,11 +48,12 @@ class EditButton extends Component {
                         ariaHideApp={false}>
 
                     <CharactersForm
-                        closeModal={this.closeModal}
-                        components={this.props.data.components}
-                        name={this.props.data.name}
-                        editFlag={true}
-                        getData={this.getData}/>
+                        entity={this.props.entity}
+                        abilities={this.state.abilities}
+                        name={this.state.record.name}
+                        components={this.state.record.components}
+                        closeModal={this.toggleModal}
+                        getData={this.props.getData}/>
                 </Modal>
             </div>
         );

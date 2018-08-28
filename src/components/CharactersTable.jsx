@@ -28,15 +28,18 @@ class CharactersTable extends Component {
                                     <td>
                                         {
                                             row.components.map((component) =>
-                                                <div key={this.helper.makeId()}>{component.type}</div>
+                                                <div key={this.helper.makeId()}>
+                                                    <div key={this.helper.makeId()}>{component.type}</div>
+                                                </div>
                                             )
                                         }
                                     </td>
 
                                     <td className="center-btn-align">
                                         <EditButton
-                                            data={row}
-                                            label='edit'
+                                            entity={this.props.entity}
+                                            record={row}
+                                            abilities={this.props.abilities}
                                             getData={this.props.getData} />
                                     </td>
 
