@@ -49,7 +49,6 @@ class TableContainer extends Component {
     };
 
     getData = () => {
-        debugger;
         const slug = this.props.history.location.pathname.substr(1);
         axios
             .get('http://178.128.163.251:5555/v1/' + slug)
@@ -376,22 +375,24 @@ class TableContainer extends Component {
         return (
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
-                <AddButton
-                    abilities={this.state.abilities}
-                    entity={this.props.entity}
-                    getData={this.getData}
-                />
                 {
                     this.state.isLoaded
                         ?
-                        <CharactersTable
-                            abilities={this.state.abilities}
-                            entity={this.state.entity}
-                            columns = {this.state.columns}
-                            rows = {this.state.rows}
-                            getData={this.getData}
-                            removeRecord={this.removeRecord}
-                        />
+                        <div>
+                            <AddButton
+                                abilities={this.state.abilities}
+                                entity={this.props.entity}
+                                getData={this.getData}
+                            />
+                            <CharactersTable
+                                abilities={this.state.abilities}
+                                entity={this.state.entity}
+                                columns = {this.state.columns}
+                                rows = {this.state.rows}
+                                getData={this.getData}
+                                removeRecord={this.removeRecord}
+                            />
+                        </div>
                         :
                         <Loading />
                 }

@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../helper";
 import axios from 'axios';
-import EditButton from "./editButton";
-
 
 class CharactersForm extends Component {
     constructor(props) {
@@ -35,6 +33,8 @@ class CharactersForm extends Component {
     };
 
     addNewComponent = () => {
+        console.log('asdfasdfasdfasdf', this.state);
+
         let generateNewFormElement = {
             ...this.state.abilities[0],
             uniqueId: this.helper.makeId(),

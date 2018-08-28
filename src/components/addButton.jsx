@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import Modal from "react-modal";
+import CharactersForm from "./CharactersForm";
+import Helper from "../helper";
 import addIcon from "../assets/images/icon-add.png";
 import '../App.css';
-import CharactersForm from "./CharactersForm";
-import Modal from "react-modal";
 
 const customStyles = {
     content: {
@@ -23,6 +24,7 @@ class AddButton extends Component {
             modalIsOpen: false,
             abilities: this.props.abilities
         };
+        this.helper = new Helper();
     }
 
     toggleModal = () => {
@@ -50,7 +52,7 @@ class AddButton extends Component {
                     <CharactersForm
                         entity={this.props.entity}
                         abilities={this.state.abilities}
-                        name={'default_name'}
+                        name={this.helper.makeId()}
                         components={[]}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
