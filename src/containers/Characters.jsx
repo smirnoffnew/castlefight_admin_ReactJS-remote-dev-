@@ -4,7 +4,6 @@ import Loading from "../components/common/loading";
 import CharactersTable from "../components/CharactersTable";
 import Helper from "../helper";
 import axios from "axios";
-import EditButton from "../components/editButton";
 
 class TableContainer extends Component {
     constructor(props) {
