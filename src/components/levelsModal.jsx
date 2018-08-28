@@ -16,15 +16,15 @@ class ModalForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            count: 1,
-            summon: 10,
-            create: 10,
-            delay: 1,
+            count: props.count || 1,
+            summon: props.summon || 10,
+            create: props.create || 10,
+            delay: props.delay || 1,
         }
     }
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: parseInt(e.target.value) })
     }
 
     render() {
@@ -51,7 +51,7 @@ class ModalForm extends Component {
                                             <input
                                                 id="count"
                                                 name="count"
-                                                type="text"
+                                                type="count"
                                                 onChange={(e) => this.handleChange(e)}
                                                 value={this.state.count}
                                             />
@@ -106,7 +106,7 @@ class ModalForm extends Component {
                             <button
                                 className="btn btn-save"
                                 type="reset"
-                                onClick={() => this.props.addCycle({
+                                onClick={() => this.props.onSave({
                                     summonEnemyTimeS: this.state.summon,
                                     createNewCycleTimeS: this.state.create,
                                     delayBeforeStartS: this.state.delay,

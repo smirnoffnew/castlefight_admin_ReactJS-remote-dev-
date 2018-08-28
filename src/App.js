@@ -6,6 +6,8 @@ import FooterComponent from "./components/footer";
 
 import Characters from "./containers/Characters";
 import Levels from "./containers/Levels";
+import SummonCycles from "./containers/SummonCycles";
+import EnemyWaves from "./containers/EnemyWaves";
 import Settings from "./containers/Settings";
 import NotFound from "./containers/notFound";
 
@@ -23,6 +25,8 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/(knights|allies|enemies)" component={Characters} />
                         <Route exact path="/levels" component={Levels} />
+                        <Route exact path="/levels/summonCycles" component={SummonCycles} />
+                        <Route exact path="/levels/enemyWaves" component={EnemyWaves} />
                         <Route exact path="/settings" component={Settings} />
                         <Redirect from="/" to="/knights" />
                         <Route exact path="*" component={NotFound} />
