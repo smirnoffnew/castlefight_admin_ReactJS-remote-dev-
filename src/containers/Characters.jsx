@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddButton from "../components/addButton";
+import AddButton from "../components/AddButton";
 import Loading from "../components/common/loading";
 import CharactersTable from "../components/CharactersTable";
 import Helper from "../helper";

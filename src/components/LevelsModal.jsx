@@ -88,9 +88,6 @@ class ModalForm extends Component {
     }
 
     render() {
-
-        console.log('this.state.values', this.props.onSave)
-
         return (
             <Modal
                 isOpen={this.props.isOpen}

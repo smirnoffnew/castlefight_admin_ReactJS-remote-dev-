@@ -8,7 +8,7 @@ import Characters from "./containers/Characters";
 import Levels from "./containers/Levels";
 import EnemyWaves from "./containers/EnemyWaves";
 import Settings from "./containers/Settings";
-import NotFound from "./containers/notFound";
+import NotFound from "./containers/NotFound";
 
 import createBrowserHistory from 'history/createBrowserHistory'
 
