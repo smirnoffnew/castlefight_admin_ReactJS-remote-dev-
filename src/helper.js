@@ -2,7 +2,7 @@ export default class Helper {
     waves() {
         return (
             {
-                "id": 1,
+                "id": this.makeNumberId(),
                 "pauseInterval": 10,
                 "enemyIdsAndCount": {
                     "1": {
@@ -17,10 +17,6 @@ export default class Helper {
                         "type": "Hard",
                         "count": 10
                     },
-                    "4": {
-                        "type": "Normal",
-                        "count": 10
-                    }
                 },
                 "weakSummonCycle": {
                     "count": 3,
@@ -83,6 +79,14 @@ export default class Helper {
         let text = '';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (let i = 0; i < 15; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    }
+
+    makeNumberId() {
+        let text = '';
+        let possible = "0123456789";
+        for (let i = 0; i < 9; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
     }

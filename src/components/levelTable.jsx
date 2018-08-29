@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Helper from "../helper";
 import deleteIcon from "../assets/images/de.png";
+import editIcon from "../assets/images/edit-icon.png";
 import ModalForm from "./levelsModal";
 
 class TableRow extends Component {
@@ -8,8 +9,6 @@ class TableRow extends Component {
         super(props)
         this.helper = new Helper();
         this.state = {
-            content: this.props.data,
-            disabled: true,
             modalIsOpen: false,
         };
         this.handleChange = this.handleChange.bind(this)
@@ -27,7 +26,7 @@ class TableRow extends Component {
     }
 
     onSave(content) {
-        this.props.onEdit(content)
+        this.props.onSave(content)
         this.setState({ content });
         this.closeModal();
     }
@@ -41,14 +40,14 @@ class TableRow extends Component {
     }
 
     getColumns() {
-        return this.state.content.map((column, index) => {
+        return this.props.data.map((column, index) => {
             if (typeof column.value === 'object') {
                 return (
                     <td key={index}>
                         {
                             column.value.map((item, id) => (
                                 <div key={id}>
-                                    {item.name + ': ' + item.value}
+                                    {column.name === 'enemyWaveIds' ? null : item.name + ': '}{item.value}
                                 </div>
                             ))
                         }
@@ -65,25 +64,24 @@ class TableRow extends Component {
     }
 
     render() {
-
-        console.log('content', this.state.content)
-
         return (
             <tr>
                 {this.getColumns()}
-                <td>
-                    <button onClick={() => this.openModal()}>
-                        {this.state.disabled ? 'Edit' : 'Save'}
-                    </button>
-                    <button onClick={() => this.props.removeRecord(this.state.content[0].value)}>
-                        <img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
+                <td className="center-btn-align">
+                    <button className="edit-btn" onClick={() => this.openModal()}>
+                        <img src={editIcon} alt="Edit" className="edit-btn-icon" />
                     </button>
                     <ModalForm
                         isOpen={this.state.modalIsOpen}
                         onSave={this.onSave}
                         closeModal={() => this.closeModal()}
-                        values={this.state.content}
+                        values={this.props.data}
                     />
+                </td>
+                <td className="center-btn-align2">
+                    <button className="delete-btn" onClick={() => this.props.removeRecord(this.props.data[0].value)}>
+                        <img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
+                    </button>
                 </td>
             </tr>
         );
@@ -97,9 +95,6 @@ class TableComponent extends Component {
     }
 
     render() {
-
-        console.log('this.props.content1234', this.props.content)
-
         return (
             <div className="table-container">
                 <h1>{this.props.content.entity}</h1>
@@ -109,9 +104,12 @@ class TableComponent extends Component {
                             <thead>
                                 <tr>
                                     {this.props.content[0].map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
-                                    <td>
-                                        Actions
-                                    </td>
+                                    <th>
+                                        Edit
+                                    </th>
+                                    <th>
+                                        Delete
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,7 +118,7 @@ class TableComponent extends Component {
                                         <TableRow
                                             data={row}
                                             key={index}
-                                            onEdit={this.props.onEdit}
+                                            onSave={this.props.onSave}
                                             removeRecord={this.props.removeRecord}
                                         />
                                     ))

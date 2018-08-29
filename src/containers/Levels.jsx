@@ -45,7 +45,9 @@ class TableContainer extends Component {
                                     let outputObj = []
                                     for (let item in val) {
                                         if (typeof val[item] === 'object') {
-                                            outputObj.push({ 'name': val[item].type, 'value': val[item].count })
+                                            console.log('val', val)
+                                            console.log('item', item)
+                                            outputObj.push({ 'name': val[item] ? val[item].type : 0, 'value': val[item] ? val[item].count : 0 })
                                         } else {
                                             outputObj.push({ 'name': item, 'value': val[item] })
                                         }
@@ -121,9 +123,6 @@ class TableContainer extends Component {
     }
 
     render() {
-
-        // console.log('props', this.props)
-
         return (
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
@@ -140,14 +139,14 @@ class TableContainer extends Component {
                             content={this.state.data}
                             removeRecord={this.removeRecord}
                             entity={this.state.entity}
-                            onEdit={this.addCycle}
+                            onSave={this.addCycle}
                         />
                         :
                         <Loading />
                 }
                 <ModalForm
                     isOpen={this.state.modalIsOpen}
-                    onEdit={this.addCycle}
+                    onSave={this.addCycle}
                     closeModal={this.closeModal}
                     emptyLevel
                 />
