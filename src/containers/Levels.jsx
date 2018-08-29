@@ -45,8 +45,6 @@ class TableContainer extends Component {
                                     let outputObj = []
                                     for (let item in val) {
                                         if (typeof val[item] === 'object') {
-                                            console.log('val', val)
-                                            console.log('item', item)
                                             outputObj.push({ 'name': val[item] ? val[item].type : 0, 'value': val[item] ? val[item].count : 0 })
                                         } else {
                                             outputObj.push({ 'name': item, 'value': val[item] })

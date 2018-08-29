@@ -169,7 +169,6 @@ class CharactersForm extends Component {
 
 
     render() {
-        console.log('this.state.components', this.state);
         return (
             <div>
                 <form>

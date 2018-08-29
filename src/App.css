@@ -202,6 +202,25 @@ td input {
   padding: 3px;
 }
 
+.modal-body td[colspan="2"] {
+  text-align: center;
+}
+
+.modal-body td:nth-child(2) {
+  border-right: none;
+}
+
+.modal-body td:nth-child(3) {
+  text-align: center;
+  border-left: none;
+}
+
+.modal-body td label {
+  width: calc(100% - 20px);
+  display: block;
+  margin: 10px;
+}
+
 button {
   text-align: center;
   margin: 5px;

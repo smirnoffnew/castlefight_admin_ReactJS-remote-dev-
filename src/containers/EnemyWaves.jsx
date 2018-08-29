@@ -90,7 +90,6 @@ class TableContainer extends Component {
                             }
                             return output
                         })
-                        console.log('data', data)
                         return {
                             isLoaded: true,
                             entity: slug,

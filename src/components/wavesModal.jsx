@@ -56,65 +56,59 @@ class ModalForm extends Component {
         })
     }
 
-
     getInputs() {
         if (this.state.values)
             return this.state.values.map((column, index) => {
-                if (typeof column.value === 'object') {
+                if (typeof column.value === 'object' && column.name !== 'enemyWaveIds') {
                     return (
                         <tr key={index}>
                             <td>{column.name}</td>
                             <td>
                                 {
                                     column.value.map((item, id) => (
-                                        <div key={id}>
-                                            {column.name === 'enemyWaveIds' ? null : (item.name + ': ')}
+                                        <label key={id}>{column.name === 'enemyWaveIds' ? null : (item.name + ': ')}</label>
+                                    ))
+                                }
+                            </td>
+                            <td>
+                                {
+                                    column.value.map((item, id) => (
+                                        <React.Fragment key={id}>
                                             <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
-                                        </div>
+                                            <br />
+                                        </React.Fragment>
                                     ))
                                 }
                             </td>
                         </tr>
                     )
-
-                } else {
+                } else if (column.name === 'enemyWaveIds') {
                     return (
                         <tr key={index}>
                             <td>{column.name}</td>
-                            <td><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
+                            <td colSpan="2">
+                                {
+                                    column.value.map((item, id) => (
+                                        <React.Fragment key={id}>
+                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                            <br />
+                                        </React.Fragment>
+                                    ))
+                                }
+                            </td>
+                        </tr>
+                    )
+                }
+                else {
+                    return (
+                        <tr key={index}>
+                            <td>{column.name}</td>
+                            <td colSpan="2"><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
                         </tr>
                     )
                 }
             })
     }
-
-
-    // getInputs() {
-    //     if (this.state.values)
-    //         return this.state.values.map((column, index) => {
-    //             if (typeof column.value === 'object') {
-    //                 return (
-    //                     <td key={index}>
-    //                         {
-    //                             column.value.map((item, id) => (
-    //                                 <div key={id}>
-    //                                     <label >{item.name}</label>
-    //                                     <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
-    //                                 </div>
-    //                             ))
-    //                         }
-    //                     </td>
-    //                 )
-
-    //             } else {
-    //                 return (
-    //                     <td key={index}>
-    //                         {column.name}: <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
-    //                     </td>
-    //                 )
-    //             }
-    //         })
-    // }
 
     render() {
         return (
@@ -126,7 +120,7 @@ class ModalForm extends Component {
                 <form >
                     <div className="modal-content">
                         <div className="modal-header">
-                            
+
                             <h5 className="modal-title">Add New Wave</h5>
                         </div>
                         <div className="modal-body">
@@ -134,11 +128,11 @@ class ModalForm extends Component {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Value</th>
+                                        <th colSpan="2">Value</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        {this.getInputs()}
+                                    {this.getInputs()}
                                 </tbody>
                             </table>
                         </div>
