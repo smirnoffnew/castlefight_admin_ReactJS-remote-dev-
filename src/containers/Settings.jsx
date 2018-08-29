@@ -248,9 +248,9 @@ class TableContainer extends Component {
                             <div className={'new-inputs-container'}>
                                 <h2>farm Index And Outputs</h2>
                                 { this.renderCommonInputs('farmIndexAndOutputs', this.state.formData.farmIndexAndOutputs) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndOutputs', false)}
                                         className="btn btn-save">Add
@@ -262,9 +262,9 @@ class TableContainer extends Component {
                             <div className={'new-inputs-container'}>
                                 <h2>farm Index And Costs</h2>
                                 { this.renderCommonInputs('farmIndexAndCosts', this.state.formData.farmIndexAndCosts) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndCosts', false)}
                                         className="btn btn-save">Add
@@ -276,9 +276,9 @@ class TableContainer extends Component {
                             <div className={'new-inputs-container'}>
                                 <h2>farm Index And Positions</h2>
                                 { this.renderPositionsInputs('farmIndexAndPositions', this.state.formData.farmIndexAndPositions) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndPositions', true)}
                                         className="btn btn-save">Add
