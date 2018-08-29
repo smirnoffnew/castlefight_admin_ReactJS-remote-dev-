@@ -446,12 +446,13 @@ table>tbody>tr>td {
 }
 
 .custom-label {
-  min-width: 177px;
+  text-align: center;
+  min-width: 190px;
   display: inline-block;
 }
 
 
 .phantom-div {
-  width: 87px;
+  width: 90px;
   display: inline-block;
 }
