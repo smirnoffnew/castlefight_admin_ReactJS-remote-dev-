@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
 import CharactersForm from "./CharactersForm";
-import Helper from "../helper";
-import addIcon from "../assets/images/icon-add.png";
+import editIconPath from "../assets/images/edit-icon.png";
 import '../App.css';
 
 const customStyles = {
@@ -16,15 +15,14 @@ const customStyles = {
     }
 };
 
-class AddButton extends Component {
-
+class EditButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalIsOpen: false,
+            record: this.props.record,
             abilities: this.props.abilities
         };
-        this.helper = new Helper();
     }
 
     toggleModal = () => {
@@ -37,23 +35,23 @@ class AddButton extends Component {
 
     render() {
         return (
-            <div className="add-btn-container col-50">
-                <button className="add-btn" onClick={this.toggleModal}>
-                    <img src={addIcon} className="add-btn-icon" alt="Add"/>
-                    <span>Add</span>
+            <div>
+                <button className={`edit-btn`} onClick={this.toggleModal}>
+                    <img src={editIconPath}
+                         className={'edit-btn-icon'}
+                         alt="Edit"/>
                 </button>
-                <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                    ariaHideApp={false}
-                >
+                <Modal  isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        style={customStyles}
+                        contentLabel={this.state.label}
+                        ariaHideApp={false}>
+
                     <CharactersForm
                         entity={this.props.entity}
                         abilities={this.state.abilities}
-                        name={this.helper.makeId()}
-                        components={[]}
+                        name={this.state.record.name}
+                        components={this.state.record.components}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
                 </Modal>
@@ -62,4 +60,4 @@ class AddButton extends Component {
     }
 }
 
-export default AddButton;
+export default EditButton;

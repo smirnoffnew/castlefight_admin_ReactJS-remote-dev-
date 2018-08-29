@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import LevelTable from "../components/levelTable";
 import ModalForm from "../components/levelsModal";
-import Loading from "../components/loading";
+import Loading from "../components/common/loading";
 import axios from "axios";
 
 class TableContainer extends Component {
