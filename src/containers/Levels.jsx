@@ -6,7 +6,7 @@ import axios from "axios";
 
 class TableContainer extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             isLoaded: false,
             modalIsOpen: false,
@@ -40,13 +40,11 @@ class TableContainer extends Component {
                         data = data.map((value) => {
                             let output = [];
                             for (let item in value) {
-                                let val = value[item]
+                                let val = value[item];
                                 if (typeof val === 'object') {
-                                    let outputObj = []
+                                    let outputObj = [];
                                     for (let item in val) {
                                         if (typeof val[item] === 'object') {
-                                            console.log('val', val)
-                                            console.log('item', item)
                                             outputObj.push({ 'name': val[item] ? val[item].type : 0, 'value': val[item] ? val[item].count : 0 })
                                         } else {
                                             outputObj.push({ 'name': item, 'value': val[item] })
@@ -71,30 +69,30 @@ class TableContainer extends Component {
     }
 
     addCycle = (content) => {
-        let send = false
+        let send = false;
         content.forEach((item) => {
             if (item.name === 'id') {
                 send = true
             }
-        })
+        });
         if (send) {
-            let output = {}
-            content.forEach((item, index) => {
+            let output = {};
+            content.forEach((item) => {
                 if (typeof item.value === 'object') {
-                    output[item.name] = {}
+                    output[item.name] = {};
                     item.value.forEach((item2, index2) => {
                         if (item.name === 'enemyWaveIds') {
                             output[item.name] = [item2.value]
                         } else if (item.name === 'enemyIdsAndCount') {
                             output[item.name][index2 + 1] = { 'type': item2.name, 'count': item2.value }
                         } else {
-                            output[item.name][item2.name] = item2.value
+                            output[item.name][item2.name] = item2.value;
                         }
                     })
                 } else {
-                    output[item.name] = item.value
+                    output[item.name] = item.value;
                 }
-            })
+            });
             axios
                 .post(`http://178.128.163.251:5555/v1/levels`, output)
                 .then(() => this.getData())
@@ -108,11 +106,11 @@ class TableContainer extends Component {
 
     openModal = () => {
         this.setState({ modalIsOpen: true });
-    }
+    };
 
     closeModal = () => {
         this.setState({ modalIsOpen: false });
-    }
+    };
 
     componentDidMount() {
         this.getData();
@@ -120,7 +118,7 @@ class TableContainer extends Component {
 
     componentWillReceiveProps() {
         this.getData();
-    }
+    };
 
     render() {
         return (
