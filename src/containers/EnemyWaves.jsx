@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import LevelTable from "../components/levelTable";
 import ModalForm from "../components/levelsModal";
 import Loading from "../components/common/loading";
@@ -31,16 +30,14 @@ class TableContainer extends Component {
                 if (typeof item.value === 'object') {
                     output[item.name] = {}
                     item.value.map((item2, index2) => {
-                        let int = parseInt(item2.value, 10)
                         if (item.name === 'enemyIdsAndCount') {
-                            output[item.name][index2 + 1] = { 'type': item2.name, 'count': int ? int : item2.value }
+                            output[item.name][index2 + 1] = { 'type': item2.name, 'count': item2.value }
                         } else {
-                            output[item.name][item2.name] = int ? int : item2.value
+                            output[item.name][item2.name] = item2.value
                         }
                     })
                 } else {
-                    let int = parseInt(item.value, 10)
-                    output[item.name] = int ? int : item.value
+                    output[item.name] = item.value
                 }
             })
             axios
@@ -72,10 +69,10 @@ class TableContainer extends Component {
             .get('http://178.128.163.251:5555/v1/enemyWaves')
             .then(response => {
                 let { data } = response;
-                let output = [];
                 if (data)
                     this.setState(() => {
                         data = data.map((value) => {
+                            let output = [];
                             for (let item in value) {
                                 let val = value[item]
                                 if (typeof val === 'object') {
@@ -93,9 +90,6 @@ class TableContainer extends Component {
                             }
                             return output
                         })
-
-                        console.log('data', data)
-
                         return {
                             isLoaded: true,
                             entity: slug,
@@ -166,8 +160,7 @@ class TableContainer extends Component {
                     isOpen={this.state.modalIsOpen}
                     onSave={this.onEdit}
                     closeModal={this.closeModal}
-                    values={this.state.data}
-                    empty
+                    emptyWaves
                 />
             </div>
         )

@@ -1,4 +1,84 @@
 export default class Helper {
+    waves() {
+        return (
+            {
+                "id": 1,
+                "pauseInterval": 10,
+                "enemyIdsAndCount": {
+                    "1": {
+                        "type": "Weak",
+                        "count": 10
+                    },
+                    "2": {
+                        "type": "Normal",
+                        "count": 10
+                    },
+                    "3": {
+                        "type": "Hard",
+                        "count": 10
+                    },
+                    "4": {
+                        "type": "Normal",
+                        "count": 10
+                    }
+                },
+                "weakSummonCycle": {
+                    "count": 3,
+                    "summonEnemyTimeS": 5.0,
+                    "createNewCycleTimeS": 10.0,
+                    "delayBeforeStartS": 0
+                },
+                "normalSummonCycle": {
+                    "count": 1,
+                    "summonEnemyTimeS": 10.0,
+                    "createNewCycleTimeS": 25.0,
+                    "delayBeforeStartS": 10.0
+                },
+                "hardSummonCycle": {
+                    "count": 0,
+                    "summonEnemyTimeS": 15.0,
+                    "createNewCycleTimeS": 30.0,
+                    "delayBeforeStartS": 10.0
+                },
+                "bossSummonCycle": {
+                    "count": 1,
+                    "summonEnemyTimeS": 20.0,
+                    "createNewCycleTimeS": 0.0,
+                    "delayBeforeStartS": 40.0
+                }
+            }
+        )
+    }
+
+    level() {
+        return (
+            {
+                "id": this.makeId(),
+                "companyAct": "FIRST",
+                "background": "SUMMER",
+                "index": 10,
+                "castlePosition": {
+                    "x": -30,
+                    "y": -5
+                },
+                "knightRespawnPoint": {
+                    "x": -20,
+                    "y": -5
+                },
+                "allyRespawnPoint": {
+                    "x": -19,
+                    "y": -5
+                },
+                "enemyRespawnPoint": {
+                    "x": 26,
+                    "y": -5
+                },
+                "audioClipName": "adventure2_loop",
+                "enemyWaveIds": [1]
+            }
+        )
+    }
+
     makeId() {
         let text = '';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from "../helper";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -15,64 +16,32 @@ const customStyles = {
 class ModalForm extends Component {
     constructor(props) {
         super(props)
-        const empty = [
-            {
-                name: 'id',
-                value: 1
-            },
-            {
-                name: 'pauseInterval',
-                value: ''
-            },
-            {
-                name: 'enemyIdsAndCount',
-                value: [
-                    {
-                        name: 'Weak',
-                        value: ''
-                    },
-                ]
-            },
-            {
-                name: 'weakSummonCycle',
-                value: [
-                    { name: 'count', value: '' },
-                    { name: 'summonEnemyTimeS', value: '' },
-                    { name: 'createNewCycleTimeS', value: '' },
-                    { name: 'delayBeforeStartS', value: '' },
-                ]
-            },
-            {
-                name: 'normalSummonCycle',
-                value: [
-                    { name: 'count', value: '' },
-                    { name: 'summonEnemyTimeS', value: '' },
-                    { name: 'createNewCycleTimeS', value: '' },
-                    { name: 'delayBeforeStartS', value: '' },
-                ]
-            },
-            {
-                name: 'hardSummonCycle',
-                value: [
-                    { name: 'count', value: '' },
-                    { name: 'summonEnemyTimeS', value: '' },
-                    { name: 'createNewCycleTimeS', value: '' },
-                    { name: 'delayBeforeStartS', value: '' },
-                ]
-            },
-            {
-                name: 'bossSummonCycle',
-                value: [
-                    { name: 'count', value: '' },
-                    { name: 'summonEnemyTimeS', value: '' },
-                    { name: 'createNewCycleTimeS', value: '' },
-                    { name: 'delayBeforeStartS', value: '' },
-                ]
+        this.helper = new Helper();
+
+        let temp, values = [];
+        if (props.emptyLevel) {
+            temp = this.helper.level()
+        } else if (props.emptyWaves) {
+            temp = this.helper.waves()
+        }
+        for (let item in temp) {
+            let val = temp[item]
+            if (typeof val === 'object') {
+                let outputObj = []
+                for (let item in val) {
+                    if (typeof val[item] === 'object') {
+                        outputObj.push({ 'name': val[item].type, 'value': val[item].count })
+                    } else {
+                        outputObj.push({ 'name': item, 'value': val[item] })
+                    }
+                }
+                val = outputObj
             }
-        ]
+            values.push({ 'name': item, 'value': val })
+        }
 
         this.state = {
-            values: props.empty ? empty : props.values,
+            values: props.values ? props.values : values,
         }
     }
 
