@@ -61,22 +61,27 @@ class ModalForm extends Component {
             return this.state.values.map((column, index) => {
                 if (typeof column.value === 'object') {
                     return (
-                        <td key={index}>
-                            {
-                                column.value.map((item, id) => (
-                                    <div key={id}>
-                                        {column.name === 'enemyWaveIds' ? null : column.name + ': '}<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
-                                    </div>
-                                ))
-                            }
-                        </td>
+                        <tr key={index}>
+                            <td>{column.name}</td>
+                            <td>
+                                {
+                                    column.value.map((item, id) => (
+                                        <div key={id}>
+                                            {column.name === 'enemyWaveIds' ? null : (item.name + ': ')}
+                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                        </div>
+                                    ))
+                                }
+                            </td>
+                        </tr>
                     )
 
                 } else {
                     return (
-                        <td key={index}>
-                            {column.name === 'enemyWaveIds' ? null : column.name + ': '}<input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
-                        </td>
+                        <tr key={index}>
+                            <td>{column.name}</td>
+                            <td><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
+                        </tr>
                     )
                 }
             })
@@ -101,13 +106,12 @@ class ModalForm extends Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        {this.state.values.map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
+                                        <th>Name</th>
+                                        <th>Value</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        {this.getInputs()}
-                                    </tr>
+                                    {this.getInputs()}
                                 </tbody>
                             </table>
                         </div>

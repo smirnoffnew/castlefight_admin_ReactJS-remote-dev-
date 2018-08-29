@@ -192,12 +192,21 @@
   text-align: center;
 }
 
-.new-inputs-container input, button {
+.new-inputs-container input, 
+td input {
   text-align: center;
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
+  background: none;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 3px;
 }
 
+button {
+  text-align: center;
+  margin: 5px;
+  border-radius: 5px;
+}
 .add-new-input-btn-container {
   text-align: center;
   margin: 10px;
@@ -207,30 +216,15 @@
   width: 60px;
 }
 
-
-
 .new-inputs {
-  /* text-align: right; */
   margin-left: 5px;
 }
 
-.new-inputs input,
-td input {
-  margin: 5px;
-  background: none;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  padding: 3px;
-  text-align: right;
-}
-
 .btn-add-value {
-  /* text-align: right; */
   margin-top: 5px;
 }
 
 .btn-edit-input {
-  /* text-align: right; */
   margin: 5px;
 }
 

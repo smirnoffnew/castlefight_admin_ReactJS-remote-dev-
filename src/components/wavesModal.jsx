@@ -56,32 +56,65 @@ class ModalForm extends Component {
         })
     }
 
+
     getInputs() {
         if (this.state.values)
             return this.state.values.map((column, index) => {
                 if (typeof column.value === 'object') {
                     return (
-                        <td key={index}>
-                            {
-                                column.value.map((item, id) => (
-                                    <div key={id}>
-                                        <label >{item.name}</label>
-                                        <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
-                                    </div>
-                                ))
-                            }
-                        </td>
+                        <tr key={index}>
+                            <td>{column.name}</td>
+                            <td>
+                                {
+                                    column.value.map((item, id) => (
+                                        <div key={id}>
+                                            {column.name === 'enemyWaveIds' ? null : (item.name + ': ')}
+                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                        </div>
+                                    ))
+                                }
+                            </td>
+                        </tr>
                     )
 
                 } else {
                     return (
-                        <td key={index}>
-                            {column.name}: <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
-                        </td>
+                        <tr key={index}>
+                            <td>{column.name}</td>
+                            <td><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
+                        </tr>
                     )
                 }
             })
     }
+
+
+    // getInputs() {
+    //     if (this.state.values)
+    //         return this.state.values.map((column, index) => {
+    //             if (typeof column.value === 'object') {
+    //                 return (
+    //                     <td key={index}>
+    //                         {
+    //                             column.value.map((item, id) => (
+    //                                 <div key={id}>
+    //                                     <label >{item.name}</label>
+    //                                     <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+    //                                 </div>
+    //                             ))
+    //                         }
+    //                     </td>
+    //                 )
+
+    //             } else {
+    //                 return (
+    //                     <td key={index}>
+    //                         {column.name}: <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
+    //                     </td>
+    //                 )
+    //             }
+    //         })
+    // }
 
     render() {
         return (
@@ -98,11 +131,14 @@ class ModalForm extends Component {
                         </div>
                         <div className="modal-body">
                             <table>
-                                <thead></thead>
-                                <tbody>
+                                <thead>
                                     <tr>
-                                        {this.getInputs()}
+                                        <th>Name</th>
+                                        <th>Value</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                        {this.getInputs()}
                                 </tbody>
                             </table>
                         </div>
