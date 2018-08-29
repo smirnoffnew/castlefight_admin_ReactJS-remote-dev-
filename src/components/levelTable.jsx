@@ -3,11 +3,10 @@ import Helper from "../helper";
 import deleteIcon from "../assets/images/de.png";
 import ModalForm from "./levelsModal";
 
-const helper = new Helper;
-
 class TableRow extends Component {
     constructor(props) {
         super(props)
+        this.helper = new Helper();
         this.state = {
             content: this.props.data,
             disabled: true,
@@ -28,6 +27,7 @@ class TableRow extends Component {
     }
 
     onSave(content) {
+        this.props.onEdit(content)
         this.setState({ content });
         this.closeModal();
     }
@@ -42,19 +42,16 @@ class TableRow extends Component {
 
     getColumns() {
         return this.state.content.map((column, index) => {
-            let output = [], i = 0
             if (typeof column.value === 'object') {
-                for (let item in column.value) {
-                    output.push(
-                        <div key={i}>
-                            {item + ': ' + column.value[item]}
-                        </div>
-                    )
-                    i++
-                }
                 return (
                     <td key={index}>
-                        {output}
+                        {
+                            column.value.map((item, id) => (
+                                <div key={id}>
+                                    {item.name + ': ' + item.value}
+                                </div>
+                            ))
+                        }
                     </td>
                 )
             } else {
@@ -68,6 +65,9 @@ class TableRow extends Component {
     }
 
     render() {
+
+        console.log('content', this.state.content)
+
         return (
             <tr>
                 {this.getColumns()}
@@ -91,31 +91,45 @@ class TableRow extends Component {
 }
 
 class TableComponent extends Component {
+    constructor(props) {
+        super(props)
+        this.helper = new Helper();
+    }
+
     render() {
+
+        console.log('this.props.content1234', this.props.content)
+
         return (
             <div className="table-container">
                 <h1>{this.props.content.entity}</h1>
-                <table className="table table-bordered table-hover" width="100%">
-                    <thead>
-                        <tr>
-                            {this.props.content[0].map(column => <th key={helper.makeId()}>{column.name}</th>)}
-                            <td>
-                                Actions
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.props.content.map((row, index) => (
-                                <TableRow
-                                    data={row}
-                                    key={index}
-                                    removeRecord={this.props.removeRecord}
-                                />
-                            ))
-                        }
-                    </tbody>
-                </table>
+                {
+                    this.props.content[0] ?
+                        <table className="table table-bordered table-hover" width="100%">
+                            <thead>
+                                <tr>
+                                    {this.props.content[0].map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
+                                    <td>
+                                        Actions
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.props.content.map((row, index) => (
+                                        <TableRow
+                                            data={row}
+                                            key={index}
+                                            onEdit={this.props.onEdit}
+                                            removeRecord={this.props.removeRecord}
+                                        />
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                        :
+                        null
+                }
             </div>
         )
     }

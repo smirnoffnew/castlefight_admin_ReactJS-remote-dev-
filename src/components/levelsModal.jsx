@@ -15,47 +15,112 @@ const customStyles = {
 class ModalForm extends Component {
     constructor(props) {
         super(props)
+        const empty = [
+            {
+                name: 'id',
+                value: 1
+            },
+            {
+                name: 'pauseInterval',
+                value: ''
+            },
+            {
+                name: 'enemyIdsAndCount',
+                value: [
+                    {
+                        name: 'Weak',
+                        value: ''
+                    },
+                ]
+            },
+            {
+                name: 'weakSummonCycle',
+                value: [
+                    { name: 'count', value: '' },
+                    { name: 'summonEnemyTimeS', value: '' },
+                    { name: 'createNewCycleTimeS', value: '' },
+                    { name: 'delayBeforeStartS', value: '' },
+                ]
+            },
+            {
+                name: 'normalSummonCycle',
+                value: [
+                    { name: 'count', value: '' },
+                    { name: 'summonEnemyTimeS', value: '' },
+                    { name: 'createNewCycleTimeS', value: '' },
+                    { name: 'delayBeforeStartS', value: '' },
+                ]
+            },
+            {
+                name: 'hardSummonCycle',
+                value: [
+                    { name: 'count', value: '' },
+                    { name: 'summonEnemyTimeS', value: '' },
+                    { name: 'createNewCycleTimeS', value: '' },
+                    { name: 'delayBeforeStartS', value: '' },
+                ]
+            },
+            {
+                name: 'bossSummonCycle',
+                value: [
+                    { name: 'count', value: '' },
+                    { name: 'summonEnemyTimeS', value: '' },
+                    { name: 'createNewCycleTimeS', value: '' },
+                    { name: 'delayBeforeStartS', value: '' },
+                ]
+            }
+        ]
+
         this.state = {
-            values: props.values,
+            values: props.empty ? empty : props.values,
         }
     }
 
-    handleChange(e) {
-        this.setState({ [e.target.name]: parseInt(e.target.value) })
+    handleChange(e, index, id, type) {
+        const value = e.target.value;
+        this.setState((prevState) => {
+            if (typeof id === 'number') {
+                prevState.values[index].value[id][type] = value
+            } else {
+                prevState.values[index].value = value
+            }
+            return { prevState }
+        })
     }
 
     getInputs() {
-        if (this.state.values) {
+        console.log('this.state.values', this.state.values);
+        if (this.state.values)
             return this.state.values.map((column, index) => {
-                console.log('this.state.values', column.name);
-                let output = [], i = 0;
                 if (typeof column.value === 'object') {
-                    for (let item in column.value) {
-                        output.push(
-                            <React.Fragment key={i}>
-                                <input onChange={()=>{}} type="text" value={item} />
-                                <input onChange={()=>{}} type="text" value={column.value[item]} />
-                            </React.Fragment>
-                        )
-                        i++
-                    }
                     return (
                         <td key={index}>
-                            {output}
+                            {
+                                column.value.map((item, id) => (
+                                    <div key={id}>
+                                        <label >{item.name}</label>
+                                        <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                    </div>
+                                ))
+                            }
                         </td>
                     )
+
                 } else {
                     return (
                         <td key={index}>
-                            {column.name}: <input onChange={()=>{}} type="text" value={column.value} />
+                            {column.name}: <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
                         </td>
                     )
                 }
             })
-        }
     }
 
     render() {
+
+        console.log('props', this.props.values)
+        console.log('props', this.props.empty)
+
         return (
             <Modal
                 isOpen={this.props.isOpen}

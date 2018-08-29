@@ -23,10 +23,9 @@ class App extends Component {
                     <HeaderComponent />
                     {/*<Sidebar/>*/}
                     <Switch>
-                        <Route exact path="/(knights|allies|enemies)" component={Characters} />
+                        <Route exact path="/(knights|allies|enemies|abilities)" component={Characters} />
                         <Route exact path="/levels" component={Levels} />
-                        <Route exact path="/levels/summonCycles" component={SummonCycles} />
-                        <Route exact path="/levels/enemyWaves" component={EnemyWaves} />
+                        <Route exact path="/enemyWaves" component={EnemyWaves} />
                         <Route exact path="/settings" component={Settings} />
                         <Redirect from="/" to="/knights" />
                         <Route exact path="*" component={NotFound} />

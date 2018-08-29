@@ -18,10 +18,46 @@ class TableContainer extends Component {
         };
     }
 
+    onEdit = (content) => {
+        let send = false
+        content.map((item) => {
+            if (item.name === 'id') {
+                send = true
+            }
+        })
+        if (send) {
+            let output = {}
+            content.map((item, index) => {
+                if (typeof item.value === 'object') {
+                    output[item.name] = {}
+                    item.value.map((item2, index2) => {
+                        let int = parseInt(item2.value, 10)
+                        if (item.name === 'enemyIdsAndCount') {
+                            output[item.name][index2 + 1] = { 'type': item2.name, 'count': int ? int : item2.value }
+                        } else {
+                            output[item.name][item2.name] = int ? int : item2.value
+                        }
+                    })
+                } else {
+                    let int = parseInt(item.value, 10)
+                    output[item.name] = int ? int : item.value
+                }
+            })
+            axios
+                .post(`http://178.128.163.251:5555/v1/enemyWaves`, output)
+                .then(() => this.getData())
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+        else
+            console.error('this entity can\'t be edit/save due to lack of id')
+    }
+
     removeRecord = (id) => {
         if (id)
             axios
-                .delete(`http://178.128.163.251:5555/v1/levels/enemyWaves/${id}`, {})
+                .delete(`http://178.128.163.251:5555/v1/enemyWaves/${id}`, {})
                 .then(() => this.getData())
                 .catch(function (error) {
                     console.error(error);
@@ -33,37 +69,39 @@ class TableContainer extends Component {
     getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
         axios
-            .get('http://178.128.163.251:5555/v1/levels/enemyWaves')
+            .get('http://178.128.163.251:5555/v1/enemyWaves')
             .then(response => {
                 let { data } = response;
                 let output = [];
-                this.setState(() => {
-                    data = data.map((value) => {
-                        for (let item in value) {
-                            let val = value[item]
-                            if (typeof val === 'object') {
-                                let outputObj = {}
-                                for (let item in val) {
-                                    if (typeof val[item] === 'object') {
-                                        outputObj[val[item].type] = val[item].count
-                                    } else {
-                                        outputObj[item] = val[item]
+                if (data)
+                    this.setState(() => {
+                        data = data.map((value) => {
+                            for (let item in value) {
+                                let val = value[item]
+                                if (typeof val === 'object') {
+                                    let outputObj = []
+                                    for (let item in val) {
+                                        if (typeof val[item] === 'object') {
+                                            outputObj.push({ 'name': val[item].type, 'value': val[item].count })
+                                        } else {
+                                            outputObj.push({ 'name': item, 'value': val[item] })
+                                        }
                                     }
+                                    val = outputObj
                                 }
-                                val = outputObj
+                                output.push({ 'name': item, 'value': val })
                             }
-                            output.push({ 'name': item, 'value': val })
-                        }
-                        return output
-                    })
+                            return output
+                        })
 
-                    console.log('data', data)
-                    return {
-                        isLoaded: true,
-                        entity: slug,
-                        data: data,
-                    };
-                });
+                        console.log('data', data)
+
+                        return {
+                            isLoaded: true,
+                            entity: slug,
+                            data,
+                        };
+                    });
             })
             .catch(function (error) {
                 console.error(error);
@@ -73,7 +111,7 @@ class TableContainer extends Component {
     addEnemyWaves(data) {
         axios
             .post(
-                'http://178.128.163.251:5555/v1/levels/enemyWaves',
+                'http://178.128.163.251:5555/v1/enemyWaves',
                 data
             )
             .then(() => {
@@ -111,13 +149,6 @@ class TableContainer extends Component {
                         Add Button
                     </button>
                 </div>
-                <div>
-                    <Link to='/levels'>levels</Link>
-                    {' | '}
-                    <Link to='/levels/summonCycles'>summonCycles</Link>
-                    {' | '}
-                    <Link to='/levels/enemyWaves'>enemyWaves</Link>
-                </div>
                 {
                     this.state.isLoaded
                         ?
@@ -126,15 +157,17 @@ class TableContainer extends Component {
                             content={this.state.data}
                             removeRecord={this.removeRecord}
                             entity={this.state.entity}
+                            onEdit={this.onEdit}
                         />
                         :
                         <Loading />
                 }
                 <ModalForm
                     isOpen={this.state.modalIsOpen}
-                    onSave={this.addEnemyWaves}
+                    onSave={this.onEdit}
                     closeModal={this.closeModal}
                     values={this.state.data}
+                    empty
                 />
             </div>
         )

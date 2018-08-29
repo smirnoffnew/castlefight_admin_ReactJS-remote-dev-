@@ -11,7 +11,11 @@ class HeaderComponent extends Component {
                 {' | '}
                 <Link to='/enemies'>enemies</Link>
                 {' | '}
+                <Link to='/abilities'>abilities</Link>
+                {' | '}
                 <Link to='/levels'>level</Link>
+                {' | '}
+                <Link to='/enemyWaves'>waves</Link>
                 {' | '}
                 <Link to='/settings'>settings</Link>
             </header>
