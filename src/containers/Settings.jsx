@@ -230,12 +230,12 @@ class TableContainer extends Component {
                 {
                     this.state.isLoaded
                     ?
-                    <form >
+                    <form>
                         <div className="form-container">
 
                             {/*initialFarmCount*/}
-                            <div className="form-input-container">
-                                <label>initial Farm Count:</label>
+                            <div className={'new-inputs-container'}>
+                                <h2>initial Farm Count</h2>
                                 <input
                                     type="text"
                                     value={this.state.formData.initialFarmCount}
@@ -245,12 +245,12 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndOutputs*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Outputs</h2>
                                 { this.renderCommonInputs('farmIndexAndOutputs', this.state.formData.farmIndexAndOutputs) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndOutputs', false)}
                                         className="btn btn-save">Add
@@ -259,12 +259,12 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndCosts*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Costs</h2>
                                 { this.renderCommonInputs('farmIndexAndCosts', this.state.formData.farmIndexAndCosts) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndCosts', false)}
                                         className="btn btn-save">Add
@@ -273,12 +273,12 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndPositions*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Positions</h2>
                                 { this.renderPositionsInputs('farmIndexAndPositions', this.state.formData.farmIndexAndPositions) }
-                                <div>
+                            </div>
 
-                                </div>
+                            <div className="add-new-input-btn-container">
                                 <button type="reset"
                                         onClick={()=>this.addInput('farmIndexAndPositions', true)}
                                         className="btn btn-save">Add
