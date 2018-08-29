@@ -29,7 +29,9 @@ class CharactersTable extends Component {
                                         {
                                             row.components.map((component) =>
                                                 <div key={this.helper.makeId()}>
-                                                    <div key={this.helper.makeId()}>{component.type}</div>
+                                                    <div key={this.helper.makeId()}>
+                                                        {component.type.split('.')[component.type.split('.').length - 1]}
+                                                    </div>
                                                 </div>
                                             )
                                         }
