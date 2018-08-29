@@ -380,7 +380,7 @@ class TableContainer extends Component {
                         <div>
                             <AddButton
                                 abilities={this.state.abilities}
-                                entity={this.props.entity}
+                                entity={this.state.entity}
                                 getData={this.getData}
                             />
                             <CharactersTable

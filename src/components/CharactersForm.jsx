@@ -7,6 +7,7 @@ class CharactersForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            entity: this.props.entity,
             abilities: this.props.abilities,
             name: this.props.name,
             components: this.props.components
@@ -146,7 +147,7 @@ class CharactersForm extends Component {
     saveForm = (e) => {
         e.preventDefault();
         axios
-            .post('http://178.128.163.251:5555/v1/knights',
+            .post(`http://178.128.163.251:5555/v1/${this.state.entity}`,
                 {
                     "components": this.formaterData(this.state.components),
                     "name": this.state.name

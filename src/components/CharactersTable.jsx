@@ -45,7 +45,11 @@ class CharactersTable extends Component {
 
                                     <td className="center-btn-align2">
                                         <button className="delete-btn"
-                                                onClick={() => this.props.removeRecord(this.props.entity, row.name)}>
+                                                onClick={
+                                                    () => this.props.removeRecord(
+                                                        this.props.entity,
+                                                        this.props.entity === 'knights' ? row.name : row.id)
+                                                }>
                                             <img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
                                         </button>
                                     </td>
