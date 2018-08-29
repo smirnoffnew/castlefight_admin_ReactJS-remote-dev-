@@ -47,8 +47,10 @@ class CharactersFormComponent extends Component {
                                     value={item.valueInput}
                                     onChange={(e) => this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value')}
                                 />
-                                <button type="reset"
-                                        onClick={() => this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>delete prop {this.props.data.uniqueId}
+                                <button
+                                    type="reset"
+                                    onClick={() => this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>
+                                    delete prop
                                 </button>
                             </div>
                         ))

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LevelTable from "../components/wavesTable";
-import ModalForm from "../components/wavesModal";
+import LevelTable from "../components/WavesTable";
+import ModalForm from "../components/WavesModal";
 import Loading from "../components/common/loading";
 import axios from "axios";
 
@@ -89,7 +89,7 @@ class TableContainer extends Component {
                                 output.push({ 'name': item, 'value': val })
                             }
                             return output
-                        })
+                        });
                         return {
                             isLoaded: true,
                             entity: slug,
@@ -109,7 +109,6 @@ class TableContainer extends Component {
                 data
             )
             .then(() => {
-                console.log('done')
                 this.closeModal();
                 this.getData();
             })

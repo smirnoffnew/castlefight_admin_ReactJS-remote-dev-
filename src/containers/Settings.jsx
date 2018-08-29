@@ -193,7 +193,11 @@ class TableContainer extends Component {
                     value={item.valueInput}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'valueInput', e.target.value, false)}
                 />
-                <button type="reset" onClick={() => this.deleteInput(arrayName, item.uniqueId)}>delete prop</button>
+                <button
+                    type="reset"
+                    onClick={() => this.deleteInput(arrayName, item.uniqueId)}>
+                    delete prop
+                </button>
             </div>
         ));
     };
@@ -201,25 +205,29 @@ class TableContainer extends Component {
     renderPositionsInputs = (arrayName, data) => {
         return data.map(item => (
             <div key={item.uniqueId} className="editable-list-input-container">
-                <label>Name</label>
                 <input
                     type="text"
                     value={item.nameInput}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'nameInput', e.target.value, false)}
                 />
-                <label>X</label>
+
                 <input
                     type="text"
                     value={item.valueInput.x}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'x', e.target.value, true)}
                 />
-                <label>Y</label>
+
                 <input
                     type="text"
                     value={item.valueInput.y}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'y', e.target.value, true)}
                 />
-                <button type="reset" onClick={() => this.deleteInput(arrayName, item.uniqueId)}>delete prop</button>
+
+                <button
+                    type="reset"
+                    onClick={() => this.deleteInput(arrayName, item.uniqueId)}>
+                    delete prop
+                </button>
             </div>
         ));
     };
@@ -275,6 +283,12 @@ class TableContainer extends Component {
                             {/*farmIndexAndPositions*/}
                             <div className={'new-inputs-container'}>
                                 <h2>farm Index And Positions</h2>
+                                <div>
+                                    <div className={'custom-label'}>Name</div>
+                                    <div className={'custom-label'}>X</div>
+                                    <div className={'custom-label'}>Y</div>
+                                    <div className={'phantom-div'}></div>
+                                </div>
                                 { this.renderPositionsInputs('farmIndexAndPositions', this.state.formData.farmIndexAndPositions) }
                             </div>
 

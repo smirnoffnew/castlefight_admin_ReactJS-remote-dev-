@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LevelTable from "../components/levelTable";
-import ModalForm from "../components/levelsModal";
+import LevelTable from "../components/LevelTable";
+import ModalForm from "../components/LevelsModal";
 import Loading from "../components/common/loading";
 import axios from "axios";
 

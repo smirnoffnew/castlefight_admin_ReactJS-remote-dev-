@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Helper from "../helper";
 import deleteIcon from "../assets/images/de.png";
 import editIcon from "../assets/images/edit-icon.png";
-import ModalForm from "./wavesModal";
+import ModalForm from "./WavesModal";
 
 class TableRow extends Component {
     constructor(props) {

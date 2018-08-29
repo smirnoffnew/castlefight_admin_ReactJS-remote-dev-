@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EditButton from "./editButton";
+import EditButton from "./EditButton";
 import Helper from "../helper";
 import deleteIcon from "../assets/images/de.png";
 

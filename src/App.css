@@ -178,7 +178,7 @@
 }
 
 .name-input-container input {
-  width: 100%;
+  width: 90%;
 }
 
 .select-container {
@@ -462,4 +462,16 @@ table>tbody>tr>td {
   40% {
     opacity: 1;
   }
+}
+
+.custom-label {
+  text-align: center;
+  min-width: 190px;
+  display: inline-block;
+}
+
+
+.phantom-div {
+  width: 90px;
+  display: inline-block;
 }
