@@ -16,7 +16,7 @@ class CharactersForm extends Component {
     }
 
     componentDidMount() {
-        //console.log('this.components CharactersForm state', this.state.components);
+        // console.log('this.components CharactersForm state', this.state);
         // console.log('this.components CharactersForm props', this.props.components);
     }
 
