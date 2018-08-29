@@ -19,17 +19,17 @@ class TableContainer extends Component {
 
     onEdit = (content) => {
         let send = false
-        content.map((item) => {
+        content.forEach((item) => {
             if (item.name === 'id') {
                 send = true
             }
         })
         if (send) {
             let output = {}
-            content.map((item, index) => {
+            content.forEach((item, index) => {
                 if (typeof item.value === 'object') {
                     output[item.name] = {}
-                    item.value.map((item2, index2) => {
+                    item.value.forEach((item2, index2) => {
                         if (item.name === 'enemyIdsAndCount') {
                             output[item.name][index2 + 1] = { 'type': item2.name, 'count': item2.value }
                         } else {
@@ -90,6 +90,7 @@ class TableContainer extends Component {
                             }
                             return output
                         })
+                        console.log('data', data)
                         return {
                             isLoaded: true,
                             entity: slug,

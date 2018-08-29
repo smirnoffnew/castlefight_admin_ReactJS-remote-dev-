@@ -69,7 +69,6 @@
 
 }
 
-
 .container {
   width: 100%;
   height: calc(100vh - 110px);
@@ -143,6 +142,7 @@
 .modal-body {
   margin: 20px 0;
   padding: 0 10px;
+  overflow: auto;
 }
 
 .modal-footer {
@@ -158,7 +158,7 @@
 .ReactModal__Body--open .ReactModalPortal .ReactModal__Overlay--after-open .ReactModal__Content--after-open {
   padding: 0 !important;
   max-height: calc(100vh - 85px);
-  overflow-y: scroll !important;
+  overflow: auto !important;
 }
 
 ::-webkit-scrollbar,
@@ -210,17 +210,32 @@
 
 
 .new-inputs {
+  /* text-align: right; */
+  margin-left: 5px;
+}
+
+.new-inputs input,
+td input {
+  margin: 5px;
+  background: none;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 3px;
   text-align: right;
 }
 
 .btn-add-value {
-  text-align: right;
+  /* text-align: right; */
   margin-top: 5px;
 }
 
 .btn-edit-input {
-  text-align: right;
-  margin-bottom: 5px;
+  /* text-align: right; */
+  margin: 5px;
+}
+
+.btn-edit-input button {
+  margin: 5px;
 }
 
 .remove-component {

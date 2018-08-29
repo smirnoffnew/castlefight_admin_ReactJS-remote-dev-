@@ -6,7 +6,6 @@ import FooterComponent from "./components/common/footer";
 
 import Characters from "./containers/Characters";
 import Levels from "./containers/Levels";
-import SummonCycles from "./containers/SummonCycles";
 import EnemyWaves from "./containers/EnemyWaves";
 import Settings from "./containers/Settings";
 import NotFound from "./containers/notFound";

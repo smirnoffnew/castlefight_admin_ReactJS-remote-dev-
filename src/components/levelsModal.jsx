@@ -9,6 +9,7 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
+        overflow: 'auto !important',
         transform: 'translate(-50%, -50%)',
     }
 };
@@ -21,23 +22,21 @@ class ModalForm extends Component {
         let temp, values = [];
         if (props.emptyLevel) {
             temp = this.helper.level()
-        } else if (props.emptyWaves) {
-            temp = this.helper.waves()
-        }
-        for (let item in temp) {
-            let val = temp[item]
-            if (typeof val === 'object') {
-                let outputObj = []
-                for (let item in val) {
-                    if (typeof val[item] === 'object') {
-                        outputObj.push({ 'name': val[item].type, 'value': val[item].count })
-                    } else {
-                        outputObj.push({ 'name': item, 'value': val[item] })
+            for (let item in temp) {
+                let val = temp[item]
+                if (typeof val === 'object') {
+                    let outputObj = []
+                    for (let item in val) {
+                        if (typeof val[item] === 'object') {
+                            outputObj.push({ 'name': val[item].type, 'value': val[item].count })
+                        } else {
+                            outputObj.push({ 'name': item, 'value': val[item] })
+                        }
                     }
+                    val = outputObj
                 }
-                val = outputObj
+                values.push({ 'name': item, 'value': val })
             }
-            values.push({ 'name': item, 'value': val })
         }
 
         this.state = {
@@ -58,7 +57,6 @@ class ModalForm extends Component {
     }
 
     getInputs() {
-        console.log('this.state.values', this.state.values);
         if (this.state.values)
             return this.state.values.map((column, index) => {
                 if (typeof column.value === 'object') {
@@ -67,8 +65,7 @@ class ModalForm extends Component {
                             {
                                 column.value.map((item, id) => (
                                     <div key={id}>
-                                        <label >{item.name}</label>
-                                        <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                        {column.name === 'enemyWaveIds' ? null : column.name + ': '}<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
                                     </div>
                                 ))
                             }
@@ -78,7 +75,7 @@ class ModalForm extends Component {
                 } else {
                     return (
                         <td key={index}>
-                            {column.name}: <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
+                            {column.name === 'enemyWaveIds' ? null : column.name + ': '}<input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
                         </td>
                     )
                 }
@@ -87,8 +84,7 @@ class ModalForm extends Component {
 
     render() {
 
-        console.log('props', this.props.values)
-        console.log('props', this.props.empty)
+        console.log('this.state.values', this.props.onSave)
 
         return (
             <Modal
@@ -99,11 +95,15 @@ class ModalForm extends Component {
                 <form >
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Add New Cycle</h5>
+                            <h5 className="modal-title">Add New Level</h5>
                         </div>
                         <div className="modal-body">
                             <table>
-                                <thead></thead>
+                                <thead>
+                                    <tr>
+                                        {this.state.values.map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     <tr>
                                         {this.getInputs()}
@@ -115,7 +115,10 @@ class ModalForm extends Component {
                             <button
                                 className="btn btn-save"
                                 type="reset"
-                                onClick={() => this.props.onSave(this.state.values)}
+                                onClick={() => {
+                                    this.props.closeModal()
+                                    this.props.onSave(this.state.values)
+                                }}
                             >
                                 Save
                             </button>
