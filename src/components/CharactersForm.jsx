@@ -185,7 +185,7 @@ class CharactersForm extends Component {
                             </button>
                             <hr/>
 
-                            <div className="name-input-container">
+                            <div className="name-input-container new-inputs-container">
                                 <label style={{'marginRight': '15px'}}>Name:</label>
                                 <input
                                     type="text"
