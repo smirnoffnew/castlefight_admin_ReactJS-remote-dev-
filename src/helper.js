@@ -86,4 +86,30 @@ export default class Helper {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
     }
+
+    getUniqueAbility(type) {
+        return {
+            uniqueId: this.makeId(),
+            type: type,
+            defaultValue: null,
+            values: [
+                {
+                    uniqueId: this.makeId(),
+                    nameInput: 1,
+                    valueInput: 10
+                },
+                {
+                    uniqueId: this.makeId(),
+                    nameInput: 2,
+                    valueInput: 20
+                },
+                {
+                    uniqueId: this.makeId(),
+                    nameInput: 1,
+                    valueInput: 30
+                }
+            ]
+        };
+    }
+
 }

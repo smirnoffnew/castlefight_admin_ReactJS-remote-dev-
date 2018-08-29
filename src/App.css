@@ -172,9 +172,45 @@
   float: left;
 }
 
+.name-input-container {
+  margin: 15px;
+  min-height: 16px;
+}
+
+.name-input-container input {
+  width: 100%;
+}
+
+.select-container {
+  text-align: center;
+  width: 100%;
+  height: 30px;
+}
+
+.new-inputs-container {
+  margin: auto;
+  text-align: center;
+}
+
+.new-inputs-container input, button {
+  text-align: center;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.add-new-input-btn-container {
+  text-align: center;
+  margin: 10px;
+}
+
+.add-new-input-btn-container button {
+  width: 60px;
+}
+
+
+
 .new-inputs {
   text-align: right;
-  /*margin-right: 68px;*/
 }
 
 .btn-add-value {
@@ -187,9 +223,9 @@
   margin-bottom: 5px;
 }
 
-.btn-remove-select {
-  text-align: left;
-  margin-bottom: 10px;
+.remove-component {
+  text-align: right;
+  margin: 10px;
 }
 
 footer {

@@ -13,6 +13,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        overflow: 'auto !important'
     }
 };
 
@@ -38,22 +39,25 @@ class AddButton extends Component {
     render() {
         return (
             <div className="add-btn-container col-50">
+
                 <button className="add-btn" onClick={this.toggleModal}>
                     <img src={addIcon} className="add-btn-icon" alt="Add"/>
                     <span>Add</span>
                 </button>
+
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     style={customStyles}
-                    contentLabel="Example Modal"
+                    contentLabel={this.state.label}
                     ariaHideApp={false}
                 >
+
                     <CharactersForm
                         entity={this.props.entity}
                         abilities={this.state.abilities}
                         name={this.helper.makeId()}
-                        components={[]}
+                        components={[this.props.abilities[0]]}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
                 </Modal>

@@ -32,22 +32,15 @@ class CharactersForm extends Component {
     };
 
     addNewComponent = () => {
-        let generateNewFormElement = {
-            ...this.state.abilities[0],
-            uniqueId: this.helper.makeId(),
-        };
-
         this.setState((prevState) => {
             return {
                 ...prevState,
                 components: [
-                    ...prevState.components,
-                    generateNewFormElement
+                  ...prevState.components,
+                    this.helper.getUniqueAbility(this.state.abilities[0].type)
                 ]
             }}
         );
-
-        this.setSelectComponent(generateNewFormElement.uniqueId, this.state.abilities[0])
     };
 
     deleteComponent = (componentId) => {
@@ -68,7 +61,13 @@ class CharactersForm extends Component {
             return {
                 ...prevState,
                 components: [
-                    ...prevState.components.map(item => item.uniqueId === componentId ? componentSelect : item)
+                    ...prevState.components.map(
+                        item => item.uniqueId === componentId
+                        ?
+                        this.helper.getUniqueAbility(componentSelect.type)
+                        :
+                        item
+                    )
                 ]
             }
         })
@@ -170,12 +169,13 @@ class CharactersForm extends Component {
 
 
     render() {
+        console.log('this.state.components', this.state);
         return (
             <div>
                 <form>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Adding hero skills</h5>
+                            <h5 className="modal-title">Form</h5>
                         </div>
                         <div className="modal-body">
                             <button
@@ -183,7 +183,9 @@ class CharactersForm extends Component {
                                 onClick={this.addNewComponent}>
                                 Add Component
                             </button>
-                            <div className="new-inputs">
+                            <hr/>
+
+                            <div className="name-input-container">
                                 <label style={{'marginRight': '15px'}}>Name:</label>
                                 <input
                                     type="text"
@@ -195,7 +197,7 @@ class CharactersForm extends Component {
                             {
                                 this.state.components.map((item) =>
                                     (<CharactersFormComponent
-                                        key={this.helper.makeId()}
+                                        key={item.uniqueId}
                                         data={item}
                                         abilities={this.state.abilities}
                                         deleteComponent={() => this.deleteComponent(item.uniqueId)}
