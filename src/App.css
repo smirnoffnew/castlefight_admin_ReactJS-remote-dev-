@@ -444,3 +444,14 @@ table>tbody>tr>td {
     opacity: 1;
   }
 }
+
+.custom-label {
+  min-width: 177px;
+  display: inline-block;
+}
+
+
+.phantom-div {
+  width: 87px;
+  display: inline-block;
+}
