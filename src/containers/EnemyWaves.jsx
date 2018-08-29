@@ -21,7 +21,7 @@ class TableContainer extends Component {
     removeRecord = (id) => {
         if (id)
             axios
-                .delete(`http://178.128.163.251:5555/v1/levels/summonCycles/${id}`, {})
+                .delete(`http://178.128.163.251:5555/v1/levels/enemyWaves/${id}`, {})
                 .then(() => this.getData())
                 .catch(function (error) {
                     console.error(error);
@@ -33,19 +33,31 @@ class TableContainer extends Component {
     getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
         axios
-            .get('http://178.128.163.251:5555/v1/levels/summonCycles')
+            .get('http://178.128.163.251:5555/v1/levels/enemyWaves')
             .then(response => {
-                console.log('response', response)
                 let { data } = response;
+                let output = [];
                 this.setState(() => {
                     data = data.map((value) => {
-                        let output = [];
                         for (let item in value) {
                             let val = value[item]
+                            if (typeof val === 'object') {
+                                let outputObj = {}
+                                for (let item in val) {
+                                    if (typeof val[item] === 'object') {
+                                        outputObj[val[item].type] = val[item].count
+                                    } else {
+                                        outputObj[item] = val[item]
+                                    }
+                                }
+                                val = outputObj
+                            }
                             output.push({ 'name': item, 'value': val })
                         }
                         return output
                     })
+
+                    console.log('data', data)
                     return {
                         isLoaded: true,
                         entity: slug,
@@ -58,10 +70,10 @@ class TableContainer extends Component {
             });
     }
 
-    addCycle(data) {
+    addEnemyWaves(data) {
         axios
             .post(
-                'http://178.128.163.251:5555/v1/levels/summonCycles',
+                'http://178.128.163.251:5555/v1/levels/enemyWaves',
                 data
             )
             .then(() => {
@@ -91,9 +103,6 @@ class TableContainer extends Component {
     }
 
     render() {
-
-        console.log('props', this.props)
-
         return (
             <div className="container">
                 <h2 className="col-50">{this.state.entity}</h2>
@@ -121,7 +130,12 @@ class TableContainer extends Component {
                         :
                         <Loading />
                 }
-                <ModalForm isOpen={this.state.modalIsOpen} onSave={this.addCycle} closeModal={this.closeModal} />
+                <ModalForm
+                    isOpen={this.state.modalIsOpen}
+                    onSave={this.addEnemyWaves}
+                    closeModal={this.closeModal}
+                    values={this.state.data}
+                />
             </div>
         )
     }

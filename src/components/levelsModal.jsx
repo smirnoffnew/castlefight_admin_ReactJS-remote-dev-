@@ -16,15 +16,43 @@ class ModalForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            count: props.count || 1,
-            summon: props.summon || 10,
-            create: props.create || 10,
-            delay: props.delay || 1,
+            values: props.values,
         }
     }
 
     handleChange(e) {
         this.setState({ [e.target.name]: parseInt(e.target.value) })
+    }
+
+    getInputs() {
+        if (this.state.values) {
+            return this.state.values.map((column, index) => {
+                console.log('this.state.values', column.name);
+                let output = [], i = 0;
+                if (typeof column.value === 'object') {
+                    for (let item in column.value) {
+                        output.push(
+                            <React.Fragment key={i}>
+                                <input onChange={()=>{}} type="text" value={item} />
+                                <input onChange={()=>{}} type="text" value={column.value[item]} />
+                            </React.Fragment>
+                        )
+                        i++
+                    }
+                    return (
+                        <td key={index}>
+                            {output}
+                        </td>
+                    )
+                } else {
+                    return (
+                        <td key={index}>
+                            {column.name}: <input onChange={()=>{}} type="text" value={column.value} />
+                        </td>
+                    )
+                }
+            })
+        }
     }
 
     render() {
@@ -44,60 +72,7 @@ class ModalForm extends Component {
                                 <thead></thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <label htmlFor="count">count</label>
-                                        </td>
-                                        <td>
-                                            <input
-                                                id="count"
-                                                name="count"
-                                                type="count"
-                                                onChange={(e) => this.handleChange(e)}
-                                                value={this.state.count}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label htmlFor="summon">summonEnemyTimeS</label>
-                                        </td>
-                                        <td>
-                                            <input
-                                                id="summon"
-                                                name="summon"
-                                                type="count"
-                                                onChange={(e) => this.handleChange(e)}
-                                                value={this.state.summon}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label htmlFor="create">createNewCycleTimeS</label>
-                                        </td>
-                                        <td>
-                                            <input
-                                                id="create"
-                                                name="create"
-                                                type="count"
-                                                onChange={(e) => this.handleChange(e)}
-                                                value={this.state.create}
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label htmlFor="delay">delayBeforeStartS</label>
-                                        </td>
-                                        <td>
-                                            <input
-                                                id="delay"
-                                                name="delay"
-                                                type="count"
-                                                onChange={(e) => this.handleChange(e)}
-                                                value={this.state.delay}
-                                            />
-                                        </td>
+                                        {this.getInputs()}
                                     </tr>
                                 </tbody>
                             </table>
@@ -106,12 +81,7 @@ class ModalForm extends Component {
                             <button
                                 className="btn btn-save"
                                 type="reset"
-                                onClick={() => this.props.onSave({
-                                    summonEnemyTimeS: this.state.summon,
-                                    createNewCycleTimeS: this.state.create,
-                                    delayBeforeStartS: this.state.delay,
-                                    count: this.state.count,
-                                })}
+                                onClick={() => this.props.onSave(this.state.values)}
                             >
                                 Save
                             </button>

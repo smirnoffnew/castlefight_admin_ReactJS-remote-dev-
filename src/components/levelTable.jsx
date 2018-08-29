@@ -28,14 +28,7 @@ class TableRow extends Component {
     }
 
     onSave(content) {
-        this.setState({
-            content: [
-                { name: 'count', value: content.count },
-                { name: 'summonEnemyTimeS', value: content.summonEnemyTimeS },
-                { name: 'createNewCycleTimeS', value: content.createNewCycleTimeS },
-                { name: 'delayBeforeStartS', value: content.delayBeforeStartS },
-            ]
-        });
+        this.setState({ content });
         this.closeModal();
     }
 
@@ -47,35 +40,49 @@ class TableRow extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    render() {
-        let values = {};
-        const tdOutput = this.state.content.map((column, index) => {
-            values[column.name] = column.value;
-            return (
-                <td key={index}>
-                    {column.value}
-                </td>
-            )
+    getColumns() {
+        return this.state.content.map((column, index) => {
+            let output = [], i = 0
+            if (typeof column.value === 'object') {
+                for (let item in column.value) {
+                    output.push(
+                        <div key={i}>
+                            {item + ': ' + column.value[item]}
+                        </div>
+                    )
+                    i++
+                }
+                return (
+                    <td key={index}>
+                        {output}
+                    </td>
+                )
+            } else {
+                return (
+                    <td key={index}>
+                        {column.value}
+                    </td>
+                )
+            }
         })
+    }
 
+    render() {
         return (
             <tr>
-                {tdOutput}
+                {this.getColumns()}
                 <td>
                     <button onClick={() => this.openModal()}>
                         {this.state.disabled ? 'Edit' : 'Save'}
                     </button>
-                    <button onClick={() => this.props.removeRecord(this.props.data.id)}>
+                    <button onClick={() => this.props.removeRecord(this.state.content[0].value)}>
                         <img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
                     </button>
                     <ModalForm
                         isOpen={this.state.modalIsOpen}
                         onSave={this.onSave}
                         closeModal={() => this.closeModal()}
-                        count={values.count}
-                        summon={values.summonEnemyTimeS}
-                        create={values.createNewCycleTimeS}
-                        delay={values.delayBeforeStartS}
+                        values={this.state.content}
                     />
                 </td>
             </tr>

@@ -35,7 +35,7 @@ class TableContainer extends Component {
         axios
             .get('http://178.128.163.251:5555/v1/levels/summonCycles')
             .then(response => {
-                console.log('response', response)
+                // console.log('response', response)
                 let { data } = response;
                 this.setState(() => {
                     data = data.map((value) => {
@@ -92,7 +92,7 @@ class TableContainer extends Component {
 
     render() {
 
-        console.log('props', this.props)
+        // console.log('props', this.props)
 
         return (
             <div className="container">
@@ -121,7 +121,11 @@ class TableContainer extends Component {
                         :
                         <Loading />
                 }
-                <ModalForm isOpen={this.state.modalIsOpen} onSave={this.addCycle} closeModal={this.closeModal} />
+                <ModalForm
+                    isOpen={this.state.modalIsOpen}
+                    onSave={this.addCycle}
+                    closeModal={this.closeModal}
+                />
             </div>
         )
     }
