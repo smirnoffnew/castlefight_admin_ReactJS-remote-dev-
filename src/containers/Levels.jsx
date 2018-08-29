@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import LevelTable from "../components/levelTable";
 import ModalForm from "../components/levelsModal";
 import Loading from "../components/common/loading";
@@ -71,17 +70,17 @@ class TableContainer extends Component {
 
     addCycle = (content) => {
         let send = false
-        content.map((item) => {
+        content.forEach((item) => {
             if (item.name === 'id') {
                 send = true
             }
         })
         if (send) {
             let output = {}
-            content.map((item, index) => {
+            content.forEach((item, index) => {
                 if (typeof item.value === 'object') {
                     output[item.name] = {}
-                    item.value.map((item2, index2) => {
+                    item.value.forEach((item2, index2) => {
                         if (item.name === 'enemyWaveIds') {
                             output[item.name] = [item2.value]
                         } else if (item.name === 'enemyIdsAndCount') {
