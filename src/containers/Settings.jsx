@@ -230,12 +230,12 @@ class TableContainer extends Component {
                 {
                     this.state.isLoaded
                     ?
-                    <form >
+                    <form>
                         <div className="form-container">
 
                             {/*initialFarmCount*/}
-                            <div className="form-input-container">
-                                <label>initial Farm Count:</label>
+                            <div className={'new-inputs-container'}>
+                                <h2>initial Farm Count</h2>
                                 <input
                                     type="text"
                                     value={this.state.formData.initialFarmCount}
@@ -245,7 +245,7 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndOutputs*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Outputs</h2>
                                 { this.renderCommonInputs('farmIndexAndOutputs', this.state.formData.farmIndexAndOutputs) }
                                 <div>
@@ -259,7 +259,7 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndCosts*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Costs</h2>
                                 { this.renderCommonInputs('farmIndexAndCosts', this.state.formData.farmIndexAndCosts) }
                                 <div>
@@ -273,7 +273,7 @@ class TableContainer extends Component {
                             <hr/>
 
                             {/*farmIndexAndPositions*/}
-                            <div>
+                            <div className={'new-inputs-container'}>
                                 <h2>farm Index And Positions</h2>
                                 { this.renderPositionsInputs('farmIndexAndPositions', this.state.formData.farmIndexAndPositions) }
                                 <div>
