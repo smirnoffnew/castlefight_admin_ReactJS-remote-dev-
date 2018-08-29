@@ -193,7 +193,11 @@ class TableContainer extends Component {
                     value={item.valueInput}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'valueInput', e.target.value, false)}
                 />
-                <button type="reset" onClick={() => this.deleteInput(arrayName, item.uniqueId)}>delete prop</button>
+                <button
+                    type="reset"
+                    onClick={() => this.deleteInput(arrayName, item.uniqueId)}>
+                    delete prop
+                </button>
             </div>
         ));
     };
@@ -219,7 +223,11 @@ class TableContainer extends Component {
                     value={item.valueInput.y}
                     onChange={(e) => this.changeInput(arrayName, item.uniqueId, 'y', e.target.value, true)}
                 />
-                <button type="reset" onClick={() => this.deleteInput(arrayName, item.uniqueId)}>delete prop</button>
+                <button
+                    type="reset"
+                    onClick={() => this.deleteInput(arrayName, item.uniqueId)}>
+                    delete prop
+                </button>
             </div>
         ));
     };
