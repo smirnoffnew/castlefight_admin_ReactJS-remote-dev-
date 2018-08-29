@@ -22,7 +22,7 @@ class CharactersFormComponent extends Component {
                                 <option
                                     key={this.helper.makeId()}
                                     value={item.type} >
-                                    {item.type}
+                                    {item.type.split('.')[item.type.split('.').length - 1]}
                                 </option>
                             )
                         }
