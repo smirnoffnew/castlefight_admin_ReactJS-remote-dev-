@@ -57,7 +57,7 @@ class AddButton extends Component {
                         entity={this.props.entity}
                         abilities={this.state.abilities}
                         name={this.helper.makeId()}
-                        components={[this.props.abilities[0]]}
+                        components={[this.helper.getUniqueAbility(this.state.abilities[0].type)]}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
                 </Modal>

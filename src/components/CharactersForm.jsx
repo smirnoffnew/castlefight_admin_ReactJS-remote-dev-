@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../helper";
-import axios from 'axios';
+import axios from '../axiosBaseUrlConfig';
 
 class CharactersForm extends Component {
     constructor(props) {
@@ -52,21 +52,16 @@ class CharactersForm extends Component {
     };
 
     onSelectComponent = (componentId, selectedValue) => {
-        let componentSelect = this.state.abilities.filter(item => selectedValue.target.value === item.type)[0];
-        this.setSelectComponent(componentId, componentSelect);
-    };
-
-    setSelectComponent = (componentId, componentSelect) => {
         this.setState((prevState) => {
             return {
                 ...prevState,
                 components: [
                     ...prevState.components.map(
                         item => item.uniqueId === componentId
-                        ?
-                        this.helper.getUniqueAbility(componentSelect.type)
-                        :
-                        item
+                            ?
+                            this.helper.getUniqueAbility(selectedValue)
+                            :
+                            item
                     )
                 ]
             }
@@ -146,12 +141,12 @@ class CharactersForm extends Component {
     saveForm = (e) => {
         e.preventDefault();
         axios
-            .post(`http://178.128.163.251:5555/v1/${this.state.entity}`,
+            .post(this.state.entity,
                 {
                     "components": this.formaterData(this.state.components),
                     "name": this.state.name
                 })
-            .then(() => {
+            .then(() => { debugger;
                 this.props.getData();
                 this.props.closeModal();
             })
@@ -169,7 +164,9 @@ class CharactersForm extends Component {
 
 
     render() {
+        console.log('this.components CharactersForm state', this.state);
         return (
+
             <div>
                 <form>
                     <div className="modal-content">

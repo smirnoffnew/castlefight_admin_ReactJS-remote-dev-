@@ -7,6 +7,7 @@ class CharactersFormComponent extends Component {
         this.helper = new Helper();
     }
     render() {
+        console.log('this.props.data', this.props.data);
         return (
             <div>
                 <div className="remove-component">
@@ -16,7 +17,7 @@ class CharactersFormComponent extends Component {
                 <div className="select-container">
                     <select
                         value={this.props.data.type}
-                        onChange={(e)=>this.props.onSelectComponent(this.props.data.uniqueId, e)}>
+                        onChange={(e)=>this.props.onSelectComponent(this.props.data.uniqueId, e.target.value)}>
                         {
                             this.props.abilities.map((item) =>
                                 <option
@@ -30,10 +31,6 @@ class CharactersFormComponent extends Component {
                 </div>
 
                 <div>
-                    {/*<div className="new-inputs" style={{'width':'90%', 'margin':'auto'}}>*/}
-                        {/*<label style={{'marginRight':'75px'}}>Name property</label>*/}
-                        {/*<label>Value property</label>*/}
-                    {/*</div>*/}
                     {
                         this.props.data.values.map(item => (
                             <div key={item.uniqueId} className="new-inputs-container">

@@ -78,7 +78,7 @@ export default class Helper {
     makeId() {
         let text = '';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < 15; i++)
+        for (let i = 0; i < 20; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
     }
@@ -109,7 +109,7 @@ export default class Helper {
                 },
                 {
                     uniqueId: this.makeId(),
-                    nameInput: 1,
+                    nameInput: 3,
                     valueInput: 30
                 }
             ]

@@ -75,30 +75,7 @@ class TableContainer extends Component {
                 this.setState((prevState) => ({
                     ...prevState,
                     isLoaded: true,
-                    abilities: abilitiesResponse.data.map(componentName=>{
-                        return {
-                            uniqueId: this.helper.makeId(),
-                            type: componentName,
-                            defaultValue: null,
-                            values: [
-                                {
-                                    uniqueId: this.helper.makeId(),
-                                    nameInput: 1,
-                                    valueInput: 10
-                                },
-                                {
-                                    uniqueId: this.helper.makeId(),
-                                    nameInput: 2,
-                                    valueInput: 20
-                                },
-                                {
-                                    uniqueId: this.helper.makeId(),
-                                    nameInput: 1,
-                                    valueInput: 30
-                                }
-                            ]
-                        }
-                    })
+                    abilities: abilitiesResponse.data.map(componentName=>this.helper.getUniqueAbility(componentName))
                 }));
             })
             .catch(function (error) {
