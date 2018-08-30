@@ -67,7 +67,7 @@ class TableContainer extends Component {
             .post(
                 '/commons/farm/',
                 {
-                    initialFarmCount: 3,
+                    initialFarmCount: this.state.formData.initialFarmCount,
                     farmIndexAndOutputs: this.dataFormatterToSave(this.state.formData.farmIndexAndOutputs),
                     farmIndexAndCosts: this.dataFormatterToSave(this.state.formData.farmIndexAndCosts),
                     farmIndexAndPositions: this.dataFormatterToSave(this.state.formData.farmIndexAndPositions),
