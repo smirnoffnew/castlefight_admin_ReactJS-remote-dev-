@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Loading from "../components/common/loading";
-import axios from "axios";
+import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";
 
 class TableContainer extends Component {
@@ -36,7 +36,7 @@ class TableContainer extends Component {
 
     getData = () => {
         axios
-            .get('http://178.128.163.251:5555/v1/commons/farm/')
+            .get('/commons/farm/')
             .then(response => {
                 this.setState((prevState) => {
                     return {
@@ -65,7 +65,7 @@ class TableContainer extends Component {
     saveData = () => {
         axios
             .post(
-                'http://178.128.163.251:5555/v1/commons/farm/',
+                '/commons/farm/',
                 {
                     initialFarmCount: 3,
                     farmIndexAndOutputs: this.dataFormatterToSave(this.state.formData.farmIndexAndOutputs),
@@ -75,7 +75,7 @@ class TableContainer extends Component {
             )
             .then(() => this.getData());
     };
-    
+
     resetData = () => {
         this.setState((prevState) => {
             return {

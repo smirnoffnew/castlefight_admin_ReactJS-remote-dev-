@@ -3,7 +3,8 @@ import AddButton from "../components/AddButton";
 import Loading from "../components/common/loading";
 import CharactersTable from "../components/CharactersTable";
 import Helper from "../helper";
-import axios from "axios";
+import axios from '../axiosBaseUrlConfig';
+
 
 class TableContainer extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class TableContainer extends Component {
 
     removeRecord = (entity, id) => {
         axios
-            .delete(`http://178.128.163.251:5555/v1/${entity}/${id}`, {})
+            .delete(`/${entity}/${id}`, {})
             .then(() => this.getData())
             .catch(function (error) {
                 console.error(error);
@@ -48,13 +49,12 @@ class TableContainer extends Component {
     };
 
     getData = () => {
-        const slug = this.props.history.location.pathname.substr(1);
         axios
-            .get('http://178.128.163.251:5555/v1/' + slug)
+            .get(this.props.history.location.pathname)
             .then(response => {
                 this.setState((prevState) => ({
                     ...prevState,
-                    entity: slug,
+                    entity: this.props.history.location.pathname.substr(1),
                     rows: response.data.map(entityItem=>(
                         {
                             ...entityItem,
@@ -107,7 +107,7 @@ class TableContainer extends Component {
     };
 
     getAbilities = () => {
-        return axios.get('http://178.128.163.251:5555/v1/components')
+        return axios.get('/components')
     };
 
 

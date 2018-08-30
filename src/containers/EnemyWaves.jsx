@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LevelTable from "../components/WavesTable";
 import ModalForm from "../components/WavesModal";
 import Loading from "../components/common/loading";
-import axios from "axios";
+import axios from "../axiosBaseUrlConfig";
 
 class TableContainer extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class TableContainer extends Component {
                 }
             })
             axios
-                .post(`http://178.128.163.251:5555/v1/enemyWaves`, output)
+                .post(`/enemyWaves`, output)
                 .then(() => this.getData())
                 .catch(function (error) {
                     console.error(error);
@@ -54,7 +54,7 @@ class TableContainer extends Component {
     removeRecord = (id) => {
         if (id)
             axios
-                .delete(`http://178.128.163.251:5555/v1/enemyWaves/${id}`, {})
+                .delete(`/enemyWaves/${id}`, {})
                 .then(() => this.getData())
                 .catch(function (error) {
                     console.error(error);
@@ -66,7 +66,7 @@ class TableContainer extends Component {
     getData = () => {
         const slug = this.props.history.location.pathname.substr(1);
         axios
-            .get('http://178.128.163.251:5555/v1/enemyWaves')
+            .get('/enemyWaves')
             .then(response => {
                 let { data } = response;
                 if (data)
@@ -104,10 +104,7 @@ class TableContainer extends Component {
 
     addEnemyWaves(data) {
         axios
-            .post(
-                'http://178.128.163.251:5555/v1/enemyWaves',
-                data
-            )
+            .post('/enemyWaves', data )
             .then(() => {
                 this.closeModal();
                 this.getData();
