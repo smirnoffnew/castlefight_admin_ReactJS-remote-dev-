@@ -146,7 +146,7 @@ class CharactersForm extends Component {
                     "components": this.formaterData(this.state.components),
                     "name": this.state.name
                 })
-            .then(() => { debugger;
+            .then(() => {
                 this.props.getData();
                 this.props.closeModal();
             })
@@ -164,7 +164,6 @@ class CharactersForm extends Component {
 
 
     render() {
-        console.log('this.components CharactersForm state', this.state);
         return (
 
             <div>

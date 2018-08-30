@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Select from 'react-select';
 import Helper from "../helper";
 
 class CharactersFormComponent extends Component {
@@ -6,8 +7,10 @@ class CharactersFormComponent extends Component {
         super(props);
         this.helper = new Helper();
     }
+
+    onSelectChange = value => this.props.onSelectComponent(this.props.data.uniqueId, value.value);
+
     render() {
-        console.log('this.props.data', this.props.data);
         return (
             <div>
                 <div className="remove-component">
@@ -15,19 +18,16 @@ class CharactersFormComponent extends Component {
                 </div>
 
                 <div className="select-container">
-                    <select
-                        value={this.props.data.type}
-                        onChange={(e)=>this.props.onSelectComponent(this.props.data.uniqueId, e.target.value)}>
-                        {
-                            this.props.abilities.map((item) =>
-                                <option
-                                    key={this.helper.makeId()}
-                                    value={item.type} >
-                                    {item.type.split('.')[item.type.split('.').length - 1]}
-                                </option>
-                            )
-                        }
-                    </select>
+                    <Select
+                        value={({
+                            value:this.props.data.type,
+                            label:this.props.data.type.split('.')[this.props.data.type.split('.').length - 1]})}
+                        onChange={this.onSelectChange}
+                        options={this.props.abilities.map((item) => ({
+                            label: item.type.split('.')[item.type.split('.').length - 1],
+                            value: item.type
+                        }))}
+                    />
                 </div>
 
                 <div>
