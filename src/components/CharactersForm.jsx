@@ -7,6 +7,7 @@ class CharactersForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isEdit: this.props.isEdit,
             entity: this.props.entity,
             abilities: this.props.abilities,
             name: this.props.name,
@@ -140,11 +141,14 @@ class CharactersForm extends Component {
 
     saveForm = (e) => {
         e.preventDefault();
+        const nameOrIdObject = {};
+        const nameProperty = this.state.entity === 'abilities' ? 'id' : 'name';
+        nameOrIdObject[nameProperty] = this.state.entity === 'abilities' ? Number(this.state.name) : this.state.name;
         axios
             .post(this.state.entity,
                 {
                     "components": this.formaterData(this.state.components),
-                    "name": this.state.name
+                    ...nameOrIdObject
                 })
             .then(() => {
                 this.props.getData();
@@ -183,6 +187,7 @@ class CharactersForm extends Component {
                             <div className="name-input-container new-inputs-container">
                                 <label style={{'marginRight': '15px'}}>Name:</label>
                                 <input
+                                    disabled={this.state.isEdit}
                                     type="text"
                                     value={this.state.name}
                                     onChange={(e) => this.changeNameValue(e)}

@@ -65,17 +65,18 @@ class TableContainer extends Component {
                                     values:this.objectToArray(item.values)
                                 }
                             }),
-                            uniqueId:this.helper.makeId()
+                            uniqueId:this.helper.makeId(),
+                            name: this.props.history.location.pathname === '/abilities' ? entityItem.id : entityItem.name,
                         }
                         )),
                 }));
-                return this.getAbilities();
+                return this.getComponentsList();
             })
-            .then((abilitiesResponse)=>{
+            .then((componentsListResponse)=>{
                 this.setState((prevState) => ({
                     ...prevState,
                     isLoaded: true,
-                    abilities: abilitiesResponse.data.map(componentName=>this.helper.getUniqueAbility(componentName))
+                    abilities: componentsListResponse.data.map(componentName=>this.helper.getUniqueAbility(componentName))
                 }));
             })
             .catch(function (error) {
@@ -83,7 +84,7 @@ class TableContainer extends Component {
             });
     };
 
-    getAbilities = () => {
+    getComponentsList = () => {
         return axios.get('/components')
     };
 

@@ -48,6 +48,7 @@ class EditButton extends Component {
                         ariaHideApp={false}>
 
                     <CharactersForm
+                        isEdit={true}
                         entity={this.props.entity}
                         abilities={this.state.abilities}
                         name={this.state.record.name}

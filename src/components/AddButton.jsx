@@ -22,6 +22,8 @@ class AddButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            entity: this.props.entity,
+            isCharacter: this.props.entity !== 'abilities',
             modalIsOpen: false,
             abilities: this.props.abilities
         };
@@ -54,9 +56,10 @@ class AddButton extends Component {
                 >
 
                     <CharactersForm
+                        isEdit={false}
                         entity={this.props.entity}
                         abilities={this.state.abilities}
-                        name={this.helper.makeId()}
+                        name={this.state.isCharacter ? this.helper.makeId(): this.helper.makeNumberId()}
                         components={[this.helper.getUniqueAbility(this.state.abilities[0].type)]}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
