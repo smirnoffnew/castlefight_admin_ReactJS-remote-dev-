@@ -16,16 +16,16 @@ const customStyles = {
 
 class ModalForm extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.helper = new Helper();
 
         let temp, values = [];
         if (props.emptyWaves) {
-            temp = this.helper.waves()
+            temp = this.helper.waves();
             for (let item in temp) {
-                let val = temp[item]
+                let val = temp[item];
                 if (typeof val === 'object') {
-                    let outputObj = []
+                    let outputObj = [];
                     for (let item in val) {
                         if (typeof val[item] === 'object') {
                             outputObj.push({ 'name': val[item].type, 'value': val[item].count })
@@ -43,7 +43,7 @@ class ModalForm extends Component {
             values: props.values ? props.values : values,
             isEdit: this.props.isEdit
         }
-    }
+    };
 
     handleChange(e, index, id, type) {
         const value = e.target.value;
@@ -55,7 +55,7 @@ class ModalForm extends Component {
             }
             return { prevState }
         })
-    }
+    };
 
     getInputs() {
         if (this.state.values)
@@ -109,7 +109,7 @@ class ModalForm extends Component {
                     )
                 }
             })
-    }
+    };
 
     render() {
         return (
