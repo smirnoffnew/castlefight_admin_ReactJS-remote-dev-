@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withAlert } from "react-alert"
-import LevelTable from "../components/LevelTable";
-import LevelsModalForm from "../components/LevelsModalForm";
+import LevelTable from "../components/Levels/LevelTable";
+import LevelsModalForm from "../components/Levels/LevelsModalForm";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { withAlert } from "react-alert"
-import LevelTable from "../components/WavesTable";
-import ModalForm from "../components/WavesModal";
+import LevelTable from "../components/Waves/WavesTable";
+import ModalForm from "../components/Waves/WavesModal";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";
 
-class TableContainer extends Component {
+class EnemyWaves extends Component {
     constructor(props) {
         super(props);
         this.helper = new Helper();
@@ -47,7 +47,7 @@ class TableContainer extends Component {
                 .post(`/enemyWaves`, output)
                 .then(() => {
                     this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
-                  this.getData();
+                    this.getData();
                 })
                 .catch(error => {
                     console.error(error);
@@ -84,7 +84,7 @@ class TableContainer extends Component {
                             for (let item in value) {
                                 let val = value[item];
                                 if (typeof val === 'object') {
-                                    let outputObj = []
+                                    let outputObj = [];
                                     for (let item in val) {
                                         if (typeof val[item] === 'object') {
                                             outputObj.push({ 'name': val[item].type, 'value': val[item].count })
@@ -96,7 +96,7 @@ class TableContainer extends Component {
                                 }
                                 output.push({ 'name': item, 'value': val })
                             }
-                            return output
+                            return output;
                         });
                         return {
                             isLoaded: true,
@@ -159,4 +159,4 @@ class TableContainer extends Component {
     }
 }
 
-export default withAlert(TableContainer);
+export default withAlert(EnemyWaves);

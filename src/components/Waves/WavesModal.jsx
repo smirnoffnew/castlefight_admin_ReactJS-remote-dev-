@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Helper from "../helper";
+import Helper from "../../helper";
 import Modal from "react-modal";
 
 const customStyles = {

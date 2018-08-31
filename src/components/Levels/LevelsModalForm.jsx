@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from "react-modal";
 import Select from 'react-select';
-import Helper from "../helper";
+import Helper from "../../helper";
 
 const customStyles = {
     content: {

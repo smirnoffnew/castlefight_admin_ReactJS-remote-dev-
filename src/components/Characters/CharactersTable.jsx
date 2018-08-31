@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditButton from "./EditButton";
-import Helper from "../helper";
-import deleteIcon from "../assets/images/de.png";
+import Helper from "../../helper";
+import deleteIcon from "../../assets/images/de.png";
 
 class CharactersTable extends Component {
     constructor(props) {

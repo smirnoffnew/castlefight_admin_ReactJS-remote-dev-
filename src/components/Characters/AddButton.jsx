@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
 import CharactersForm from "./CharactersForm";
-import Helper from "../helper";
-import addIcon from "../assets/images/icon-add.png";
-import '../App.css';
+import Helper from "../../helper";
+import addIcon from "../../assets/images/icon-add.png";
+import '../../App.css';
 
 const customStyles = {
     content: {

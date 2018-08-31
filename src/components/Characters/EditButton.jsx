@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
 import CharactersForm from "./CharactersForm";
-import editIconPath from "../assets/images/edit-icon.png";
-import '../App.css';
+import editIconPath from "../../assets/images/edit-icon.png";
+import '../../App.css';
 
 const customStyles = {
     content: {

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import LevelsModalForm from "./LevelsModalForm";
-import Helper from "../helper";
-import deleteIcon from "../assets/images/de.png";
-import editIcon from "../assets/images/edit-icon.png";
+import Helper from "../../helper";
+import deleteIcon from "../../assets/images/de.png";
+import editIcon from "../../assets/images/edit-icon.png";
+import ModalForm from "./WavesModal";
 
 class TableRow extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.helper = new Helper();
         this.state = {
             modalIsOpen: false,
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.onSave = this.onSave.bind(this);
+        this.handleChange = this.handleChange.bind(this)
+        this.onSave = this.onSave.bind(this)
     }
 
     handleChange(e, id) {
         const target = e.target;
         this.setState((prevState) => {
-            prevState.content[id].value = target.value;
+            prevState.content[id].value = target.value
             return {
                 content: prevState.content
             }
@@ -26,7 +26,7 @@ class TableRow extends Component {
     }
 
     onSave(content) {
-        this.props.onSave(content);
+        this.props.onEdit(content)
         this.setState({ content });
         this.closeModal();
     }
@@ -47,7 +47,7 @@ class TableRow extends Component {
                         {
                             column.value.map((item, id) => (
                                 <div key={id}>
-                                    {column.name === 'enemyWaveIds' ? null : item.name + ': '}{item.value}
+                                    {item.name + ': ' + item.value}
                                 </div>
                             ))
                         }
@@ -71,13 +71,11 @@ class TableRow extends Component {
                     <button className="edit-btn" onClick={() => this.openModal()}>
                         <img src={editIcon} alt="Edit" className="edit-btn-icon" />
                     </button>
-                    <LevelsModalForm
-                        values={this.props.data}
-                        backgrounds={this.props.backgrounds}
-                        companyActs={this.props.companyActs}
+                    <ModalForm
                         isOpen={this.state.modalIsOpen}
                         onSave={this.onSave}
                         closeModal={() => this.closeModal()}
+                        values={this.props.data}
                         isEdit={true}
                     />
                 </td>
@@ -93,7 +91,7 @@ class TableRow extends Component {
 
 class TableComponent extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.helper = new Helper();
     }
 
@@ -120,10 +118,8 @@ class TableComponent extends Component {
                                     this.props.content.map((row, index) => (
                                         <TableRow
                                             data={row}
-                                            backgrounds={this.props.backgrounds}
-                                            companyActs={this.props.companyActs}
                                             key={index}
-                                            onSave={this.props.onSave}
+                                            onEdit={this.props.onEdit}
                                             removeRecord={this.props.removeRecord}
                                         />
                                     ))

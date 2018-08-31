@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddButton from "../components/AddButton";
+import AddButton from "../components/Characters/AddButton";
 import Loading from "../components/common/loading";
-import CharactersTable from "../components/CharactersTable";
+import CharactersTable from "../components/Characters/CharactersTable";
 import Helper from "../helper";
 import axios from '../axiosBaseUrlConfig';
 import { withAlert } from "react-alert"

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
-import Helper from "../helper";
-import axios from '../axiosBaseUrlConfig';
+import Helper from "../../helper";
+import axios from '../../axiosBaseUrlConfig';
 import { withAlert } from "react-alert"
 
 class CharactersForm extends Component {
