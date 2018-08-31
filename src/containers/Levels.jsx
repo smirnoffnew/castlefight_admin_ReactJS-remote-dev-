@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import LevelTable from "../components/LevelTable";
-import ModalForm from "../components/LevelsModal";
+import LevelsModalForm from "../components/LevelsModalForm";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 
-class TableContainer extends Component {
+class Levels extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoaded: false,
             modalIsOpen: false,
+            backgrounds: [],
+            companyActs: [],
             entity: '',
-            tableComponentProps: {
-                data: []
-            }
         };
     }
 
@@ -30,9 +29,7 @@ class TableContainer extends Component {
     };
 
     getData = () => {
-        const slug = this.props.history.location.pathname.substr(1);
-        axios
-            .get('/levels')
+        this.getLevels()
             .then(response => {
                 let { data } = response;
                 if (data)
@@ -55,18 +52,43 @@ class TableContainer extends Component {
                                 output.push({ 'name': item, 'value': val })
                             }
                             return output
-                        })
+                        });
                         return {
                             isLoaded: true,
-                            entity: slug,
+                            entity: this.props.history.location.pathname.substr(1),
                             data,
                         };
                     });
+                return this.getBackgrounds();
+            })
+            .then((backgroundsResponse)=>{
+                this.setState((prevState)=>{
+                    return {
+                        ...prevState,
+                        backgrounds:backgroundsResponse.data.map(background=>({label:background, value:background}))
+                    }
+                });
+                return this.getCompanyActs();
+            })
+            .then((companyActsResponse)=>{
+                this.setState((prevState)=>{
+                    return {
+                        ...prevState,
+                        companyActs:companyActsResponse.data.map(ActsResponse=>({label:ActsResponse, value:ActsResponse}))
+                    }
+                });
+                console.log('this.state', this.state);
             })
             .catch(function (error) {
                 console.error(error);
             });
-    }
+    };
+
+    getBackgrounds = () => axios.get('/levels/backgrounds/');
+
+    getCompanyActs = () => axios.get('/levels/companyActs/');
+
+    getLevels = () => axios.get('/levels');
 
     addCycle = (content) => {
         let send = false;
@@ -102,7 +124,7 @@ class TableContainer extends Component {
         }
         else
             console.error('this entity can\'t be edit/save due to lack of id')
-    }
+    };
 
     openModal = () => {
         this.setState({ modalIsOpen: true });
@@ -135,6 +157,8 @@ class TableContainer extends Component {
                         <LevelTable
                             getData={this.getData}
                             content={this.state.data}
+                            backgrounds={this.state.backgrounds}
+                            companyActs={this.state.companyActs}
                             removeRecord={this.removeRecord}
                             entity={this.state.entity}
                             onSave={this.addCycle}
@@ -142,8 +166,10 @@ class TableContainer extends Component {
                         :
                         <Loading />
                 }
-                <ModalForm
+                <LevelsModalForm
                     isOpen={this.state.modalIsOpen}
+                    backgrounds={this.state.backgrounds}
+                    companyActs={this.state.companyActs}
                     onSave={this.addCycle}
                     closeModal={this.closeModal}
                     emptyLevel
@@ -153,4 +179,4 @@ class TableContainer extends Component {
     }
 }
 
-export default TableContainer;
+export default Levels;

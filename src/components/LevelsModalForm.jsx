@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Helper from "../helper";
 import Modal from "react-modal";
+import Select from 'react-select';
+import Helper from "../helper";
 
 const customStyles = {
     content: {
@@ -14,18 +15,18 @@ const customStyles = {
     }
 };
 
-class ModalForm extends Component {
+class LevelsModalForm extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.helper = new Helper();
 
         let temp, values = [];
         if (props.emptyLevel) {
-            temp = this.helper.level()
+            temp = this.helper.level();
             for (let item in temp) {
-                let val = temp[item]
+                let val = temp[item];
                 if (typeof val === 'object') {
-                    let outputObj = []
+                    let outputObj = [];
                     for (let item in val) {
                         if (typeof val[item] === 'object') {
                             outputObj.push({ 'name': val[item].type, 'value': val[item].count })
@@ -55,6 +56,17 @@ class ModalForm extends Component {
             return { prevState }
         })
     }
+
+    onSelectChange = (value, name) => {
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                values: prevState.values.map(item => {
+                    return item.name === name ? {name:item.name, value:value.value} : item;
+                }),
+            }
+        });
+    };
 
     getInputs() {
         if (this.state.values)
@@ -103,7 +115,21 @@ class ModalForm extends Component {
                     return (
                         <tr key={index}>
                             <td>{column.name}</td>
-                            <td colSpan="2"><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
+                            <td colSpan="2">
+                                {
+                                    column.name === 'background' || column.name === 'companyAct'
+                                    ?
+                                    <Select
+                                        value={({
+                                            value:column.value,
+                                            label:column.value})}
+                                        onChange={(value)=>this.onSelectChange(value,column.name)}
+                                        options={this.props[`${column.name}s`]}
+                                    />
+                                    :
+                                    <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
+                                }
+                            </td>
                         </tr>
                     )
                 }
@@ -140,8 +166,8 @@ class ModalForm extends Component {
                                 className="btn btn-save"
                                 type="reset"
                                 onClick={() => {
-                                    this.props.closeModal()
-                                    this.props.onSave(this.state.values)
+                                    this.props.closeModal();
+                                    this.props.onSave(this.state.values);
                                 }}
                             >
                                 Save
@@ -162,4 +188,4 @@ class ModalForm extends Component {
     }
 }
 
-export default ModalForm;
+export default LevelsModalForm;
