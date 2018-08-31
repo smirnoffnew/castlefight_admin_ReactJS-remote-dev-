@@ -42,6 +42,7 @@ class LevelsModalForm extends Component {
 
         this.state = {
             values: props.values ? props.values : values,
+            isEdit: this.props.isEdit
         }
     }
 
@@ -69,6 +70,9 @@ class LevelsModalForm extends Component {
     };
 
     getInputs() {
+      console.log('+++++++++++++++++++++', this.props);
+      console.log('*********************', this.props.values);
+      console.log('---------------------',this.state.isEdit);
         if (this.state.values)
             return this.state.values.map((column, index) => {
                 if (typeof column.value === 'object' && column.name !== 'enemyWaveIds') {
@@ -86,7 +90,7 @@ class LevelsModalForm extends Component {
                                 {
                                     column.value.map((item, id) => (
                                         <React.Fragment key={id}>
-                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value}  />
                                             <br />
                                         </React.Fragment>
                                     ))
@@ -127,7 +131,7 @@ class LevelsModalForm extends Component {
                                         options={this.props[`${column.name}s`]}
                                     />
                                     :
-                                    <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} />
+                                    <input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} disabled={column.name === 'id' ? this.state.isEdit : false} />
                                 }
                             </td>
                         </tr>

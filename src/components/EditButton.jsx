@@ -55,7 +55,9 @@ class EditButton extends Component {
                         components={this.state.record.components}
                         closeModal={this.toggleModal}
                         getData={this.props.getData}/>
+
                 </Modal>
+
             </div>
         );
     }

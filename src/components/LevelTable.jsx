@@ -78,6 +78,7 @@ class TableRow extends Component {
                         isOpen={this.state.modalIsOpen}
                         onSave={this.onSave}
                         closeModal={() => this.closeModal()}
+                        isEdit={true}
                     />
                 </td>
                 <td className="center-btn-align2">

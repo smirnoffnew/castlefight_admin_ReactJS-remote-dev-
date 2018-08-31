@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";

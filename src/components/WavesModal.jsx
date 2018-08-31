@@ -41,6 +41,7 @@ class ModalForm extends Component {
 
         this.state = {
             values: props.values ? props.values : values,
+            isEdit: this.props.isEdit
         }
     }
 
@@ -90,7 +91,7 @@ class ModalForm extends Component {
                                 {
                                     column.value.map((item, id) => (
                                         <React.Fragment key={id}>
-                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+                                            <input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value}/>
                                             <br />
                                         </React.Fragment>
                                     ))
@@ -103,7 +104,7 @@ class ModalForm extends Component {
                     return (
                         <tr key={index}>
                             <td>{column.name}</td>
-                            <td colSpan="2"><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} /></td>
+                            <td colSpan="2"><input onChange={(e) => this.handleChange(e, index)} type="text" value={column.value} disabled={column.name === 'id' ? this.state.isEdit : false}/></td>
                         </tr>
                     )
                 }
