@@ -77,7 +77,7 @@ export default class Helper {
 
     makeId() {
         let text = '';
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (let i = 0; i < 20; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
@@ -85,7 +85,7 @@ export default class Helper {
 
     makeNumberId() {
         let text = '';
-        let possible = "0123456789";
+        const possible = "0123456789";
         for (let i = 0; i < 9; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;

@@ -11,11 +11,9 @@ class TableRow extends Component {
         this.state = {
             modalIsOpen: false,
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.onSave = this.onSave.bind(this);
     }
 
-    handleChange(e, id) {
+    handleChange = (e, id) => {
         const target = e.target;
         this.setState((prevState) => {
             prevState.content[id].value = target.value;
@@ -23,21 +21,21 @@ class TableRow extends Component {
                 content: prevState.content
             }
         })
-    }
+    };
 
-    onSave(content) {
+    onSave = (content) => {
         this.props.onSave(content);
         this.setState({ content });
         this.closeModal();
-    }
+    };
 
     openModal() {
         this.setState({ modalIsOpen: true });
-    }
+    };
 
     closeModal() {
         this.setState({ modalIsOpen: false });
-    }
+    };
 
     getColumns() {
         return this.props.data.map((column, index) => {
@@ -61,7 +59,7 @@ class TableRow extends Component {
                 )
             }
         })
-    }
+    };
 
     render() {
         return (
