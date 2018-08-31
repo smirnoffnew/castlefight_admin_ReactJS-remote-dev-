@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import { withAlert } from "react-alert"
 import LevelTable from "../components/WavesTable";
 import ModalForm from "../components/WavesModal";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
-import { withAlert } from "react-alert"
+import Helper from "../helper";
 
 class TableContainer extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.helper = new Helper();
         this.state = {
             isLoaded: false,
             modalIsOpen: false,
@@ -19,48 +21,50 @@ class TableContainer extends Component {
     }
 
     onEdit = (content) => {
-        let send = false
+        let send = false;
         content.forEach((item) => {
             if (item.name === 'id') {
                 send = true
             }
-        })
+        });
         if (send) {
-            let output = {}
-            content.forEach((item, index) => {
+            let output = {};
+            content.forEach((item) => {
                 if (typeof item.value === 'object') {
-                    output[item.name] = {}
+                    output[item.name] = {};
                     item.value.forEach((item2, index2) => {
                         if (item.name === 'enemyIdsAndCount') {
                             output[item.name][index2 + 1] = { 'type': item2.name, 'count': item2.value }
                         } else {
-                            output[item.name][item2.name] = item2.value
+                            output[item.name][item2.name] = item2.value;
                         }
                     })
                 } else {
                     output[item.name] = item.value
                 }
-            })
+            });
             axios
                 .post(`/enemyWaves`, output)
                 .then(() => {
-                  this.props.alert.success("Successfully saved!")
-                  this.getData()
+                    this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
+                  this.getData();
                 })
-                .catch((error)=> {
-                    this.props.alert.error(error)
+                .catch(error => {
                     console.error(error);
                 });
         }
         else
             console.error('this entity can\'t be edit/save due to lack of id')
-    }
+    };
 
     removeRecord = (id) => {
         if (id)
             axios
                 .delete(`/enemyWaves/${id}`, {})
-                .then(() => this.getData())
+                .then(() => {
+                    this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully deleted!`);
+                    this.getData();
+                })
                 .catch(function (error) {
                     console.error(error);
                 });
@@ -69,7 +73,6 @@ class TableContainer extends Component {
     };
 
     getData = () => {
-        const slug = this.props.history.location.pathname.substr(1);
         axios
             .get('/enemyWaves')
             .then(response => {
@@ -79,7 +82,7 @@ class TableContainer extends Component {
                         data = data.map((value) => {
                             let output = [];
                             for (let item in value) {
-                                let val = value[item]
+                                let val = value[item];
                                 if (typeof val === 'object') {
                                     let outputObj = []
                                     for (let item in val) {
@@ -97,7 +100,7 @@ class TableContainer extends Component {
                         });
                         return {
                             isLoaded: true,
-                            entity: slug,
+                            entity: this.props.history.location.pathname.substr(1),
                             data,
                         };
                     });
@@ -105,28 +108,15 @@ class TableContainer extends Component {
             .catch(function (error) {
                 console.error(error);
             });
-    }
-
-    addEnemyWaves(data) {
-        axios
-            .post('/enemyWaves', data )
-            .then(() => {
-                this.props.alert.success("Successfully saved!")
-                this.closeModal();
-                this.getData();
-            })
-            .catch((err) => {
-                console.error('error', err)
-            })
-    }
+    };
 
     openModal = () => {
         this.setState({ modalIsOpen: true });
-    }
+    };
 
     closeModal = () => {
         this.setState({ modalIsOpen: false });
-    }
+    };
 
     componentDidMount() {
         this.getData();
@@ -134,7 +124,7 @@ class TableContainer extends Component {
 
     componentWillReceiveProps() {
         this.getData();
-    }
+    };
 
     render() {
         return (

@@ -116,4 +116,25 @@ export default class Helper {
         };
     }
 
+    getEntityNameByUrl(path) {
+        switch (path) {
+            case 'knights':
+                return 'knight';
+            case 'allies':
+                return 'ally';
+            case 'enemies':
+                return 'enemy';
+            case 'abilities':
+                return 'ability';
+            case 'levels':
+                return 'level';
+            case 'enemyWaves':
+                return 'enemy wave';
+            case 'settings':
+                return 'settings';
+            default:
+                return 'entity';
+        }
+    }
+
 }

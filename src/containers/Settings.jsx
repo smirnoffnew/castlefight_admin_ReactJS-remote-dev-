@@ -41,6 +41,7 @@ class TableContainer extends Component {
                 this.setState((prevState) => {
                     return {
                         ...prevState,
+                        entity: this.props.history.location.pathname.substr(1),
                         formData: {
                             initialFarmCount: response.data.initialFarmCount,
                             farmIndexAndOutputs : this.dataFormatterToDisplay( response.data.farmIndexAndOutputs ),
@@ -57,7 +58,7 @@ class TableContainer extends Component {
                     }
                 });
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.error(error);
             });
     };
@@ -74,8 +75,11 @@ class TableContainer extends Component {
                 }
             )
             .then(() => {
-              this.props.alert.success("Successfully saved!")
+              this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
               this.getData()
+            })
+            .catch((error) => {
+                console.error(error);
             });
     };
 

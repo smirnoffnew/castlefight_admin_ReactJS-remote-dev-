@@ -10,6 +10,7 @@ import { withAlert } from "react-alert"
 class TableContainer extends Component {
     constructor(props) {
         super(props);
+        this.helper = new Helper();
         this.state = {
             isLoaded: false,
             entity: '',
@@ -17,7 +18,6 @@ class TableContainer extends Component {
             rows: [],
             columns: ['Name', 'Components', 'Edit', 'Delete']
         };
-        this.helper = new Helper();
     }
 
     componentDidMount() {
@@ -44,11 +44,10 @@ class TableContainer extends Component {
         axios
             .delete(`/${entity}/${id}`, {})
             .then(() => {
-              this.props.alert.success("Successfully deleted!")
+              this.props.alert.success(`${this.helper.getEntityNameByUrl(entity)} Successfully deleted!`);
               this.getData()
             })
             .catch((error) => {
-              this.props.alert.error(error)
                 console.error(error);
             });
     };
@@ -84,15 +83,12 @@ class TableContainer extends Component {
                     abilities: componentsListResponse.data.map(componentName=>this.helper.getUniqueAbility(componentName))
                 }));
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.error(error);
             });
     };
 
-    getComponentsList = () => {
-        return axios.get('/components')
-    };
-
+    getComponentsList = () => axios.get('/components');
 
     render() {
         return (

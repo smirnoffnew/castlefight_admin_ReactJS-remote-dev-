@@ -1,3 +1,7 @@
+input[type="text"]:disabled {
+  background: #dddddd;
+}
+
 .App {
   text-align: center;
 }

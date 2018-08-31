@@ -7,6 +7,7 @@ import { withAlert } from "react-alert"
 class CharactersForm extends Component {
     constructor(props) {
         super(props);
+        this.helper = new Helper();
         this.state = {
             isEdit: this.props.isEdit,
             entity: this.props.entity,
@@ -14,7 +15,6 @@ class CharactersForm extends Component {
             name: this.props.name,
             components: this.props.components
         };
-        this.helper = new Helper();
     }
 
     componentDidMount() {
@@ -152,7 +152,7 @@ class CharactersForm extends Component {
                     ...nameOrIdObject
                 })
             .then(() => {
-                this.props.alert.success("Successfully saved!")
+                this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
                 this.props.getData();
                 this.props.closeModal();
             })

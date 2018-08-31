@@ -26,7 +26,6 @@ class App extends Component {
             <Router history={createBrowserHistory()}>
                 <div className="App">
                     <HeaderComponent />
-                    {/*<Sidebar/>*/}
                     <Switch>
                         <Route exact path="/(knights|allies|enemies|abilities)" component={Characters} />
                         <Route exact path="/levels" component={Levels} />

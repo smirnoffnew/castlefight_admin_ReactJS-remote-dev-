@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import { withAlert } from "react-alert"
 import LevelTable from "../components/LevelTable";
 import LevelsModalForm from "../components/LevelsModalForm";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
-import { withAlert } from "react-alert"
+import Helper from "../helper";
 
 class Levels extends Component {
     constructor(props) {
         super(props);
+        this.helper = new Helper();
         this.state = {
             isLoaded: false,
             modalIsOpen: false,
@@ -17,17 +19,11 @@ class Levels extends Component {
         };
     }
 
-    removeRecord = (id) => {
-        if (id)
-            axios
-                .delete(`/levels/${id}`, {})
-                .then(() => this.getData())
-                .catch(function (error) {
-                    console.error(error);
-                });
-        else
-            console.error('this entity can\'t be deleted due to lack of id')
-    };
+    getBackgrounds = () => axios.get('/levels/backgrounds/');
+
+    getCompanyActs = () => axios.get('/levels/companyActs/');
+
+    getLevels = () => axios.get('/levels');
 
     getData = () => {
         this.getLevels()
@@ -78,18 +74,28 @@ class Levels extends Component {
                         companyActs:companyActsResponse.data.map(ActsResponse=>({label:ActsResponse, value:ActsResponse}))
                     }
                 });
-                console.log('this.state', this.state);
             })
-            .catch(function (error) {
+            .catch( error => {
                 console.error(error);
             });
     };
 
-    getBackgrounds = () => axios.get('/levels/backgrounds/');
+    removeRecord = (id) => {
+        if (id)
+            axios
+                .delete(`/levels/${id}`, {})
+                .then(() => {
+                    this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully deleted!`);
+                    this.getData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        else
+            console.error('this entity can\'t be deleted due to lack of id')
+    };
 
-    getCompanyActs = () => axios.get('/levels/companyActs/');
 
-    getLevels = () => axios.get('/levels');
 
     addCycle = (content) => {
         let send = false;
@@ -119,10 +125,10 @@ class Levels extends Component {
             axios
                 .post(`/levels`, output)
                 .then(() => {
-                  this.props.alert.success("Successfully saved!")
+                    this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
                   this.getData()
                 })
-                .catch(function (error) {
+                .catch( error => {
                     console.error(error);
                 });
         }

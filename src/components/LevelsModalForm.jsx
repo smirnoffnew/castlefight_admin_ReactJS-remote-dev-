@@ -70,9 +70,6 @@ class LevelsModalForm extends Component {
     };
 
     getInputs() {
-      console.log('+++++++++++++++++++++', this.props);
-      console.log('*********************', this.props.values);
-      console.log('---------------------',this.state.isEdit);
         if (this.state.values)
             return this.state.values.map((column, index) => {
                 if (typeof column.value === 'object' && column.name !== 'enemyWaveIds') {
