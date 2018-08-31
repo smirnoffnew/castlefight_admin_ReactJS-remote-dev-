@@ -3,6 +3,7 @@ import LevelTable from "../components/WavesTable";
 import ModalForm from "../components/WavesModal";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
+import { withAlert } from "react-alert"
 
 class TableContainer extends Component {
     constructor(props) {
@@ -42,8 +43,12 @@ class TableContainer extends Component {
             })
             axios
                 .post(`/enemyWaves`, output)
-                .then(() => this.getData())
-                .catch(function (error) {
+                .then(() => {
+                  this.props.alert.success("Successfully saved!")
+                  this.getData()
+                })
+                .catch((error)=> {
+                    this.props.alert.error(error)
                     console.error(error);
                 });
         }
@@ -106,6 +111,7 @@ class TableContainer extends Component {
         axios
             .post('/enemyWaves', data )
             .then(() => {
+                this.props.alert.success("Successfully saved!")
                 this.closeModal();
                 this.getData();
             })
@@ -163,4 +169,4 @@ class TableContainer extends Component {
     }
 }
 
-export default TableContainer;
+export default withAlert(TableContainer);

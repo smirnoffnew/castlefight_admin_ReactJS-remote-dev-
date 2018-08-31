@@ -3,6 +3,7 @@ import LevelTable from "../components/LevelTable";
 import LevelsModalForm from "../components/LevelsModalForm";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
+import { withAlert } from "react-alert"
 
 class Levels extends Component {
     constructor(props) {
@@ -117,7 +118,10 @@ class Levels extends Component {
             });
             axios
                 .post(`/levels`, output)
-                .then(() => this.getData())
+                .then(() => {
+                  this.props.alert.success("Successfully saved!")
+                  this.getData()
+                })
                 .catch(function (error) {
                     console.error(error);
                 });
@@ -179,4 +183,4 @@ class Levels extends Component {
     }
 }
 
-export default Levels;
+export default withAlert(Levels);

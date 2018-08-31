@@ -4,6 +4,7 @@ import Loading from "../components/common/loading";
 import CharactersTable from "../components/CharactersTable";
 import Helper from "../helper";
 import axios from '../axiosBaseUrlConfig';
+import { withAlert } from "react-alert"
 
 
 class TableContainer extends Component {
@@ -42,8 +43,12 @@ class TableContainer extends Component {
     removeRecord = (entity, id) => {
         axios
             .delete(`/${entity}/${id}`, {})
-            .then(() => this.getData())
-            .catch(function (error) {
+            .then(() => {
+              this.props.alert.success("Successfully deleted!")
+              this.getData()
+            })
+            .catch((error) => {
+              this.props.alert.error(error)
                 console.error(error);
             });
     };
@@ -119,4 +124,4 @@ class TableContainer extends Component {
     };
 }
 
-export default TableContainer;
+export default withAlert(TableContainer);

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";
+import { withAlert } from "react-alert"
 
 class TableContainer extends Component {
     constructor(props) {
@@ -32,7 +33,6 @@ class TableContainer extends Component {
     componentWillReceiveProps() {
         this.getData();
     }
-
 
     getData = () => {
         axios
@@ -73,7 +73,10 @@ class TableContainer extends Component {
                     farmIndexAndPositions: this.dataFormatterToSave(this.state.formData.farmIndexAndPositions),
                 }
             )
-            .then(() => this.getData());
+            .then(() => {
+              this.props.alert.success("Successfully saved!")
+              this.getData()
+            });
     };
 
     resetData = () => {
@@ -84,7 +87,6 @@ class TableContainer extends Component {
             }
         })
     };
-
 
     dataFormatterToDisplay = (objectData) => {
         return Object.keys(objectData).map(key=>({
@@ -109,7 +111,6 @@ class TableContainer extends Component {
         });
         return objectData;
     };
-
 
     addInput = (arrayName, isValues) => {
         let newDataObject = {
@@ -178,7 +179,6 @@ class TableContainer extends Component {
             }
         })
     };
-
 
     renderCommonInputs = (arrayName, data) => {
         return data.map(item => (
@@ -321,4 +321,4 @@ class TableContainer extends Component {
     }
 }
 
-export default TableContainer;
+export default withAlert(TableContainer);

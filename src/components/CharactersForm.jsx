@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../helper";
 import axios from '../axiosBaseUrlConfig';
+import { withAlert } from "react-alert"
 
 class CharactersForm extends Component {
     constructor(props) {
@@ -151,6 +152,7 @@ class CharactersForm extends Component {
                     ...nameOrIdObject
                 })
             .then(() => {
+                this.props.alert.success("Successfully saved!")
                 this.props.getData();
                 this.props.closeModal();
             })
@@ -231,4 +233,4 @@ class CharactersForm extends Component {
     }
 }
 
-export default CharactersForm;
+export default withAlert(CharactersForm);

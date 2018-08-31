@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router';
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
 import HeaderComponent from "./components/common/header";
 import FooterComponent from "./components/common/footer";
 // import Sidebar from "./components/sidebar";
@@ -11,12 +14,19 @@ import Settings from "./containers/Settings";
 import NotFound from "./containers/NotFound";
 
 import createBrowserHistory from 'history/createBrowserHistory'
-
 import './App.css';
+
+const options = {
+  timeout: 5000,
+  position: "top right"
+};
+
+
 
 class App extends Component {
     render() {
         return (
+          <AlertProvider template={AlertTemplate} {...options}>
             <Router history={createBrowserHistory()}>
                 <div className="App">
                     <HeaderComponent />
@@ -32,6 +42,7 @@ class App extends Component {
                     <FooterComponent />
                 </div>
             </Router>
+          </AlertProvider>
         );
     }
 }
