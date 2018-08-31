@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router';
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-
 import HeaderComponent from "./components/common/header";
 import FooterComponent from "./components/common/footer";
-// import Sidebar from "./components/sidebar";
-
 import Characters from "./containers/Characters";
 import Levels from "./containers/Levels";
 import EnemyWaves from "./containers/EnemyWaves";
 import Settings from "./containers/Settings";
 import NotFound from "./containers/NotFound";
-
 import createBrowserHistory from 'history/createBrowserHistory'
 import './App.css';
 
