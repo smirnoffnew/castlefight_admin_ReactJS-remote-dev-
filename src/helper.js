@@ -70,7 +70,7 @@ export default class Helper {
                     "y": -5
                 },
                 "audioClipName": "adventure2_loop",
-                "enemyWaveIds": [1]
+                "enemyWaveIds": []
             }
         )
     }

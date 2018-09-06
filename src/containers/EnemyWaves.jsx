@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAlert } from "react-alert"
-import LevelTable from "../components/Waves/WavesTable";
+import WavesTable from "../components/Waves/WavesTable";
 import ModalForm from "../components/Waves/WavesModal";
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
@@ -138,7 +138,7 @@ class EnemyWaves extends Component {
                 {
                     this.state.isLoaded
                         ?
-                        <LevelTable
+                        <WavesTable
                             getData={this.getData}
                             content={this.state.data}
                             removeRecord={this.removeRecord}
