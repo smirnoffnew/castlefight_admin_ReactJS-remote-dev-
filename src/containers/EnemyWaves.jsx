@@ -30,19 +30,23 @@ class EnemyWaves extends Component {
         if (send) {
             let output = {};
             content.forEach((item) => {
-                if (typeof item.value === 'object') {
+				if (item.name === 'enemyIdsAndCount') {
+					let tempObj = {}
+					item.value.forEach((i, key) => {
+						tempObj[key] = {
+						type: i.name,
+						count: parseInt(i.value, 10) || 10,
+					}})
+					output[item.name] = tempObj
+				} else if (typeof item.value === 'object') {
                     output[item.name] = {};
                     item.value.forEach((item2, index2) => {
-                        if (item.name === 'enemyIdsAndCount') {
-                            output[item.name][index2 + 1] = { 'type': item2.name, 'count': item2.value }
-                        } else {
                             output[item.name][item2.name] = item2.value;
-                        }
                     })
                 } else {
                     output[item.name] = item.value
                 }
-            });
+			});
             axios
                 .post(`/enemyWaves`, output)
                 .then(() => {
@@ -151,7 +155,8 @@ class EnemyWaves extends Component {
                 <ModalForm
                     isOpen={this.state.modalIsOpen}
                     onSave={this.onEdit}
-                    closeModal={this.closeModal}
+					closeModal={this.closeModal}
+					data={this.state.data}
                     emptyWaves
                 />
             </div>
