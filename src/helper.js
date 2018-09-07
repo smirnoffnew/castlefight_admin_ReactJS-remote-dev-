@@ -5,7 +5,7 @@ export default class Helper {
 			temp = 1
 			data.forEach(column => {
 				column.forEach(item => {
-					if (item.name === 'id' && parseInt(item.value) && parseInt(item.value) > temp)
+					if (item.name === 'id' && parseInt(item.value, 10) && parseInt(item.value, 10) > temp)
 						temp = item.value
 				})
 			})

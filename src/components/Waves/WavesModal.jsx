@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Helper from "../../helper";
 import Modal from "react-modal";
+import Select from 'react-select';
+import Helper from "../../helper";
 
 const customStyles = {
 	content: {
@@ -60,6 +61,59 @@ class ModalForm extends Component {
 		})
 	};
 
+	handleChangeId(e, index, type, key) {
+		const value = typeof e === 'string' || typeof e === 'number' ? e : e.target.value;
+		if (type === 'id') {
+			console.log('value qwerqwer', value)
+			this.setState(prevState => {
+				let values = Object.keys(prevState.values[index].value).filter(item => item !== key)
+				let output = {}
+				values.forEach(item => output[item] = prevState.values[index].value[item])
+				output[value] = prevState.values[index].value[key]
+				prevState.values[index].value = output
+				return prevState
+			})
+		} else {
+			this.setState(prevState => {
+				Object.keys(prevState.values[index].value).map(item => {
+					if (item === key) {
+						prevState.values[index].value[key][type] = value
+					}
+				})
+				return prevState
+			})
+		}
+
+	}
+
+	handleAddWave(e, index) {
+		e.preventDefault()
+		this.setState(prevState => {
+			let biggest = 0
+			Object.keys(prevState.values[index].value).forEach(item => {
+				if (parseInt(item, 10) && parseInt(item, 10) > biggest)
+					biggest = parseInt(item, 10)
+			})
+			prevState.values[index].value[biggest + 1] = {
+				type: 'Week',
+				count: 10,
+			}
+			console.log('prevState', prevState)
+			return prevState
+		})
+	}
+
+	handleDelete(e, index, key) {
+		e.preventDefault()
+		this.setState(prevState => {
+			let values = Object.keys(prevState.values[index].value).filter(item => item !== key)
+			let output = {}
+			values.forEach(item => output[item] = prevState.values[index].value[item])
+			prevState.values[index].value = output
+			return prevState
+		})
+	}
+
 	getInputs() {
 		if (Array.isArray(this.state.values) && this.state.values.length > 0) {
 			return this.state.values.map((column, index) => {
@@ -69,16 +123,16 @@ class ModalForm extends Component {
 							<td>{column.name}</td>
 							<td>
 								{
-									column.value.map((item, id) => (
-										<label key={id}>{column.name === 'enemyWaveIds' ? null : (item.name + ': ')}</label>
+									Object.keys(column.value).map((key, id) => (
+										<label key={id}>{key === 'enemyWaveIds' ? null : (key + ': ')}</label>
 									))
 								}
 							</td>
 							<td>
 								{
-									column.value.map((item, id) => (
+									Object.keys(column.value).map((key, id) => (
 										<React.Fragment key={id}>
-											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={column.value[key]} />
 											<br />
 										</React.Fragment>
 									))
@@ -91,14 +145,54 @@ class ModalForm extends Component {
 						<tr key={index}>
 							<td>{column.name}</td>
 							<td colSpan="2">
+								<div className="AddWave-button">
+									<button onClick={(e) => this.handleAddWave(e, index)}>
+										add new
+									</button>
+								</div>
 								{
-									column.value.map((item, id) => (
-										<React.Fragment key={id}>
-											{id + ': '}
-											<input onChange={(e) => this.handleChange(e, index, id, 'name')} type="text" value={item.name} />
-											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
-											<br />
-										</React.Fragment>
+									Object.keys(column.value).map((key, id) => (
+										<div key={id} className="three-inputs">
+											<Select
+												className="select-3"
+												value={({
+													value: key,
+													label: key
+												})}
+												onChange={(e) => this.handleChangeId(e.value, index, 'id', key)}
+												options={this.props.enemies}
+											/>
+											<Select
+												className="select-3"
+												value={({
+													value: column.value[key].type,
+													label: column.value[key].type
+												})}
+												onChange={(e) => this.handleChangeId(e.value, index, 'type', key)}
+												options={[
+													{
+														value: 'Week',
+														label: 'Week'
+													},
+													{
+														value: 'Normal',
+														label: 'Normal'
+													},
+													{
+														value: 'Hard',
+														label: 'Hard'
+													},
+													{
+														value: 'Boss',
+														label: 'Boss'
+													},
+												]}
+											/>
+											<input onChange={(e) => this.handleChangeId(e, index, 'count', key)} type="text" value={column.value[key].count} />
+											<button onClick={(e) => this.handleDelete(e, index, key)}>
+												x
+											</button>
+										</div>
 									))
 								}
 							</td>

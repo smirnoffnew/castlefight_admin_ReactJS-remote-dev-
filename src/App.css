@@ -225,6 +225,16 @@ td input {
   margin: 10px;
 }
 
+.AddWave-button {
+  text-align: right;
+}
+
+.three-inputs input,
+.select-3 {
+  width: calc(100% / 3 - 20px);
+  display: inline-block;
+}
+
 button {
   text-align: center;
   margin: 5px;
