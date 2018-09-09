@@ -112,7 +112,12 @@ class CharactersContainer extends Component {
 
 							<AddButton
 								characterType={this.state.characterType}
-								newRecord={this.helper.getCharacterDefaultModel(this.state.characterType, 1+this.getMaxId())}
+								newRecord={
+									this.helper.getCharacterDefaultModel(
+										this.state.characterType,
+										1+this.getMaxId(),
+										this.state.defaultComponentsList
+									)}
                                 defaultComponentsList={this.state.defaultComponentsList}
 								getDataCallBack={this.getData}
 								saveFormCallBack={this.saveRecord}

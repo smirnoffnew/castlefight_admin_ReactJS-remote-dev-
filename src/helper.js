@@ -109,7 +109,7 @@ export default class Helper {
 		return text;
 	}
 
-	getCharacterDefaultModel(characterType, id){
+	getCharacterDefaultModel(characterType, id, components){
         switch (characterType) {
             case 'knight':
                 return {
@@ -128,7 +128,7 @@ export default class Helper {
 
                         "force" : 0.0
                     },
-                    "components" : []
+                    "components" : [this.getNewUniqueComponent(components[0].type)]
                 };
             case 'ally':
                 return  {
@@ -148,18 +148,18 @@ export default class Helper {
 
                         "force" : 0.0
                     },
-                    "components" : []
+                    "components" : [this.getNewUniqueComponent(components[0].type)]
                 };
             case 'enemy':
                 return {
                     "id" : id ? id :this.makeNumberId(),
                     "name" : this.makeRandomName(),
-                    "components" : []
+                    "components" : [this.getNewUniqueComponent(components[0].type)]
                 };
             case 'ability':
                 return {
                     "id" : id ? id :this.makeNumberId(),
-                    "components" : []
+                    "components" : [this.getNewUniqueComponent(components[0].type)]
 				};
             default:
                 return {};
