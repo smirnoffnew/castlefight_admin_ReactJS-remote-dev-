@@ -132,7 +132,7 @@ export default class Helper {
                 };
             case 'ally':
                 return  {
-                    "id" : this.makeNumberId,
+                    "id" : this.makeNumberId(),
                     "name" : this.makeRandomName(),
                     "projectileSettings" : {
                         "name" : this.makeRandomName(),
@@ -152,13 +152,13 @@ export default class Helper {
                 };
             case 'enemy':
                 return {
-                    "id" : this.makeNumberId,
+                    "id" : this.makeNumberId(),
                     "name" : this.makeRandomName(),
                     "components" : []
                 };
             case 'ability':
                 return {
-                    "id" : this.makeNumberId,
+                    "id" : this.makeNumberId(),
                     "components" : []
 				};
             default:
@@ -199,6 +199,8 @@ export default class Helper {
 		}
 	}
 
+
+
     getCharacterNameByUrl(path) {
 		switch (path) {
 			case '/knights':
@@ -219,6 +221,29 @@ export default class Helper {
 				return 'entity';
 		}
 	}
+
+    valuesToArray = (object) => {
+		return object
+		?
+		Object.keys(object).map(key => ({
+			uniqueId: this.makeId(),
+			nameInput: key,
+			valueInput: object[key]
+		}))
+		:
+		[]
+    };
+
+    valuesToObject = (array) => {
+		const values = Object.create(null);
+		return array
+		?
+		array.forEach( item => {
+			values[item.nameInput] = item.valueInput;
+		})
+		:
+		values
+    };
 
 }
 

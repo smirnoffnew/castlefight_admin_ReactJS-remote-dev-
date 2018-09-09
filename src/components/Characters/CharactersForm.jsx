@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../../helper";
-import axios from '../../axiosBaseUrlConfig';
 import { withAlert } from "react-alert"
 
 class CharactersForm extends Component {
@@ -21,14 +20,12 @@ class CharactersForm extends Component {
 		// console.log('this.components CharactersForm props', this.props.components);
 	}
 
-	formaterData = (components) => {
-		return components.map((item) => {
-			let values = {};
-			item.values.forEach((inputItem) => {
-				values[inputItem.nameInput] = inputItem.valueInput;
-			});
-			delete item.uniqueId;
-			return { ...item, values }
+	formatValuesInComponents = (components) => {
+		return components.map( item => {
+			return {
+				...item,
+				values: this.helper.valuesToObject(item.values)
+			}
 		});
 	};
 
@@ -181,26 +178,17 @@ class CharactersForm extends Component {
 		});
 	};
 
-	saveForm = (e) => {
-		e.preventDefault();
-		this.props.saveFormCallBack({
-            ...this.state.characterDataObject,
-            components: this.formaterData(this.state.characterDataObject.components)
-		});
-        this.props.closeModalCallBack();
-	};
-
-	changeNameValue = (value) => {
-		this.setState( prevState => {
-			return {
+    changeNameValue = (value) => {
+        this.setState( prevState => {
+            return {
                 ...prevState,
                 characterDataObject: {
                     ...prevState.characterDataObject,
-					name: value
+                    name: value
                 }
             }
-		});
-	};
+        });
+    };
 
     changeIdValue = (value) => {
         this.setState( prevState => {
@@ -214,8 +202,18 @@ class CharactersForm extends Component {
         });
     };
 
+    saveForm = (e) => {
+        e.preventDefault();
+        this.props.saveFormCallBack({
+            ...this.state.characterDataObject,
+            components: this.formatValuesInComponents(this.state.characterDataObject.components)
+        });
+        this.props.closeModalCallBack();
+    };
+
 
 	render() {
+		console.log('this.state.characterDataObject.id', this.state.characterDataObject.id);
 		return (
 			<div>
 				<form>

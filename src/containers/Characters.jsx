@@ -29,18 +29,6 @@ class CharactersContainer extends Component {
 		this.getData();
 	};
 
-	objectToArray = (objectData) => {
-		return objectData
-			?
-			Object.keys(objectData).map(key => ({
-				uniqueId: this.helper.makeId(),
-				nameInput: key,
-				valueInput: objectData[key]
-			}))
-			:
-			[]
-	};
-
 	removeRecord = (idOrName) => {
 		const characterType = this.props.history.location.pathname;
 		axios
@@ -81,7 +69,7 @@ class CharactersContainer extends Component {
 							return {
 								...item,
 								uniqueId: this.helper.makeId(),
-								values: this.objectToArray(item.values)
+								values: this.helper.valuesToArray(item.values)
 							}
 						}),
 					}

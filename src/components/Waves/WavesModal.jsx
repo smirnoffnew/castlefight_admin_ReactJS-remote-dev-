@@ -64,53 +64,51 @@ class ModalForm extends Component {
 	handleChangeId(e, index, type, key) {
 		const value = typeof e === 'string' || typeof e === 'number' ? e : e.target.value;
 		if (type === 'id') {
-			console.log('value qwerqwer', value)
 			this.setState(prevState => {
-				let values = Object.keys(prevState.values[index].value).filter(item => item !== key)
-				let output = {}
-				values.forEach(item => output[item] = prevState.values[index].value[item])
-				output[value] = prevState.values[index].value[key]
-				prevState.values[index].value = output
-				return prevState
+				let values = Object.keys(prevState.values[index].value).filter(item => item !== key);
+				let output = {};
+				values.forEach(item => output[item] = prevState.values[index].value[item]);
+				output[value] = prevState.values[index].value[key];
+				prevState.values[index].value = output;
+				return prevState;
 			})
 		} else {
-			this.setState(prevState => {
-				Object.keys(prevState.values[index].value).map(item => {
+			this.setState( prevState => {
+				Object.keys(prevState.values[index].value).map( item => {
 					if (item === key) {
 						prevState.values[index].value[key][type] = value
 					}
-				})
-				return prevState
+				});
+				return prevState;
 			})
 		}
 
 	}
 
 	handleAddWave(e, index) {
-		e.preventDefault()
+		e.preventDefault();
 		this.setState(prevState => {
-			let biggest = 0
+			let biggest = 0;
 			Object.keys(prevState.values[index].value).forEach(item => {
 				if (parseInt(item, 10) && parseInt(item, 10) > biggest)
 					biggest = parseInt(item, 10)
-			})
+			});
 			prevState.values[index].value[biggest + 1] = {
 				type: 'Week',
 				count: 10,
-			}
-			console.log('prevState', prevState)
-			return prevState
+			};
+			return prevState;
 		})
 	}
 
 	handleDelete(e, index, key) {
-		e.preventDefault()
+		e.preventDefault();
 		this.setState(prevState => {
-			let values = Object.keys(prevState.values[index].value).filter(item => item !== key)
-			let output = {}
-			values.forEach(item => output[item] = prevState.values[index].value[item])
-			prevState.values[index].value = output
-			return prevState
+			let values = Object.keys(prevState.values[index].value).filter(item => item !== key);
+			let output = {};
+			values.forEach(item => output[item] = prevState.values[index].value[item]);
+			prevState.values[index].value = output;
+			return prevState;
 		})
 	}
 
@@ -130,12 +128,16 @@ class ModalForm extends Component {
 							</td>
 							<td>
 								{
-									Object.keys(column.value).map((key, id) => (
-										<React.Fragment key={id}>
-											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={column.value[key]} />
+									Object.keys(column.value).map ((key, id) => {
+										return <React.Fragment key={id}>
+											<input onChange={(e) => this.handleChange(e, index, id, 'value')}
+												   type="text"
+												   value={column.value[key]} />
 											<br />
 										</React.Fragment>
-									))
+									})
+
+
 								}
 							</td>
 						</tr>
