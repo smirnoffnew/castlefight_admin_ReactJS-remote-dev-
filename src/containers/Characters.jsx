@@ -57,6 +57,17 @@ class CharactersContainer extends Component {
 			});
 	};
 
+    saveRecord = (record) => {
+        axios
+            .post(this.props.history.location.pathname, record)
+            .then(() => {
+                this.props
+                    .alert
+                    .success(`${this.helper.getCharacterNameByUrl(this.state.characterType)} Successfully saved!`);
+                this.props.getData();
+            })
+    };
+
 	getData = () => {
 		axios
 			.get(this.props.history.location.pathname)
@@ -108,6 +119,7 @@ class CharactersContainer extends Component {
 								newRecord={this.helper.getCharacterDefaultModel(this.state.characterType)}
                                 defaultComponentsList={this.state.defaultComponentsList}
 								getDataCallBack={this.getData}
+								saveFormCallBack={this.saveRecord}
 							/>
 							<CharactersTable
 								location={this.props.location.pathname}
@@ -117,6 +129,7 @@ class CharactersContainer extends Component {
 								rows={this.state.rows}
                                 getDataCallBack={this.getData}
 								removeRecordCallBack={this.removeRecord}
+								saveFormCallBack={this.saveRecord}
 							/>
 						</div>
 						:

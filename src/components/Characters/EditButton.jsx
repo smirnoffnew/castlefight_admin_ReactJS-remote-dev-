@@ -53,7 +53,8 @@ class EditButton extends Component {
                         characterDataObject={this.props.record}
                         defaultComponentsList={this.props.defaultComponentsList}
                         closeModalCallBack={this.toggleModal}
-                        getDataCallBack={this.props.getDataCallBack}/>
+                        getDataCallBack={this.props.getDataCallBack}
+                        saveFormCallBack={this.props.saveFormCallBack}/>
                 </Modal>
             </div>
         );

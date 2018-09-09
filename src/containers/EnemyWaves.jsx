@@ -35,7 +35,7 @@ class EnemyWaves extends Component {
 			axios
 				.post(`/enemyWaves`, output)
 				.then(() => {
-					this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
+					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
 					this.getData();
 				})
 				.catch(error => {
@@ -51,7 +51,7 @@ class EnemyWaves extends Component {
 			axios
 				.delete(`/enemyWaves/${id}`, {})
 				.then(() => {
-					this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully deleted!`);
+					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`);
 					this.getData();
 				})
 				.catch(function (error) {

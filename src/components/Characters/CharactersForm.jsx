@@ -183,20 +183,11 @@ class CharactersForm extends Component {
 
 	saveForm = (e) => {
 		e.preventDefault();
-		const nameOrIdObject = {};
-		const nameProperty = this.state.entity === 'knight' ? 'name' : 'id';
-		nameOrIdObject[nameProperty] = this.state.entity === 'knight' ? this.state.name : this.state.id;
-		axios
-			.post(this.state.entity,
-				{
-					"components": this.formaterData(this.state.components),
-					...nameOrIdObject
-				})
-			.then(() => {
-				this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
-				this.props.getData();
-				this.props.closeModal();
-			})
+		this.props.saveFormCallBack({
+            ...this.state.characterDataObject,
+            components: this.formaterData(this.state.characterDataObject.components)
+		});
+        this.props.closeModalCallBack();
 	};
 
 	changeNameValue = (value) => {

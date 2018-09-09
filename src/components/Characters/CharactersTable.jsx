@@ -76,7 +76,8 @@ class CharactersTable extends Component {
                                             characterType={this.props.characterType}
 											record={row}
                                             defaultComponentsList={this.props.defaultComponentsList}
-                                            getDataCallBack={this.props.getDataCallBack} />
+                                            getDataCallBack={this.props.getDataCallBack}
+											saveFormCallBack={this.props.saveFormCallBack}/>
 									</td>
 									<td className="center-btn-align2">
 										<button className="delete-btn"

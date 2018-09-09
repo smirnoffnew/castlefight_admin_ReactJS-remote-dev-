@@ -98,7 +98,7 @@ class Levels extends Component {
 			axios
 				.delete(`/levels/${id}`, {})
 				.then(() => {
-					this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully deleted!`);
+					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`);
 					this.getData();
 				})
 				.catch((error) => {
@@ -140,7 +140,7 @@ class Levels extends Component {
 			axios
 				.post(`/levels`, output)
 				.then(() => {
-					this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
+					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
 					this.getData()
 				})
 				.catch(error => {

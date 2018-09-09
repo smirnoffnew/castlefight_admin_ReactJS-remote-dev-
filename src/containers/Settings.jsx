@@ -75,7 +75,7 @@ class TableContainer extends Component {
                 }
             )
             .then(() => {
-              this.props.alert.success(`${this.helper.getEntityNameByUrl(this.state.entity)} Successfully saved!`);
+              this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
               this.getData()
             })
             .catch((error) => {
