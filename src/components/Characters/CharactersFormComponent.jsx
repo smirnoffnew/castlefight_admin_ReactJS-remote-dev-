@@ -14,17 +14,17 @@ class CharactersFormComponent extends Component {
 		return (
 			<div>
 				<div className="remove-component">
-					<button type="reset" onClick={this.props.deleteComponent} >delete select</button>
+					<button type="reset" onClick={this.props.deleteComponentCallBack}>delete select</button>
 				</div>
 
 				<div className="select-container">
 					<Select
 						value={({
-							value: this.props.data.type,
-							label: this.props.data.type.split('.')[this.props.data.type.split('.').length - 1]
+							value: this.props.component.type,
+							label: this.props.component.type.split('.')[this.props.component.type.split('.').length - 1]
 						})}
 						onChange={this.onSelectChange}
-						options={this.props.abilities.map((item) => ({
+						options={this.props.defaultComponentsList.map( item => ({
 							label: item.type.split('.')[item.type.split('.').length - 1],
 							value: item.type
 						}))}
@@ -37,26 +37,40 @@ class CharactersFormComponent extends Component {
 						<input
 							type="text"
 							id="defaultValue"
-							value={this.props.data.defaultValue || 10}
-							onChange={(e) => this.props.changeDefaultValue(this.props.data.uniqueId, e)}
+							value={this.props.component.defaultValue || 10}
+							onChange={e => this.props.changeDefaultValueCallBack(
+										this.props.component.uniqueId,
+										e.target.value
+									)}
 						/>
 					</div>
 					{
-						this.props.data.values.map((item, key) => (
+						this.props.component.values.map((item, key) => (
 							<div key={key} className="new-inputs-container">
 								<input
 									type="text"
 									value={item.nameInput}
-									onChange={(e) => this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'name')}
+									onChange={e => this.props.changeValueInputCallBack(
+												this.props.component.uniqueId,
+												item.uniqueId,
+												e.target.value,
+												'name'
+										     )}
 								/>
 								<input
 									type="text"
 									value={item.valueInput}
-									onChange={(e) => this.props.changeValueInput(this.props.data.uniqueId, item.uniqueId, e, 'value')}
+									onChange={(e) => this.props.changeValueInputCallBack(
+												this.props.component.uniqueId,
+												item.uniqueId,
+												e.target.value,
+												'value'
+											  )}
 								/>
 								<button
 									type="reset"
-									onClick={() => this.props.deleteValueInput(this.props.data.uniqueId, item.uniqueId)}>
+									onClick={
+										() => this.props.deleteValueInputCallBack(this.props.component.uniqueId, item.uniqueId)}>
 									delete prop
                                 </button>
 							</div>
@@ -65,7 +79,10 @@ class CharactersFormComponent extends Component {
 				</div>
 
 				<div className="add-new-input-btn-container">
-					<button type="reset" onClick={() => this.props.addValueInput(this.props.data.uniqueId)}>+1</button>
+					<button type="reset"
+							onClick={() => this.props.addValueInputCallBack(this.props.component.uniqueId)}>
+						+1
+					</button>
 				</div>
 				<hr />
 			</div>

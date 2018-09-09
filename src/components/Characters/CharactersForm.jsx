@@ -10,11 +10,9 @@ class CharactersForm extends Component {
 		this.helper = new Helper();
 		this.state = {
 			isEdit: this.props.isEdit,
-			entity: this.props.entity,
-			abilities: this.props.abilities,
-			name: this.props.name,
-            id: this.props.id,
-			components: this.props.components
+            characterType: this.props.characterType,
+            characterDataObject: this.props.characterDataObject,
+            defaultComponentsList: this.props.defaultComponentsList,
 		};
 	}
 
@@ -35,72 +33,88 @@ class CharactersForm extends Component {
 	};
 
 	addNewComponent = () => {
-		this.setState((prevState) => {
+		this.setState( prevState => {
 			return {
 				...prevState,
-				components: [
-					...prevState.components,
-					this.helper.getUniqueAbility(this.state.abilities[0].type)
-				]
+                characterDataObject: {
+					...prevState.characterDataObject,
+                    components: [
+                        ...prevState.characterDataObject.components,
+                        this.helper.getNewUniqueComponent(this.state.defaultComponentsList[0].type)
+                    ]
+				}
 			}
-		}
-		);
+		});
 	};
 
 	deleteComponent = (componentId) => {
 		this.setState((prevState) => {
 			return {
-				components: [...prevState.components.filter(item => item.uniqueId !== componentId)]
+                ...prevState,
+                characterDataObject: {
+					...prevState.characterDataObject,
+                    components: [
+                    	...prevState.characterDataObject.components.filter( item => item.uniqueId !== componentId)
+					]
+				}
 			}
 		});
 	};
 
 	onSelectComponent = (componentId, selectedValue) => {
-		this.setState((prevState) => {
+		this.setState( prevState => {
 			return {
 				...prevState,
-				components: [
-					...prevState.components.map(
-						item => item.uniqueId === componentId
+                characterDataObject: {
+					...prevState.characterDataObject,
+                    components: [
+                        ...prevState.characterDataObject.components.map(
+                            item => item.uniqueId === componentId
 							?
-							this.helper.getUniqueAbility(selectedValue)
+							this.helper.getNewUniqueComponent(selectedValue)
 							:
 							item
-					)
-				]
+                        )
+                    ]
+				},
+
 			}
 		})
 	};
 
 	addValueInput = (componentId) => {
-		this.setState((prevState) => {
+		this.setState( prevState => {
 			return {
-				components: [...prevState.components.map((component) =>
-					component.uniqueId === componentId
-						?
-						{
-							...component,
-							values: [
-								...component.values,
-								{
-									nameInput: component.values.length > 1 ? Number(component.values[component.values.length - 1].nameInput) + 1 : 1,
-									valueInput: 10,
-									uniqueId: this.helper.makeId()
-								}
-							]
-						}
-						:
-						component
-				)]
+				...prevState,
+                characterDataObject: {
+					...prevState.characterDataObject,
+                    components: [...prevState.characterDataObject.components.map( component =>
+                        component.uniqueId === componentId
+                            ?
+                            {
+                                ...component,
+                                values: [
+                                    ...component.values,
+									this.helper.getNewUniqueComponentInput(component.values)
+                                ]
+                            }
+                            :
+                            component
+                    )]
+				}
+
 			}
 		});
 	};
 
 	deleteValueInput = (componentId, inputId) => {
-		this.setState((prevState) => {
+		this.setState( prevState => {
 			return {
-				components: [...prevState.components.map((item) =>
-					item.uniqueId === componentId
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    components: [...prevState.characterDataObject.components.map( item =>
+                        item.uniqueId === componentId
 						?
 						{
 							...item,
@@ -108,69 +122,61 @@ class CharactersForm extends Component {
 						}
 						:
 						item
-				)]
+                    )]
+                }
 			}
 		});
 	};
 
-	changeValueInput = (componentId, inputId, e, param) => {
-		let eventTargetValue = e.target.value;
-		this.setState((prevState) => {
+	changeValueInput = (componentId, inputId, value, param) => {
+		this.setState( prevState => {
 			return {
-				components: [...prevState.components.map((component) => {
-					if (component.uniqueId === componentId) {
-						let valueObject = {};
-						valueObject[`${param}Input`] = eventTargetValue;
-						return {
-							...component,
-							values: component.values.map(inputItem => (
-								inputItem.uniqueId === inputId
-									?
-									{
-										...inputItem,
-										...valueObject
-									}
-									:
-									inputItem
-							)),
-						}
-					} else {
-						return component;
-					}
-				})]
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    components: [...prevState.characterDataObject.components.map( component => {
+                        if (component.uniqueId === componentId) {
+                            let valueObject = {};
+                            valueObject[`${param}Input`] = value;
+                            return {
+                                ...component,
+                                values: component.values.map(inputItem => (
+                                    inputItem.uniqueId === inputId
+                                        ?
+                                        {
+                                            ...inputItem,
+                                            ...valueObject
+                                        }
+                                        :
+                                        inputItem
+                                )),
+                            }
+                        } else {
+                            return component;
+                        }
+                    })]
+                }
 			}
 		});
 	};
 
-	changeDefaultValue = (componentId, e) => {
-		let eventTargetValue = e.target.value;
-		console.log('componentId', componentId)
-		console.log('eventTargetValue', eventTargetValue)
-		this.setState((prevState) => {
-			console.log('prevState', prevState)
-			console.log('new prevState', {
-				components: [...prevState.components.map((component) => {
-					if (component.uniqueId === componentId) {
-						return {
-							...component,
-							defaultValue: eventTargetValue,
-						}
-					} else {
-						return component;
-					}
-				})]
-			})
+	changeDefaultValue = (componentId, value) => {
+		this.setState( prevState => {
 			return {
-				components: [...prevState.components.map((component) => {
-					if (component.uniqueId === componentId) {
-						return {
-							...component,
-							defaultValue: eventTargetValue,
-						}
-					} else {
-						return component;
-					}
-				})]
+				...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    components: [...prevState.characterDataObject.components.map( component => {
+                        if (component.uniqueId === componentId) {
+                            return {
+                                ...component,
+                                defaultValue: value,
+                            }
+                        } else {
+                            return component;
+                        }
+                    })]
+                }
 			}
 		});
 	};
@@ -193,35 +199,44 @@ class CharactersForm extends Component {
 			})
 	};
 
-	changeNameValue = (e) => {
-		let value = e.target.value;
-		this.setState(prevState => (
-			{
-				...prevState,
-				name: value
-			}
-		));
+	changeNameValue = (value) => {
+		this.setState( prevState => {
+			return {
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+					name: value
+                }
+            }
+		});
 	};
 
-    changeIdValue = (e) => {
-        let value = e.target.value;
-        this.setState(prevState => (
-            {
+    changeIdValue = (value) => {
+        this.setState( prevState => {
+            return {
                 ...prevState,
-                id: value
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    id: value
+                }
             }
-        ));
+        });
     };
 
 
 	render() {
+		console.log('this.state.characterType', this.state.characterType);
 		return (
 
 			<div>
 				<form>
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title">Form</h5>
+							<h5 className="modal-title">
+								{this.state.isEdit ? 'Edit' : 'Create'}
+								&nbsp;
+								{this.state.characterType}
+							</h5>
 						</div>
 						<div className="modal-body">
 							<button
@@ -232,44 +247,50 @@ class CharactersForm extends Component {
 							<hr />
 
 							{
-                                this.props.entity !== 'knight'
+                                this.props.characterType === 'knight'
 								?
-                                <div className="name-input-container new-inputs-container">
-                                    <label style={{ 'marginRight': '15px' }}>id:</label>
-                                    <input
-                                        disabled={this.state.isEdit}
-                                        type="text"
-                                        value={this.state.id}
-                                        onChange={(e) => this.changeIdValue(e)}
-                                    />
-                                </div>
-								:
 								null
+								:
+                                <div className="name-input-container new-inputs-container">
+									<label style={{ 'marginRight': '15px' }}>id:</label>
+									<input
+										disabled={this.state.isEdit}
+										type="text"
+										value={this.state.characterDataObject.id}
+										onChange={ e => this.changeIdValue(e.target.value)}
+									/>
+                                </div>
                             }
 
-                            <div className="name-input-container new-inputs-container">
-                                <label style={{ 'marginRight': '15px' }}>Name:</label>
-                                <input
-                                    disabled={this.state.isEdit}
-                                    type="text"
-                                    value={this.state.name}
-                                    onChange={(e) => this.changeNameValue(e)}
-                                />
-                            </div>
+							{
+                                this.props.characterType === 'ability'
+								?
+								null
+								:
+								<div className="name-input-container new-inputs-container">
+									<label style={{ 'marginRight': '15px' }}>Name:</label>
+									<input
+										disabled={this.state.isEdit}
+										type="text"
+										value={this.state.characterDataObject.name}
+										onChange={ e => this.changeNameValue(e.target.value)}
+									/>
+								</div>
+							}
 
 							<hr />
 							{
-								this.state.components.map((item) =>
+								this.state.characterDataObject.components.map( item =>
 									<CharactersFormComponent
 										key={item.uniqueId}
-										data={item}
-										abilities={this.state.abilities}
-										deleteComponent={() => this.deleteComponent(item.uniqueId)}
-										onSelectComponent={this.onSelectComponent}
-										addValueInput={() => this.addValueInput(item.uniqueId)}
-										deleteValueInput={this.deleteValueInput}
-										changeValueInput={this.changeValueInput}
-										changeDefaultValue={this.changeDefaultValue}
+										component={item}
+										defaultComponentsList={this.state.defaultComponentsList}
+										deleteComponentCallBack={() => this.deleteComponent(item.uniqueId)}
+										addValueInputCallBack={() => this.addValueInput(item.uniqueId)}
+										onSelectComponentCallBack={this.onSelectComponent}
+										deleteValueInputCallBack={this.deleteValueInput}
+										changeValueInputCallBack={this.changeValueInput}
+										changeDefaultValueCallBack={this.changeDefaultValue}
 									/>
 								)
 							}
@@ -285,7 +306,7 @@ class CharactersForm extends Component {
 								type="reset"
 								className="btn btn-close"
 								data-dismiss="modal"
-								onClick={this.props.closeModal}>
+								onClick={this.props.closeModalCallBack}>
 								Close
                             </button>
 						</div>

@@ -3,6 +3,19 @@ import EditButton from "./EditButton";
 import deleteIcon from "../../assets/images/de.png";
 
 class CharactersTable extends Component {
+
+	sortById = () =>{
+       return this.props.rows.sort((prev, next)=>{
+           if (prev.id > next.id) {
+               return 1;
+           }
+           if (prev.id < next.id) {
+               return -1;
+           }
+           return 0;
+	   })
+	};
+
 	render() {
 		return (
 			<div className="table-container">
@@ -29,7 +42,7 @@ class CharactersTable extends Component {
 					</thead>
 					<tbody>
 						{
-							this.props.rows.map((row, key) => (
+							(this.props.characterType === 'knight' ? this.props.rows : this.sortById() ).map((row, key) => (
 								<tr key={key}>
 									{
 

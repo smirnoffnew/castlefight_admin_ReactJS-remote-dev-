@@ -103,9 +103,9 @@ class CharactersContainer extends Component {
 						<div>
 
 							<AddButton
+								characterType={this.state.characterType}
+								newRecord={this.helper.getCharacterDefaultModel(this.state.characterType)}
                                 defaultComponentsList={this.state.defaultComponentsList}
-                                characterType={this.state.characterType}
-								record={this.helper.getCharacterDefaultModel(this.state.characterType)}
 								getDataCallBack={this.getData}
 							/>
 							<CharactersTable

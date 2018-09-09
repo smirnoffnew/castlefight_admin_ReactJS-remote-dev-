@@ -22,9 +22,6 @@ class AddButton extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            characterType: this.props.characterType,
-            newRecord: this.props.newRecord,
-            defaultComponentsList: this.props.defaultComponentsList
         };
 
     }
@@ -54,14 +51,13 @@ class AddButton extends Component {
                 <Modal  isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles}
-                        contentLabel={this.state.label}
                         ariaHideApp={false}>
 
                     <CharactersForm
                         isEdit={false}
                         characterType={this.props.characterType}
-                        characterDataObject={this.state.newRecord}
-                        defaultComponentsList={this.state.defaultComponentsList}
+                        characterDataObject={this.props.newRecord}
+                        defaultComponentsList={this.props.defaultComponentsList}
                         closeModalCallBack={this.toggleModal}
                         getDataCallBack={this.props.getDataCallBack}/>
                 </Modal>

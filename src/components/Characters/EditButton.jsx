@@ -20,9 +20,6 @@ class EditButton extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            characterType: this.props.characterType,
-            record: this.props.record,
-            defaultComponentsList: this.props.defaultComponentsList
         };
     }
 
@@ -48,14 +45,13 @@ class EditButton extends Component {
                 <Modal  isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles}
-                        contentLabel={this.state.characterType}
                         ariaHideApp={false}>
 
                     <CharactersForm
                         isEdit={true}
-                        characterType={this.state.characterType}
-                        characterDataObject={this.state.record}
-                        defaultComponentsList={this.state.defaultComponentsList}
+                        characterType={this.props.characterType}
+                        characterDataObject={this.props.record}
+                        defaultComponentsList={this.props.defaultComponentsList}
                         closeModalCallBack={this.toggleModal}
                         getDataCallBack={this.props.getDataCallBack}/>
                 </Modal>
