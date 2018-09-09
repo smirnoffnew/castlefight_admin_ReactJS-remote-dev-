@@ -236,13 +236,11 @@ export default class Helper {
 
     valuesToObject = (array) => {
 		const values = Object.create(null);
-		return array
-		?
-		array.forEach( item => {
-			values[item.nameInput] = item.valueInput;
-		})
-		:
-		values
+		if (array)
+			array.forEach( item => {
+				values[item.nameInput] = item.valueInput;
+			});
+		return 	values;
     };
 
 }

@@ -17,6 +17,7 @@ class CharactersTable extends Component {
 	};
 
 	render() {
+		console.log('this.props.rows', this.props.rows);
 		return (
 			<div className="table-container">
 				<table className="table table-bordered table-hover" width="100%">
