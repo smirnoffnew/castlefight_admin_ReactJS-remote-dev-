@@ -10,16 +10,21 @@ class CharactersTable extends Component {
 					<thead>
 						<tr>
 							{
-								this.props.withId ?
-									<th>id</th>
-									:
-									null
-							}
-							{this.props.columns.map((column, key) => (this.props.location !== '/abilities' || column !== 'Name' ?
-								<th key={key}>{column}</th>
-								:
+								this.props.characterType === 'knight'
+								?
 								null
-							))}
+								:
+								<th>id</th>
+                            }
+							{
+								this.props.columns.map((column, key) => (
+									this.props.location === '/abilities' && column === 'Name'
+									?
+									null
+									:
+									<th key={key}>{column}</th>
+								))
+							}
 						</tr>
 					</thead>
 					<tbody>
@@ -27,16 +32,19 @@ class CharactersTable extends Component {
 							this.props.rows.map((row, key) => (
 								<tr key={key}>
 									{
-										this.props.withId ?
-											<td>{row.id}</td>
-											:
-											null
+
+                                        this.props.characterType === 'knight'
+                                        ?
+										null
+										:
+										<td>{row.id}</td>
 									}
 									{
-										this.props.location !== '/abilities' ?
-											<td>{row.name}</td>
-											:
-											null
+                                        this.props.location === '/abilities' && column === 'Name'
+										?
+										null
+										:
+                                        <td>{row.name}</td>
 									}
 									<td>
 										{
@@ -51,17 +59,16 @@ class CharactersTable extends Component {
 									</td>
 									<td className="center-btn-align">
 										<EditButton
-											entity={this.props.entity}
+                                            characterType={this.props.characterType}
 											record={row}
-											abilities={this.props.abilities}
-											getData={this.props.getData} />
+                                            defaultComponentsList={this.props.defaultComponentsList}
+                                            getDataCallBack={this.props.getDataCallBack} />
 									</td>
 									<td className="center-btn-align2">
 										<button className="delete-btn"
-											onClick={
-												() => this.props.removeRecord(
-													this.props.entity,
-													this.props.entity === 'knights' ? row.name : row.id)
+											onClick={() => this.props.removeRecordCallBack(
+													this.props.characterType,
+													this.props.characterType === 'knight' ? row.name : row.id)
 											}>
 											<img src={deleteIcon} alt="Delete" className="delete-btn-icon" />
 										</button>

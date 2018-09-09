@@ -20,8 +20,9 @@ class EditButton extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
+            characterType: this.props.characterType,
             record: this.props.record,
-            abilities: this.props.abilities
+            defaultComponentsList: this.props.defaultComponentsList
         };
     }
 
@@ -36,28 +37,30 @@ class EditButton extends Component {
     render() {
         return (
             <div>
-                <button className={`edit-btn`} onClick={this.toggleModal}>
+                <button className={`edit-btn`}
+                        onClick={this.toggleModal}>
+
                     <img src={editIconPath}
                          className={'edit-btn-icon'}
                          alt="Edit"/>
+
+                    <span>Edit</span>
                 </button>
+
                 <Modal  isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         style={customStyles}
-                        contentLabel={this.state.label}
+                        contentLabel={this.state.characterType}
                         ariaHideApp={false}>
 
                     <CharactersForm
                         isEdit={true}
-                        entity={this.props.entity}
-                        abilities={this.state.abilities}
-                        name={this.state.record.name}
-                        components={this.state.record.components}
-                        closeModal={this.toggleModal}
-                        getData={this.props.getData}/>
-
+                        characterType={this.state.characterType}
+                        characterDataObject={this.state.record}
+                        defaultComponentsList={this.state.defaultComponentsList}
+                        closeModalCallBack={this.toggleModal}
+                        getDataCallBack={this.props.getDataCallBack}/>
                 </Modal>
-
             </div>
         );
     }

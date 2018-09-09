@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Modal from "react-modal";
 import CharactersForm from "./CharactersForm";
-import Helper from "../../helper";
 import addIcon from "../../assets/images/icon-add.png";
 import '../../App.css';
 
@@ -22,11 +21,12 @@ class AddButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            entity: this.props.entity,
             modalIsOpen: false,
-            abilities: this.props.abilities
+            characterType: this.props.characterType,
+            newRecord: this.props.newRecord,
+            defaultComponentsList: this.props.defaultComponentsList
         };
-        this.helper = new Helper();
+
     }
 
     toggleModal = () => {
@@ -41,26 +41,29 @@ class AddButton extends Component {
         return (
             <div className="add-btn-container col-50">
 
-                <button className="add-btn" onClick={this.toggleModal}>
-                    <img src={addIcon} className="add-btn-icon" alt="Add"/>
+                <button className="add-btn"
+                        onClick={this.toggleModal}>
+
+                    <img src={addIcon}
+                         className="add-btn-icon"
+                         alt="Add"/>
+
                     <span>Add</span>
                 </button>
 
-                <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    style={customStyles}
-                    contentLabel={this.state.label}
-                    ariaHideApp={false}
-                >
+                <Modal  isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        style={customStyles}
+                        contentLabel={this.state.label}
+                        ariaHideApp={false}>
+
                     <CharactersForm
                         isEdit={false}
-                        entity={this.props.entity}
-                        abilities={this.state.abilities}
-                        name={this.props.entity === 'abilities'? this.helper.makeNumberId() : this.helper.makeId()}
-                        components={[this.helper.getUniqueAbility(this.state.abilities[0].type)]}
-                        closeModal={this.toggleModal}
-                        getData={this.props.getData}/>
+                        characterType={this.props.characterType}
+                        characterDataObject={this.state.newRecord}
+                        defaultComponentsList={this.state.defaultComponentsList}
+                        closeModalCallBack={this.toggleModal}
+                        getDataCallBack={this.props.getDataCallBack}/>
                 </Modal>
             </div>
         );

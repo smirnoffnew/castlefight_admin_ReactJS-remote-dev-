@@ -13,6 +13,7 @@ class CharactersForm extends Component {
 			entity: this.props.entity,
 			abilities: this.props.abilities,
 			name: this.props.name,
+            id: this.props.id,
 			components: this.props.components
 		};
 	}
@@ -172,13 +173,13 @@ class CharactersForm extends Component {
 				})]
 			}
 		});
-	}
+	};
 
 	saveForm = (e) => {
 		e.preventDefault();
 		const nameOrIdObject = {};
-		const nameProperty = this.state.entity === 'abilities' ? 'id' : 'name';
-		nameOrIdObject[nameProperty] = this.state.name;
+		const nameProperty = this.state.entity === 'knight' ? 'name' : 'id';
+		nameOrIdObject[nameProperty] = this.state.entity === 'knight' ? this.state.name : this.state.id;
 		axios
 			.post(this.state.entity,
 				{
@@ -202,6 +203,16 @@ class CharactersForm extends Component {
 		));
 	};
 
+    changeIdValue = (e) => {
+        let value = e.target.value;
+        this.setState(prevState => (
+            {
+                ...prevState,
+                id: value
+            }
+        ));
+    };
+
 
 	render() {
 		return (
@@ -220,15 +231,32 @@ class CharactersForm extends Component {
                             </button>
 							<hr />
 
-							<div className="name-input-container new-inputs-container">
-								<label style={{ 'marginRight': '15px' }}>Name:</label>
-								<input
-									disabled={this.state.isEdit}
-									type="text"
-									value={this.state.name}
-									onChange={(e) => this.changeNameValue(e)}
-								/>
-							</div>
+							{
+                                this.props.entity !== 'knight'
+								?
+                                <div className="name-input-container new-inputs-container">
+                                    <label style={{ 'marginRight': '15px' }}>id:</label>
+                                    <input
+                                        disabled={this.state.isEdit}
+                                        type="text"
+                                        value={this.state.id}
+                                        onChange={(e) => this.changeIdValue(e)}
+                                    />
+                                </div>
+								:
+								null
+                            }
+
+                            <div className="name-input-container new-inputs-container">
+                                <label style={{ 'marginRight': '15px' }}>Name:</label>
+                                <input
+                                    disabled={this.state.isEdit}
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={(e) => this.changeNameValue(e)}
+                                />
+                            </div>
+
 							<hr />
 							{
 								this.state.components.map((item) =>

@@ -7,18 +7,17 @@ import axios from '../axiosBaseUrlConfig';
 import { withAlert } from "react-alert"
 
 
-class TableContainer extends Component {
+class CharactersContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.helper = new Helper();
 		this.state = {
 			isLoaded: false,
-			entity: '',
-			abilities: [],
+			characterType: '',
+			defaultComponentsList: [],
 			rows: [],
 			columns: ['Name', 'Components', 'Edit', 'Delete']
 		};
-		console.log('porps', props)
 	}
 
 	componentDidMount() {
@@ -41,11 +40,11 @@ class TableContainer extends Component {
 			[]
 	};
 
-	removeRecord = (entity, id) => {
+	removeRecord = (characterType, idOrName) => {
 		axios
-			.delete(`/${entity}/${id}`, {})
+			.delete(`/${characterType}/${idOrName}`, {})
 			.then(() => {
-				this.props.alert.success(`${this.helper.getEntityNameByUrl(entity)} Successfully deleted!`);
+				this.props.alert.success(`${idOrName} ${this.helper.getCharacterNameByUrl(characterType)} Successfully deleted!`);
 				this.getData()
 			})
 			.catch((error) => {
@@ -59,10 +58,11 @@ class TableContainer extends Component {
 			.then(response => {
 				this.setState((prevState) => ({
 					...prevState,
-					entity: this.props.history.location.pathname.substr(1),
+                    characterType: this.helper.getCharacterNameByUrl(this.props.history.location.pathname),
 					rows: response.data.map(entityItem => (
 						{
 							...entityItem,
+                            uniqueId: this.helper.makeId(),
 							components: entityItem.components.map(item => {
 								return {
 									...item,
@@ -70,8 +70,6 @@ class TableContainer extends Component {
 									values: this.objectToArray(item.values)
 								}
 							}),
-							uniqueId: this.helper.makeId(),
-							name: this.props.history.location.pathname === '/abilities' ? entityItem.id : entityItem.name,
 						}
 					)),
 				}));
@@ -81,7 +79,7 @@ class TableContainer extends Component {
 				this.setState((prevState) => ({
 					...prevState,
 					isLoaded: true,
-					abilities: componentsListResponse.data.map(componentName => this.helper.getUniqueAbility(componentName))
+					defaultComponentsList: componentsListResponse.data.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
 			})
 			.catch(error => {
@@ -100,19 +98,19 @@ class TableContainer extends Component {
 						?
 						<div>
 							<AddButton
-								abilities={this.state.abilities}
-								entity={this.state.entity}
-								getData={this.getData}
+                                defaultComponentsList={this.state.defaultComponentsList}
+                                characterType={this.state.characterType}
+								record={this.helper.getCharacterDefaultModel(this.state.characterType)}
+								getDataCallBack={this.getData}
 							/>
 							<CharactersTable
 								location={this.props.location.pathname}
-								abilities={this.state.abilities}
-								entity={this.state.entity}
+                                characterType={this.state.characterType}
+                                defaultComponentsList={this.state.defaultComponentsList}
 								columns={this.state.columns}
 								rows={this.state.rows}
-								getData={this.getData}
-								removeRecord={this.removeRecord}
-								withId={this.props.location.pathname !== '/knights'}
+                                getDataCallBack={this.getData}
+								removeRecordCallBack={this.removeRecord}
 							/>
 						</div>
 						:
@@ -123,4 +121,4 @@ class TableContainer extends Component {
 	};
 }
 
-export default withAlert(TableContainer);
+export default withAlert(CharactersContainer);

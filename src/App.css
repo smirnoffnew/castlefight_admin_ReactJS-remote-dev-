@@ -182,7 +182,12 @@ input[type="text"]:disabled {
 }
 
 .name-input-container input {
-  width: 90%;
+  width: 80%;
+  display: inline-block;
+}
+.name-input-container label {
+  width: 10%;
+  display: inline-block;
 }
 
 .select-container {

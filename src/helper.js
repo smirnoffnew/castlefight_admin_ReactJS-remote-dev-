@@ -93,6 +93,14 @@ export default class Helper {
 		return text;
 	}
 
+    makeRandomName() {
+        let text = '';
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (let i = 0; i < 20; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    }
+
 	makeNumberId() {
 		let text = '';
 		const possible = "0123456789";
@@ -101,7 +109,64 @@ export default class Helper {
 		return text;
 	}
 
-	getUniqueAbility(type) {
+	getCharacterDefaultModel(characterType){
+        switch (characterType) {
+            case 'knight':
+                return {
+                    "name" : this.makeRandomName(),
+                    "projectileSettings" : {
+                        "name" : this.makeRandomName(),
+                        "localPosition" : {
+                            "x" : 0.0,
+                            "y" : 0.0
+                        },
+
+                        "startDirection" : {
+                            "x" : 0.0,
+                            "y" : 0.0
+                        },
+
+                        "force" : 0.0
+                    },
+                    "components" : []
+                };
+            case 'ally':
+                return  {
+                    "id" : this.makeNumberId,
+                    "name" : this.makeRandomName(),
+                    "projectileSettings" : {
+                        "name" : this.makeRandomName(),
+                        "localPosition" : {
+                            "x" : 0.0,
+                            "y" : 0.0
+                        },
+
+                        "startDirection" : {
+                            "x" : 0.0,
+                            "y" : 0.0
+                        },
+
+                        "force" : 0.0
+                    },
+                    "components" : []
+                };
+            case 'enemy':
+                return {
+                    "id" : this.makeNumberId,
+                    "name" : this.makeRandomName(),
+                    "components" : []
+                };
+            case 'ability':
+                return {
+                    "id" : this.makeNumberId,
+                    "components" : []
+				};
+            default:
+                return {};
+        }
+	}
+
+	getNewUniqueComponent(type) {
 		return {
 			uniqueId: this.makeId(),
 			type: type,
@@ -126,7 +191,7 @@ export default class Helper {
 		};
 	}
 
-	getEntityNameByUrl(path) {
+    getCharacterNameByUrl(path) {
 		switch (path) {
 			case 'knights':
 				return 'knight';
@@ -148,3 +213,79 @@ export default class Helper {
 	}
 
 }
+
+
+// "components" : [
+//     {
+//         "type" : "com.anygames.castlefight.components.Hp",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 20.0,
+//             "2" : 30.0,
+//             "3" : 40.0
+//         }
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.HpReg",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 1,
+//             "2" : 30.0,
+//             "3" : 40.0
+//         }
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.Speed",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 10.0,
+//             "2" : 70.0,
+//             "3" : 10.0
+//         }
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.Cooldown",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 60.0,
+//             "2" : 70.0,
+//             "3" : 10.0
+//         }
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.RangeAttackRadius",
+//         "defaultValue" : 20,
+//         "values" : null
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.RangeDps",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 1.0,
+//             "2" : 70.0,
+//             "3" : 10.0
+//         }
+//     },
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.MeleeAttackRadius",
+//         "defaultValue" : 2,
+//         "values" : null
+//     },
+//
+//
+//     {
+//         "type" : "com.anygames.castlefight.components.MeleeDps",
+//         "defaultValue" : null,
+//         "values" : {
+//             "1" : 10.0,
+//             "2" : 70.0,
+//             "3" : 10.0
+//         }
+//     }
+// ],

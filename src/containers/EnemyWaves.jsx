@@ -98,7 +98,7 @@ class EnemyWaves extends Component {
 					console.log('datadata', data.map((value) => ({
 						value: value.id,
 						label: value.id
-					})))
+					})));
 					this.setState(() => ({
 						enemies: data.map((value) => ({
 							value: value.id,
@@ -109,7 +109,7 @@ class EnemyWaves extends Component {
 			.catch(function (error) {
 				console.error(error);
 			});
-	}
+	};
 
 	openModal = () => {
 		this.setState({ modalIsOpen: true });
