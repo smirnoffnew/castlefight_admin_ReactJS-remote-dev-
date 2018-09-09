@@ -64,7 +64,7 @@ class CharactersContainer extends Component {
                 this.props
                     .alert
                     .success(`${this.helper.getCharacterNameByUrl(this.state.characterType)} Successfully saved!`);
-                this.props.getData();
+                this.getData();
             })
     };
 
