@@ -109,7 +109,7 @@ export default class Helper {
 		return text;
 	}
 
-	getCharacterDefaultModel(characterType){
+	getCharacterDefaultModel(characterType, id){
         switch (characterType) {
             case 'knight':
                 return {
@@ -132,7 +132,7 @@ export default class Helper {
                 };
             case 'ally':
                 return  {
-                    "id" : this.makeNumberId(),
+                    "id" : id ? id :this.makeNumberId(),
                     "name" : this.makeRandomName(),
                     "projectileSettings" : {
                         "name" : this.makeRandomName(),
@@ -152,13 +152,13 @@ export default class Helper {
                 };
             case 'enemy':
                 return {
-                    "id" : this.makeNumberId(),
+                    "id" : id ? id :this.makeNumberId(),
                     "name" : this.makeRandomName(),
                     "components" : []
                 };
             case 'ability':
                 return {
-                    "id" : this.makeNumberId(),
+                    "id" : id ? id :this.makeNumberId(),
                     "components" : []
 				};
             default:

@@ -93,6 +93,14 @@ class CharactersContainer extends Component {
 
 	getComponentsList = () => axios.get('/components');
 
+	getMaxId = () => {
+        return this.state.characterType === 'knight'
+			?
+			void(0)
+			:
+			Math.max.apply(null, this.state.rows.map( item => item.id ));
+	};
+
 	render() {
 		return (
 			<div className="container">
@@ -104,10 +112,11 @@ class CharactersContainer extends Component {
 
 							<AddButton
 								characterType={this.state.characterType}
-								newRecord={this.helper.getCharacterDefaultModel(this.state.characterType)}
+								newRecord={this.helper.getCharacterDefaultModel(this.state.characterType, 1+this.getMaxId())}
                                 defaultComponentsList={this.state.defaultComponentsList}
 								getDataCallBack={this.getData}
 								saveFormCallBack={this.saveRecord}
+								maxId
 							/>
 							<CharactersTable
 								location={this.props.location.pathname}

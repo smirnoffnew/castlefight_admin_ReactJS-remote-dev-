@@ -213,7 +213,6 @@ class CharactersForm extends Component {
 
 
 	render() {
-		console.log('this.state.characterDataObject.id', this.state.characterDataObject.id);
 		return (
 			<div>
 				<form>
