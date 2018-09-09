@@ -18,6 +18,7 @@ class CharactersContainer extends Component {
 			rows: [],
 			columns: ['Name', 'Components', 'Edit', 'Delete']
 		};
+		this.charactersData = Object.create(null);
 	}
 
 	componentDidMount() {
@@ -60,30 +61,30 @@ class CharactersContainer extends Component {
 		axios
 			.get(this.props.history.location.pathname)
 			.then(response => {
-				this.setState((prevState) => ({
-					...prevState,
-                    characterType: this.helper.getCharacterNameByUrl(this.props.history.location.pathname),
-					rows: response.data.map(entityItem => (
-						{
-							...entityItem,
-                            uniqueId: this.helper.makeId(),
-							components: entityItem.components.map(item => {
-								return {
-									...item,
-									uniqueId: this.helper.makeId(),
-									values: this.objectToArray(item.values)
-								}
-							}),
-						}
-					)),
-				}));
+                this.charactersData.characterType = this.helper.getCharacterNameByUrl(this.props.history.location.pathname);
+				this.charactersData.rows = response.data.map( entityItem => (
+					{
+						...entityItem,
+						uniqueId: this.helper.makeId(),
+						components: entityItem.components.map(item => {
+							return {
+								...item,
+								uniqueId: this.helper.makeId(),
+								values: this.objectToArray(item.values)
+							}
+						}),
+					}
+				));
 				return this.getComponentsList();
 			})
 			.then((componentsListResponse) => {
-				this.setState((prevState) => ({
+				this.setState( prevState  => ({
 					...prevState,
+					...this.charactersData,
 					isLoaded: true,
-					defaultComponentsList: componentsListResponse.data.map(componentName => this.helper.getNewUniqueComponent(componentName))
+					defaultComponentsList: componentsListResponse
+						.data
+						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
 			})
 			.catch(error => {
@@ -96,7 +97,7 @@ class CharactersContainer extends Component {
 	render() {
 		return (
 			<div className="container">
-				<h2 className="col-50">{this.state.entity}</h2>
+				<h2 className="col-50">{this.state.characterType}</h2>
 				{
 					this.state.isLoaded
 						?

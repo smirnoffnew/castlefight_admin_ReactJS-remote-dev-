@@ -8,7 +8,7 @@ class CharactersFormComponent extends Component {
 		this.helper = new Helper();
 	}
 
-	onSelectChange = value => this.props.onSelectComponent(this.props.data.uniqueId, value.value);
+	onSelectChange = value => this.props.onSelectComponent(this.props.component.uniqueId, value.value);
 
 	render() {
 		return (

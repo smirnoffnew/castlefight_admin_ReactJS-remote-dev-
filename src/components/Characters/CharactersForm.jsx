@@ -225,9 +225,7 @@ class CharactersForm extends Component {
 
 
 	render() {
-		console.log('this.state.characterType', this.state.characterType);
 		return (
-
 			<div>
 				<form>
 					<div className="modal-content">
