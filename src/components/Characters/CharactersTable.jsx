@@ -40,7 +40,7 @@ class CharactersTable extends Component {
 										<td>{row.id}</td>
 									}
 									{
-                                        this.props.location === '/abilities' && column === 'Name'
+                                        this.props.location === '/abilities'
 										?
 										null
 										:
@@ -67,7 +67,6 @@ class CharactersTable extends Component {
 									<td className="center-btn-align2">
 										<button className="delete-btn"
 											onClick={() => this.props.removeRecordCallBack(
-													this.props.characterType,
 													this.props.characterType === 'knight' ? row.name : row.id)
 											}>
 											<img src={deleteIcon} alt="Delete" className="delete-btn-icon" />

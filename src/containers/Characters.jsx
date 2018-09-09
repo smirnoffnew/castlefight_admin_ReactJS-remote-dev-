@@ -40,11 +40,15 @@ class CharactersContainer extends Component {
 			[]
 	};
 
-	removeRecord = (characterType, idOrName) => {
+	removeRecord = (idOrName) => {
+		const characterType = this.props.history.location.pathname;
 		axios
-			.delete(`/${characterType}/${idOrName}`, {})
+			.delete(`${characterType}/${idOrName}`, {})
 			.then(() => {
-				this.props.alert.success(`${idOrName} ${this.helper.getCharacterNameByUrl(characterType)} Successfully deleted!`);
+				this.props.alert.success(`
+					${this.helper.getCharacterNameByUrl(characterType)} with idOrName = ${idOrName} 
+					Successfully deleted!`
+				);
 				this.getData()
 			})
 			.catch((error) => {
@@ -97,6 +101,7 @@ class CharactersContainer extends Component {
 					this.state.isLoaded
 						?
 						<div>
+
 							<AddButton
                                 defaultComponentsList={this.state.defaultComponentsList}
                                 characterType={this.state.characterType}

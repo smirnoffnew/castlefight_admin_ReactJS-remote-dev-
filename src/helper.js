@@ -193,19 +193,19 @@ export default class Helper {
 
     getCharacterNameByUrl(path) {
 		switch (path) {
-			case 'knights':
+			case '/knights':
 				return 'knight';
-			case 'allies':
+			case '/allies':
 				return 'ally';
-			case 'enemies':
+			case '/enemies':
 				return 'enemy';
-			case 'abilities':
+			case '/abilities':
 				return 'ability';
-			case 'levels':
+			case '/levels':
 				return 'level';
-			case 'enemyWaves':
+			case '/enemyWaves':
 				return 'enemy wave';
-			case 'settings':
+			case '/settings':
 				return 'settings';
 			default:
 				return 'entity';

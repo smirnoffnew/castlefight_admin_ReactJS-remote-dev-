@@ -43,8 +43,6 @@ class EditButton extends Component {
                     <img src={editIconPath}
                          className={'edit-btn-icon'}
                          alt="Edit"/>
-
-                    <span>Edit</span>
                 </button>
 
                 <Modal  isOpen={this.state.modalIsOpen}
