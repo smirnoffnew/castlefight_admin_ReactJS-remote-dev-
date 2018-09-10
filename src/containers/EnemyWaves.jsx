@@ -78,7 +78,6 @@ class EnemyWaves extends Component {
 								let val = value[item];
 								output.push({ 'name': item, 'value': val })
 							}
-							console.log('output', output)
 							return output;
 						});
 						return {
@@ -99,14 +98,12 @@ class EnemyWaves extends Component {
 			.then(response => {
 				let { data } = response;
 				if (data)
-					console.log('datadata', data.map((value) => ({
-						value: value.id,
-						label: value.id
-					})));
+					console.log('data', data)
 					this.setState(() => ({
 						enemies: data.map((value) => ({
 							value: value.id,
-							label: value.id
+							// label: value.id
+							label: value.id + ': ' + value.name
 						}))
 					}));
 			})

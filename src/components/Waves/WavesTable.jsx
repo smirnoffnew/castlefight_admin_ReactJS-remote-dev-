@@ -56,7 +56,6 @@ class TableRow extends Component {
 			} else if (typeof column.value === 'object') {
 				return (
 					<td key={index}>
-						{console.log('col', column)}
 						{
 							Object.keys(column.value).map((key, id) => (
 								<div key={id}>

@@ -80,7 +80,6 @@ class LevelsModalForm extends Component {
 	};
 
 	onMultiSelectChange = (value) => {
-		console.log('value', value)
 		this.setState((prevState) => {
 			return {
 				...prevState,

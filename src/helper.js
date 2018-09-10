@@ -29,28 +29,28 @@ export default class Helper {
 					},
 				},
 				"weakSummonCycle": {
-					"count": 3,
+					"count": 1,
 					"summonEnemyTimeS": 5.0,
 					"createNewCycleTimeS": 10.0,
-					"delayBeforeStartS": 0
+					"delayBeforeStartS": 10.0
 				},
 				"normalSummonCycle": {
 					"count": 1,
-					"summonEnemyTimeS": 10.0,
-					"createNewCycleTimeS": 25.0,
+					"summonEnemyTimeS": 5.0,
+					"createNewCycleTimeS": 10.0,
 					"delayBeforeStartS": 10.0
 				},
 				"hardSummonCycle": {
-					"count": 0,
-					"summonEnemyTimeS": 15.0,
-					"createNewCycleTimeS": 30.0,
+					"count": 1,
+					"summonEnemyTimeS": 5.0,
+					"createNewCycleTimeS": 10.0,
 					"delayBeforeStartS": 10.0
 				},
 				"bossSummonCycle": {
 					"count": 1,
-					"summonEnemyTimeS": 20.0,
-					"createNewCycleTimeS": 0.0,
-					"delayBeforeStartS": 40.0
+					"summonEnemyTimeS": 5.0,
+					"createNewCycleTimeS": 10.0,
+					"delayBeforeStartS": 10.0
 				}
 			}
 		)

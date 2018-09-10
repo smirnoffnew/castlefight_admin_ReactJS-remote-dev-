@@ -14,11 +14,6 @@ class CharactersForm extends Component {
 		};
 	}
 
-	componentDidMount() {
-		// console.log('this.components CharactersForm state', this.state);
-		// console.log('this.components CharactersForm props', this.props.components);
-	}
-
 	formatValuesInComponents = (components) => {
 		return components.map( item => {
 			return {

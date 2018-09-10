@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from "react-modal";
 import Select from 'react-select';
 import Helper from "../../helper";
+import axios from "../../axiosBaseUrlConfig";
 
 const customStyles = {
 	content: {
@@ -22,28 +23,21 @@ class ModalForm extends Component {
 
 		this.state = {
 			values: props.values ? props.values : {},
-			isEdit: this.props.isEdit
+			isEdit: this.props.isEdit,
+			enemyTypes: [],
 		}
 	};
 
+	componentWillMount() {
+		this.getEnemyTypes()
+	}
+
 	componentWillReceiveProps() {
 		if (this.props.data && this.props.emptyWaves) {
-			let temp, values = [];
+			let temp = [], values = [];
 			temp = this.helper.waves(this.props.data);
 			for (let item in temp) {
-				let val = temp[item];
-				if (typeof val === 'object') {
-					let outputObj = [];
-					for (let item in val) {
-						if (typeof val[item] === 'object') {
-							outputObj.push({ 'name': val[item].type, 'value': val[item].count })
-						} else {
-							outputObj.push({ 'name': item, 'value': val[item] })
-						}
-					}
-					val = outputObj
-				}
-				values.push({ 'name': item, 'value': val })
+				values.push({ name: item, value: temp[item] })
 			}
 			this.setState({ values })
 		}
@@ -61,6 +55,26 @@ class ModalForm extends Component {
 		})
 	};
 
+	getEnemyTypes() {
+		axios
+			.get(`enemies/types/`)
+			.then(response => {
+				let { data } = response;
+				if (data) {
+					this.setState(() => {
+						return {
+							enemyTypes: data.map(item => {
+								return { label: item, value: item }
+							}),
+						}
+					});
+				}
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}
+
 	handleChangeId(e, index, type, key) {
 		const value = typeof e === 'string' || typeof e === 'number' ? e : e.target.value;
 		if (type === 'id') {
@@ -73,8 +87,8 @@ class ModalForm extends Component {
 				return prevState;
 			})
 		} else {
-			this.setState( prevState => {
-				Object.keys(prevState.values[index].value).map( item => {
+			this.setState(prevState => {
+				Object.keys(prevState.values[index].value).map(item => {
 					if (item === key) {
 						prevState.values[index].value[key][type] = value
 					}
@@ -128,11 +142,11 @@ class ModalForm extends Component {
 							</td>
 							<td>
 								{
-									Object.keys(column.value).map ((key, id) => {
+									Object.keys(column.value).map((key, id) => {
 										return <React.Fragment key={id}>
 											<input onChange={(e) => this.handleChange(e, index, id, 'value')}
-												   type="text"
-												   value={column.value[key]} />
+												type="text"
+												value={column.value[key]} />
 											<br />
 										</React.Fragment>
 									})
@@ -153,49 +167,40 @@ class ModalForm extends Component {
 									</button>
 								</div>
 								{
-									Object.keys(column.value).map((key, id) => (
-										<div key={id} className="three-inputs">
-											<Select
-												className="select-3"
-												value={({
-													value: key,
-													label: key
-												})}
-												onChange={(e) => this.handleChangeId(e.value, index, 'id', key)}
-												options={this.props.enemies}
-											/>
-											<Select
-												className="select-3"
-												value={({
-													value: column.value[key].type,
-													label: column.value[key].type
-												})}
-												onChange={(e) => this.handleChangeId(e.value, index, 'type', key)}
-												options={[
-													{
-														value: 'Week',
-														label: 'Week'
-													},
-													{
-														value: 'Normal',
-														label: 'Normal'
-													},
-													{
-														value: 'Hard',
-														label: 'Hard'
-													},
-													{
-														value: 'Boss',
-														label: 'Boss'
-													},
-												]}
-											/>
-											<input onChange={(e) => this.handleChangeId(e, index, 'count', key)} type="text" value={column.value[key].count} />
-											<button onClick={(e) => this.handleDelete(e, index, key)}>
-												x
+									Object.keys(column.value).map((key, id) => {
+										let selectedLabel
+										this.props.enemies.forEach(item => {
+											if (item.value == key) {
+												selectedLabel = item.label
+											}
+										})
+										return (
+											<div key={id} className="three-inputs">
+												<Select
+													className="select-3"
+													value={({
+														value: key,
+														label: selectedLabel || key
+													})}
+													onChange={(e) => this.handleChangeId(e.value, index, 'id', key)}
+													options={this.props.enemies}
+												/>
+												<Select
+													className="select-3"
+													value={({
+														value: column.value[key].type,
+														label: column.value[key].type
+													})}
+													onChange={(e) => this.handleChangeId(e.value, index, 'type', key)}
+													options={this.state.enemyTypes}
+												/>
+												<input onChange={(e) => this.handleChangeId(e, index, 'count', key)} type="text" value={column.value[key].count} />
+												<button onClick={(e) => this.handleDelete(e, index, key)}>
+													x
 											</button>
-										</div>
-									))
+											</div>
+										)
+									})
 								}
 							</td>
 						</tr>

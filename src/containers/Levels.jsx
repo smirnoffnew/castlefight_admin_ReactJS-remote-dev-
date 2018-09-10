@@ -62,7 +62,6 @@ class Levels extends Component {
 				return this.getWaves();
 			})
 			.then((wavesResponse) => {
-				console.log('wavesResponse', wavesResponse.data.map(wave => wave.id))
 				this.setState((prevState) => {
 					return {
 						...prevState,
