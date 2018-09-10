@@ -51,7 +51,7 @@ class CharactersFormComponent extends Component {
                     <div className="new-inputs-container">
                         <label htmlFor="defaultValue">Default Value </label>
                         <input
-                            type="text"
+                            type="number"
                             id="defaultValue"
                             value={this.props.component.defaultValue ? this.props.component.defaultValue : ''}
                             onChange={e => this.props.changeDefaultValueCallBack(
@@ -64,7 +64,7 @@ class CharactersFormComponent extends Component {
                         this.props.component.values.map((item, key) => (
                             <div key={key} className="new-inputs-container">
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={item.nameInput}
                                     onChange={e => this.props.changeValueInputCallBack(
                                         this.props.component.uniqueId,
@@ -74,7 +74,7 @@ class CharactersFormComponent extends Component {
                                     )}
                                 />
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={item.valueInput}
                                     onChange={(e) => this.props.changeValueInputCallBack(
                                         this.props.component.uniqueId,
