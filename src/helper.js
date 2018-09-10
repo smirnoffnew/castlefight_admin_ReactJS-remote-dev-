@@ -193,7 +193,7 @@ export default class Helper {
 
 	getNewUniqueComponentInput(valuesArr){
 		return {
-            nameInput: valuesArr.length > 1 ? Number(valuesArr[valuesArr.length - 1].nameInput) + 1 : 1,
+            nameInput: valuesArr.length >= 1 ? Number(valuesArr[valuesArr.length - 1].nameInput) + 1 : 1,
             valueInput: 10,
             uniqueId: this.makeId()
 		}

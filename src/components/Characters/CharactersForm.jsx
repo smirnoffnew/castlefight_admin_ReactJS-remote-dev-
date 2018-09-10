@@ -58,6 +58,7 @@ class CharactersForm extends Component {
                 ...prevState,
                 characterDataObject: {
                     ...prevState.characterDataObject,
+                    defaultValue: null,
                     components: [
                         ...prevState.characterDataObject.components.map(
                             item => item.uniqueId === componentId
@@ -85,6 +86,7 @@ class CharactersForm extends Component {
                             ?
                             {
                                 ...component,
+                                defaultValue: null,
                                 values: [
                                     ...component.values,
 									this.helper.getNewUniqueComponentInput(component.values)
@@ -110,6 +112,7 @@ class CharactersForm extends Component {
 						?
 						{
 							...item,
+                            defaultValue: null,
 							values: item.values.filter(item => item.uniqueId !== inputId)
 						}
 						:
@@ -132,6 +135,7 @@ class CharactersForm extends Component {
                             valueObject[`${param}Input`] = value;
                             return {
                                 ...component,
+                                defaultValue: null,
                                 values: component.values.map(inputItem => (
                                     inputItem.uniqueId === inputId
                                         ?
@@ -163,6 +167,7 @@ class CharactersForm extends Component {
                             return {
                                 ...component,
                                 defaultValue: value,
+								values: []
                             }
                         } else {
                             return component;
@@ -197,6 +202,66 @@ class CharactersForm extends Component {
         });
     };
 
+    changeProjectSettingsValue = (value, key) => {
+        const store = Object.create(null);
+        store[key] = value;
+        this.setState( prevState => {
+            return {
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    projectileSettings: {
+                        ...prevState.characterDataObject.projectileSettings,
+                        ...store
+					}
+                }
+            }
+        });
+	};
+
+    changeLocalPositionValue = (value, key) => {
+        const store = Object.create(null);
+        store[key] = value;
+
+        this.setState( prevState => {
+            return {
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    projectileSettings: {
+                        ...prevState.characterDataObject.projectileSettings,
+                        localPosition: {
+                            ...prevState.characterDataObject.projectileSettings.localPosition,
+                            ...store
+                        }
+                    }
+                }
+            }
+        })
+    };
+
+    changeStartDirectionValue = (value, key) => {
+        debugger;
+        const store = Object.create(null);
+        store[key] = value;
+
+        this.setState( prevState => {
+            return {
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    projectileSettings: {
+                        ...prevState.characterDataObject.projectileSettings,
+                        startDirection: {
+                            ...prevState.characterDataObject.projectileSettings.startDirection,
+                            ...store
+                        }
+                    }
+                }
+            }
+        })
+    };
+
     saveForm = (e) => {
         e.preventDefault();
         this.props.saveFormCallBack({
@@ -205,7 +270,6 @@ class CharactersForm extends Component {
         });
         this.props.closeModalCallBack();
     };
-
 
 	render() {
 		return (
@@ -220,14 +284,8 @@ class CharactersForm extends Component {
 							</h5>
 						</div>
 						<div className="modal-body">
-							<button
-								type="reset"
-								onClick={this.addNewComponent}>
-								Add Component
-                            </button>
-							<hr />
-
 							{
+	// name and ids ----------------------------------------------------------------------------------------------------
                                 this.props.characterType === 'knight'
 								?
 								null
@@ -251,7 +309,7 @@ class CharactersForm extends Component {
 								<div className="name-input-container new-inputs-container">
 									<label style={{ 'marginRight': '15px' }}>Name:</label>
 									<input
-										disabled={this.state.isEdit}
+										disabled={this.state.isEdit && this.state.characterType === "knight"}
 										type="text"
 										value={this.state.characterDataObject.name}
 										onChange={ e => this.changeNameValue(e.target.value)}
@@ -259,6 +317,125 @@ class CharactersForm extends Component {
 								</div>
 							}
 
+							<hr />
+                            {
+	// project ile Settings --------------------------------------------------------------------------------------------
+                                this.props.characterType === 'knight' || this.props.characterType === 'ally'
+                                    ?
+									<div className="new-inputs-container">
+
+										<div className="name-input-container new-inputs-container">
+											<label style={{'marginRight': '15px'}}>Name:</label>
+											<input
+												type="text"
+												value={
+                                                    this.state.characterDataObject.projectileSettings
+                                                        ?
+                                                        this.state.characterDataObject.projectileSettings.name
+                                                        :
+                                                        ''
+                                                }
+												onChange={ e => this.changeProjectSettingsValue(e.target.value, 'name')}
+											/>
+										</div>
+
+                                        <div className="name-input-container new-inputs-container">
+                                            <label style={{'marginRight': '15px'}}>Force:</label>
+                                            <input
+                                                type="number"
+                                                value={
+                                                    this.state.characterDataObject.projectileSettings
+                                                        ?
+                                                        this.state.characterDataObject.projectileSettings.force
+                                                        :
+                                                        ''
+                                                }
+                                                onChange={ e => this.changeProjectSettingsValue(e.target.value, 'force')}
+                                            />
+                                        </div>
+
+                                        {/*localPosition*/}
+                                        {
+                                            this.state.characterDataObject.projectileSettings
+                                                ?
+                                                Object.keys(
+                                                    this
+                                                    .state
+                                                    .characterDataObject
+                                                    .projectileSettings
+                                                    .localPosition
+                                                ).map( key => {
+                                                    return (
+                                                        <div key={`localPosition${key}`}
+                                                             className="name-input-container new-inputs-container">
+                                                            <label style={{'marginRight': '15px'}}>Local Position {key}:</label>
+                                                            <input
+                                                                type="number"
+                                                                value={
+                                                                    this.state.characterDataObject.projectileSettings.localPosition
+                                                                    ?
+                                                                    this.state.characterDataObject.projectileSettings.localPosition[key]
+                                                                    :
+                                                                    ''
+                                                                }
+                                                                onChange={ e => this.changeLocalPositionValue(e.target.value, key)}
+                                                            />
+                                                        </div>
+                                                    )
+
+                                                })
+                                                :
+                                                null
+                                        }
+
+                                        {/*startDirection*/}
+                                        {
+                                            this.state.characterDataObject.projectileSettings
+                                                ?
+                                                Object.keys(
+                                                    this
+                                                        .state
+                                                        .characterDataObject
+                                                        .projectileSettings
+                                                        .startDirection
+                                                ).map( key => {
+                                                    return (
+                                                        <div key={`startDirection${key}`}
+                                                             className="name-input-container new-inputs-container">
+                                                            <label style={{'marginRight': '15px'}}>Start Direction {key}:</label>
+                                                            <input
+                                                                type="number"
+                                                                value={
+                                                                    this.state.characterDataObject.projectileSettings.startDirection
+                                                                    ?
+                                                                    this.state.characterDataObject.projectileSettings.startDirection[key]
+                                                                    :
+                                                                    ''
+                                                                }
+                                                                onChange={ e => this.changeStartDirectionValue(e.target.value, key)}
+                                                            />
+                                                        </div>
+                                                    )
+
+                                                })
+                                                :
+                                                null
+                                        }
+
+
+										<hr />
+									</div>
+                                    :
+									null
+                            }
+
+	{/*component ---------------------------------------------------------------------------------------------------s*/}
+							<div className="new-inputs-container">Components List</div>
+							<button
+								type="reset"
+								onClick={this.addNewComponent}>
+								Add Component
+							</button>
 							<hr />
 							{
 								this.state.characterDataObject.components.map( item =>
@@ -276,6 +453,7 @@ class CharactersForm extends Component {
 								)
 							}
 						</div>
+	{/*footer buttons -----------------------------------------------------------------------------------------------*/}
 						<div className="modal-footer">
 							<button
 								type="reset"
