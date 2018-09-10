@@ -32,7 +32,9 @@ class CharactersFormComponent extends Component {
                 <div className="select-container">
                     <SimpleSelect
                         onFocus={this.onFocus}
-                        ref={ node => {this._selectEl = node}}
+                        ref={ node => {
+                            this._selectEl = node
+                        }}
                         value={({
                             value: this.props.component.type,
                             label: this.props.component.type.split('.')[this.props.component.type.split('.').length - 1]

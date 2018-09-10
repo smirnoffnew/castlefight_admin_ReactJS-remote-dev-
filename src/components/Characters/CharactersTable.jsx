@@ -31,7 +31,7 @@ class CharactersTable extends Component {
                             }
 							{
 								this.props.columns.map((column, key) => (
-									this.props.location === '/abilities' && column === 'Name'
+									this.props.characterType === 'ability' && column === 'Name'
 									?
 									null
 									:
@@ -53,7 +53,7 @@ class CharactersTable extends Component {
 										<td>{row.id}</td>
 									}
 									{
-                                        this.props.location === '/abilities'
+                                        this.props.characterType === 'ability'
 										?
 										null
 										:
