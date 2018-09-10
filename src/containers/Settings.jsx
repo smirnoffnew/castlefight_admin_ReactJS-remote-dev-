@@ -75,10 +75,8 @@ class SettingsContainer extends Component {
                 }
             )
             .then(() => {
-                Alert.success(
-                    `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`
-                );
-              this.getData()
+                Alert.success(`All settings successfully saved!`);
+                this.getData()
             })
             .catch((error) => {
                 console.error(error);
