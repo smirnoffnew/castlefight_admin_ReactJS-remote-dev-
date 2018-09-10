@@ -53,7 +53,7 @@ class CharactersFormComponent extends Component {
                         <input
                             type="text"
                             id="defaultValue"
-                            value={this.props.component.defaultValue}
+                            value={this.props.component.defaultValue ? this.props.component.defaultValue : ''}
                             onChange={e => this.props.changeDefaultValueCallBack(
                                 this.props.component.uniqueId,
                                 e.target.value

@@ -214,8 +214,8 @@ class CharactersForm extends Component {
         this.props.closeModalCallBack();
     };
 
-
 	render() {
+
 		return (
 			<div>
 				<form>
@@ -259,7 +259,7 @@ class CharactersForm extends Component {
 								<div className="name-input-container new-inputs-container">
 									<label style={{ 'marginRight': '15px' }}>Name:</label>
 									<input
-										disabled={this.state.isEdit}
+										disabled={this.state.isEdit && this.state.characterType === "knight"}
 										type="text"
 										value={this.state.characterDataObject.name}
 										onChange={ e => this.changeNameValue(e.target.value)}
