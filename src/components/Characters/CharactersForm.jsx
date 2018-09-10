@@ -15,8 +15,6 @@ class CharactersForm extends Component {
 	}
 
 	componentDidMount() {
-		// console.log('this.components CharactersForm state', this.state);
-		// console.log('this.components CharactersForm props', this.props.components);
 	}
 
 	formatValuesInComponents = (components) => {
@@ -63,6 +61,7 @@ class CharactersForm extends Component {
                 ...prevState,
                 characterDataObject: {
                     ...prevState.characterDataObject,
+                    defaultValue: null,
                     components: [
                         ...prevState.characterDataObject.components.map(
                             item => item.uniqueId === componentId
@@ -90,6 +89,7 @@ class CharactersForm extends Component {
                             ?
                             {
                                 ...component,
+                                defaultValue: null,
                                 values: [
                                     ...component.values,
 									this.helper.getNewUniqueComponentInput(component.values)
@@ -115,6 +115,7 @@ class CharactersForm extends Component {
 						?
 						{
 							...item,
+                            defaultValue: null,
 							values: item.values.filter(item => item.uniqueId !== inputId)
 						}
 						:
@@ -137,6 +138,7 @@ class CharactersForm extends Component {
                             valueObject[`${param}Input`] = value;
                             return {
                                 ...component,
+                                defaultValue: null,
                                 values: component.values.map(inputItem => (
                                     inputItem.uniqueId === inputId
                                         ?
@@ -168,6 +170,7 @@ class CharactersForm extends Component {
                             return {
                                 ...component,
                                 defaultValue: value,
+								values: []
                             }
                         } else {
                             return component;
