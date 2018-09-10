@@ -57,30 +57,38 @@ class CharactersContainer extends Component {
     };
 
     isProjectileSettingsExist = (projectileSettings) => {
-    	if (this.props.history.location.pathname === '/knights' || this.props.history.location.pathname === '/allies')
-    		return projectileSettings ? projectileSettings : this.helper.getDefaultProjectSettings();
-    	return null;
+        let store = Object.create(null);
+    	if(this.props.history.location.pathname === '/knights' || this.props.history.location.pathname === '/allies')
+			  projectileSettings
+			  ?
+			  store['projectileSettings'] = projectileSettings
+			  :
+			  store['projectileSettings'] = this.helper.getDefaultProjectSettings();
+    	return store;
 	};
 
 	getData = () => {
 		axios
 			.get(this.props.history.location.pathname)
 			.then(response => {
+
+
                 this.charactersData.characterType = this.helper.getCharacterNameByUrl(this.props.history.location.pathname);
-				this.charactersData.rows = response.data.map( entityItem => (
-					{
-						...entityItem,
-						uniqueId: this.helper.makeId(),
-                        projectileSettings: this.isProjectileSettingsExist(entityItem.projectileSettings),
-						components: entityItem.components.map(item => {
-							return {
-								...item,
-								uniqueId: this.helper.makeId(),
-								values: this.helper.valuesToArray(item.values)
-							}
-						}),
-					}
-				));
+				this.charactersData.rows = response.data.map( entityItem => {
+                    let projectileSettingsStore = this.isProjectileSettingsExist(entityItem.projectileSettings);
+                    return {
+                        ...entityItem,
+                        uniqueId: this.helper.makeId(),
+						...projectileSettingsStore,
+                        components: entityItem.components.map(item => {
+                            return {
+                                ...item,
+                                uniqueId: this.helper.makeId(),
+                                values: this.helper.valuesToArray(item.values)
+                            }
+                        }),
+                    }
+                });
 				return this.getComponentsList();
 			})
 			.then((componentsListResponse) => {
