@@ -56,6 +56,12 @@ class CharactersContainer extends Component {
             })
     };
 
+    isProjectileSettingsExist = (projectileSettings) => {
+    	if (this.props.history.location.pathname === '/knights' || this.props.history.location.pathname === '/allies')
+    		return projectileSettings ? projectileSettings : this.helper.getDefaultProjectSettings();
+    	return null;
+	};
+
 	getData = () => {
 		axios
 			.get(this.props.history.location.pathname)
@@ -65,6 +71,7 @@ class CharactersContainer extends Component {
 					{
 						...entityItem,
 						uniqueId: this.helper.makeId(),
+                        projectileSettings: this.isProjectileSettingsExist(entityItem.projectileSettings),
 						components: entityItem.components.map(item => {
 							return {
 								...item,
@@ -85,6 +92,8 @@ class CharactersContainer extends Component {
 						.data
 						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
+
+				console.log('rows', this.state.rows);
 			})
 			.catch(error => {
 				console.error(error);

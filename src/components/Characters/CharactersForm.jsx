@@ -241,7 +241,6 @@ class CharactersForm extends Component {
     };
 
     changeStartDirectionValue = (value, key) => {
-        debugger;
         const store = Object.create(null);
         store[key] = value;
 
@@ -330,10 +329,10 @@ class CharactersForm extends Component {
 												type="text"
 												value={
                                                     this.state.characterDataObject.projectileSettings
-                                                        ?
-                                                        this.state.characterDataObject.projectileSettings.name
-                                                        :
-                                                        ''
+                                                    ?
+                                                    this.state.characterDataObject.projectileSettings.name
+                                                    :
+                                                    ''
                                                 }
 												onChange={ e => this.changeProjectSettingsValue(e.target.value, 'name')}
 											/>
@@ -345,10 +344,10 @@ class CharactersForm extends Component {
                                                 type="number"
                                                 value={
                                                     this.state.characterDataObject.projectileSettings
-                                                        ?
-                                                        this.state.characterDataObject.projectileSettings.force
-                                                        :
-                                                        ''
+                                                    ?
+                                                    this.state.characterDataObject.projectileSettings.force
+                                                    :
+                                                    ''
                                                 }
                                                 onChange={ e => this.changeProjectSettingsValue(e.target.value, 'force')}
                                             />

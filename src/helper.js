@@ -166,6 +166,23 @@ export default class Helper {
         }
 	}
 
+    getDefaultProjectSettings() {
+        return {
+            "name": this.makeRandomName(),
+            "localPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+
+            "startDirection": {
+                "x": 0.0,
+                "y": 0.0
+            },
+
+            "force": 0.0
+        }
+    };
+
 	getNewUniqueComponent(type) {
 		return {
 			uniqueId: this.makeId(),
