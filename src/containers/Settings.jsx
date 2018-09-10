@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import Alert from 'react-s-alert';
 import Loading from "../components/common/loading";
 import axios from "../axiosBaseUrlConfig";
 import Helper from "../helper";
-import { withAlert } from "react-alert"
 
-class TableContainer extends Component {
+class SettingsContainer extends Component {
     constructor(props) {
         super(props);
         this.helper = new Helper();
@@ -75,7 +75,9 @@ class TableContainer extends Component {
                 }
             )
             .then(() => {
-              this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
+                Alert.success(
+                    `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`
+                );
               this.getData()
             })
             .catch((error) => {
@@ -325,4 +327,4 @@ class TableContainer extends Component {
     }
 }
 
-export default withAlert(TableContainer);
+export default SettingsContainer;

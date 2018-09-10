@@ -199,8 +199,6 @@ export default class Helper {
 		}
 	}
 
-
-
     getCharacterNameByUrl(path) {
 		switch (path) {
 			case '/knights':
@@ -244,79 +242,3 @@ export default class Helper {
     };
 
 }
-
-
-// "components" : [
-//     {
-//         "type" : "com.anygames.castlefight.components.Hp",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 20.0,
-//             "2" : 30.0,
-//             "3" : 40.0
-//         }
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.HpReg",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 1,
-//             "2" : 30.0,
-//             "3" : 40.0
-//         }
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.Speed",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 10.0,
-//             "2" : 70.0,
-//             "3" : 10.0
-//         }
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.Cooldown",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 60.0,
-//             "2" : 70.0,
-//             "3" : 10.0
-//         }
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.RangeAttackRadius",
-//         "defaultValue" : 20,
-//         "values" : null
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.RangeDps",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 1.0,
-//             "2" : 70.0,
-//             "3" : 10.0
-//         }
-//     },
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.MeleeAttackRadius",
-//         "defaultValue" : 2,
-//         "values" : null
-//     },
-//
-//
-//     {
-//         "type" : "com.anygames.castlefight.components.MeleeDps",
-//         "defaultValue" : null,
-//         "values" : {
-//             "1" : 10.0,
-//             "2" : 70.0,
-//             "3" : 10.0
-//         }
-//     }
-// ],

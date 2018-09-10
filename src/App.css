@@ -1,3 +1,26 @@
+@import './../node_modules/react-selectize/themes/index.css';
+@import './../node_modules/react-s-alert/dist/s-alert-default.css';
+@import './../node_modules/react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
+
+.s-alert-success {
+  background: rgba(42,45,50,0.95)!important;
+}
+
+.react-selectize {
+  margin: auto !important;
+  width: 80% !important;
+}
+
+.dropdown-menu {
+  margin: auto !important;
+  width: 100% !important;
+  background-color: #e3e3e3 !important;
+}
+
+.top-select > .dropdown-menu {
+  bottom: 100% !important;
+}
+
 input[type="text"]:disabled {
   background: #dddddd;
 }

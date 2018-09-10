@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withAlert } from "react-alert"
+import Alert from 'react-s-alert';
 import LevelTable from "../components/Levels/LevelTable";
 import LevelsModalForm from "../components/Levels/LevelsModalForm";
 import Loading from "../components/common/loading";
@@ -98,7 +98,9 @@ class Levels extends Component {
 			axios
 				.delete(`/levels/${id}`, {})
 				.then(() => {
-					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`);
+                    Alert.success(
+                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`
+                    );
 					this.getData();
 				})
 				.catch((error) => {
@@ -206,4 +208,4 @@ class Levels extends Component {
 	}
 }
 
-export default withAlert(Levels);
+export default Levels;

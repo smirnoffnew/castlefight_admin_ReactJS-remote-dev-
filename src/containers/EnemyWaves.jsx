@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withAlert } from "react-alert"
+import Alert from 'react-s-alert';
 import WavesTable from "../components/Waves/WavesTable";
 import ModalForm from "../components/Waves/WavesModal";
 import Loading from "../components/common/loading";
@@ -35,7 +35,9 @@ class EnemyWaves extends Component {
 			axios
 				.post(`/enemyWaves`, output)
 				.then(() => {
-					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
+                    Alert.success(
+                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`
+                    );
 					this.getData();
 				})
 				.catch(error => {
@@ -51,7 +53,9 @@ class EnemyWaves extends Component {
 			axios
 				.delete(`/enemyWaves/${id}`, {})
 				.then(() => {
-					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`);
+                    Alert.success(
+                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`
+                    );
 					this.getData();
 				})
 				.catch(function (error) {
@@ -165,4 +169,4 @@ class EnemyWaves extends Component {
 	}
 }
 
-export default withAlert(EnemyWaves);
+export default EnemyWaves;

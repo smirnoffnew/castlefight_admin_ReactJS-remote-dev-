@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import Alert from 'react-s-alert';
 import AddButton from "../components/Characters/AddButton";
 import Loading from "../components/common/loading";
 import CharactersTable from "../components/Characters/CharactersTable";
 import Helper from "../helper";
 import axios from '../axiosBaseUrlConfig';
-import { withAlert } from "react-alert"
 
 
 class CharactersContainer extends Component {
@@ -34,9 +34,8 @@ class CharactersContainer extends Component {
 		axios
 			.delete(`${characterType}/${idOrName}`, {})
 			.then(() => {
-				this.props.alert.success(`
-					${this.helper.getCharacterNameByUrl(characterType)} with idOrName = ${idOrName} 
-					Successfully deleted!`
+                Alert.success(
+                    `${this.helper.getCharacterNameByUrl(characterType)} with id ${idOrName} Successfully deleted!`,
 				);
 				this.getData()
 			})
@@ -46,12 +45,13 @@ class CharactersContainer extends Component {
 	};
 
     saveRecord = (record) => {
+        const characterType = this.props.history.location.pathname;
         axios
-            .post(this.props.history.location.pathname, record)
+            .post(characterType, record)
             .then(() => {
-                this.props
-                    .alert
-                    .success(`${this.helper.getCharacterNameByUrl(this.state.characterType)} Successfully saved!`);
+                Alert.success(
+                    `${this.helper.getCharacterNameByUrl(characterType)} Successfully saved!`
+                );
                 this.getData();
             })
     };
@@ -109,7 +109,6 @@ class CharactersContainer extends Component {
 					this.state.isLoaded
 						?
 						<div>
-
 							<AddButton
 								characterType={this.state.characterType}
 								newRecord={
@@ -142,4 +141,4 @@ class CharactersContainer extends Component {
 	};
 }
 
-export default withAlert(CharactersContainer);
+export default CharactersContainer;

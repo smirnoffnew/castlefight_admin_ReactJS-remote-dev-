@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CharactersFormComponent from "./CharactersFormComponent";
 import Helper from "../../helper";
-import { withAlert } from "react-alert"
 
 class CharactersForm extends Component {
 	constructor(props) {
@@ -59,24 +58,25 @@ class CharactersForm extends Component {
 	};
 
 	onSelectComponent = (componentId, selectedValue) => {
-		this.setState( prevState => {
-			return {
-				...prevState,
+        setTimeout(	() => this.setState( prevState => {
+            return {
+                ...prevState,
                 characterDataObject: {
-					...prevState.characterDataObject,
+                    ...prevState.characterDataObject,
                     components: [
                         ...prevState.characterDataObject.components.map(
                             item => item.uniqueId === componentId
-							?
-							this.helper.getNewUniqueComponent(selectedValue)
-							:
-							item
+                                ?
+                                this.helper.getNewUniqueComponent(selectedValue)
+                                :
+                                item
                         )
                     ]
-				},
+                },
 
-			}
-		})
+            }
+        }), 0);
+
 	};
 
 	addValueInput = (componentId) => {
@@ -303,4 +303,4 @@ class CharactersForm extends Component {
 	}
 }
 
-export default withAlert(CharactersForm);
+export default CharactersForm;
