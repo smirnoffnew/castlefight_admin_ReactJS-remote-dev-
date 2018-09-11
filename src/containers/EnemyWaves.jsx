@@ -50,7 +50,7 @@ class EnemyWaves extends Component {
     };
 
     removeRecord = (id) => {
-        if (id)
+        if ((typeof id !== void(0)) && (typeof id === 'number'))
             axios
                 .delete(`/enemyWaves/${id}`, {})
                 .then(() => {
