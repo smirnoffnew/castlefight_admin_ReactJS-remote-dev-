@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Modal from "react-modal";
 import Select from 'react-select';
 import Helper from "../../helper";
-import axios from "../../axiosBaseUrlConfig";
 
 const customStyles = {
 	content: {
@@ -41,7 +40,7 @@ class WavesModalForm extends Component {
 			}
 			this.setState({ values })
 		}
-	}
+	};
 
 	handleChange(e, index, id, type) {
 		const value = e.target.value;
@@ -68,9 +67,9 @@ class WavesModalForm extends Component {
 			})
 		} else {
 			this.setState(prevState => {
-				Object.keys(prevState.values[index].value).map(item => {
+				Object.keys(prevState.values[index].value).forEach(item => {
 					if (item === key) {
-						prevState.values[index].value[key][type] = value
+						prevState.values[index].value[key][type] = value;
 					}
 				});
 				return prevState;
@@ -93,7 +92,7 @@ class WavesModalForm extends Component {
 			};
 			return prevState;
 		})
-	}
+	};
 
 	handleDelete(e, index, key) {
 		e.preventDefault();
@@ -104,7 +103,7 @@ class WavesModalForm extends Component {
 			prevState.values[index].value = output;
 			return prevState;
 		})
-	}
+	};
 
 	getInputs() {
 		if (Array.isArray(this.state.values) && this.state.values.length > 0) {
@@ -150,7 +149,7 @@ class WavesModalForm extends Component {
 									Object.keys(column.value).map((key, id) => {
 										let selectedLabel;
 										this.props.enemies.forEach(item => {
-											if (item.value == key) {
+											if (item.value === key) {
 												selectedLabel = item.label
 											}
 										});
@@ -172,7 +171,7 @@ class WavesModalForm extends Component {
 														label: column.value[key].type
 													})}
 													onChange={(e) => this.handleChangeId(e.value, index, 'type', key)}
-													options={this.state.enemyTypes}
+													options={this.props.enemyTypes}
 												/>
 												<input onChange={(e) => this.handleChangeId(e, index, 'count', key)} type="text" value={column.value[key].count} />
 												<button onClick={(e) => this.handleDelete(e, index, key)}>

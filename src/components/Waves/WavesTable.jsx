@@ -90,6 +90,7 @@ class TableRow extends Component {
 						values={this.props.data}
 						enemies={this.props.enemies}
 						isEdit={true}
+						enemyTypes={this.props.enemyTypes}
 					/>
 				</td>
 				<td className="center-btn-align2">
@@ -135,6 +136,7 @@ class TableComponent extends Component {
 											onEdit={this.props.onEdit}
 											enemies={this.props.enemies}
 											removeRecord={this.props.removeRecord}
+											enemyTypes={this.props.enemyTypes}
 										/>
 									))
 								}

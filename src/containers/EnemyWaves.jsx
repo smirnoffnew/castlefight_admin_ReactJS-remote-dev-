@@ -67,13 +67,25 @@ class EnemyWaves extends Component {
     };
 
     getData = () => {
+        let data;
+        let enemies;
+        let enemyTypes;
         axios
             .get('/enemyWaves')
             .then(response => {
+                data = response.data;
+                return this.getEnemies();
+            })
+            .then(response => {
+                enemies = response.data;
+                return this.getEnemyTypes();
+            })
+            .then(response => {
+                enemyTypes = response.data;
                 this.setState(prevState => {
-                    const {data} = response;
                     return {
                         ...prevState,
+                        isLoaded: true,
                         entity: this.props.history.location.pathname.substr(1),
                         data: data ? data.map(value => {
                             let output = [];
@@ -81,34 +93,15 @@ class EnemyWaves extends Component {
                                 output.push({'name': item, 'value': value[item]});
                             }
                             return output;
-                        }) : []
-                    };
-                });
-
-                return this.getEnemies();
-            })
-            .then(response => {
-                const {data} = response;
-                this.setState(prevState => ({
-                    ...prevState,
-                    enemies: data ? data.map((value) => ({
-                        value: value.id,
-                        label: value.id + ': ' + value.name
-                    })) : []
-                }));
-
-                return this.getEnemyTypes();
-            })
-            .then(response => {
-                const {data} = response;
-                this.setState(prevState => {
-                    return {
-                        ...prevState,
-                        isLoaded: true,
-                        enemyTypes: data ? data.map(item => {
+                        }) : [],
+                        enemies: enemies ? enemies.map((value) => ({
+                            value: value.id,
+                            label: value.id + ': ' + value.name
+                        })) : [],
+                        enemyTypes: enemyTypes ? enemyTypes.map(item => {
                             return {label: item, value: item}
                         }) : []
-                    }
+                    };
                 });
             })
             .catch(function (error) {
@@ -157,6 +150,7 @@ class EnemyWaves extends Component {
                             entity={this.state.entity}
                             onEdit={this.onEdit}
                             enemies={this.state.enemies}
+                            enemyTypes={this.state.enemyTypes}
                         />
                         :
                         <Loading />
