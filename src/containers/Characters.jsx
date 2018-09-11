@@ -71,8 +71,6 @@ class CharactersContainer extends Component {
 		axios
 			.get(this.props.history.location.pathname)
 			.then(response => {
-
-
                 this.charactersData.characterType = this.helper.getCharacterNameByUrl(this.props.history.location.pathname);
 				this.charactersData.rows = response.data.map( entityItem => {
                     let projectileSettingsStore = this.isProjectileSettingsExist(entityItem.projectileSettings);
@@ -100,8 +98,6 @@ class CharactersContainer extends Component {
 						.data
 						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
-
-				console.log('rows', this.state.rows);
 			})
 			.catch(error => {
 				console.error(error);

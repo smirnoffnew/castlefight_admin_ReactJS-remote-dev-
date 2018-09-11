@@ -2,6 +2,10 @@
 @import './../node_modules/react-s-alert/dist/s-alert-default.css';
 @import './../node_modules/react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
 
+.select-input {
+  width: 70px !important;
+}
+
 .s-alert-success {
   background: rgba(42,45,50,0.95)!important;
 }
@@ -265,7 +269,8 @@ td input {
 
 .three-inputs input,
 .select-3 {
-  width: calc(100% / 3 - 20px);
+  width: calc(100% / 2 - 70px);
+  padding-left: 5px;
   display: inline-block;
 }
 

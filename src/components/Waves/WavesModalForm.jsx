@@ -173,7 +173,11 @@ class WavesModalForm extends Component {
 													onChange={(e) => this.handleChangeId(e.value, index, 'type', key)}
 													options={this.props.enemyTypes}
 												/>
-												<input onChange={(e) => this.handleChangeId(e, index, 'count', key)} type="text" value={column.value[key].count} />
+												<input onChange={e => this.handleChangeId(e, index, 'count', key)}
+													   type="number"
+													   className="select-input"
+													   value={column.value[key].count} />
+
 												<button onClick={(e) => this.handleDelete(e, index, key)}>
 													x
 											</button>
