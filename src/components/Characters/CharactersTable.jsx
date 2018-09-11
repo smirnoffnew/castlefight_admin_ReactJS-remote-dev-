@@ -18,6 +18,8 @@ class CharactersTable extends Component {
 
 	render() {
 		return (
+			this.props.rows[0]
+			?
 			<div className="table-container">
 				<table className="table table-bordered table-hover" width="100%">
 					<thead>
@@ -92,6 +94,8 @@ class CharactersTable extends Component {
 					</tbody>
 				</table>
 			</div>
+			:
+		    <h3>No records</h3>
 		);
 	}
 }

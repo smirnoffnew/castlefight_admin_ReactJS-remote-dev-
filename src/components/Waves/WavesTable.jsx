@@ -143,7 +143,7 @@ class TableComponent extends Component {
 							</tbody>
 						</table>
 						:
-						null
+						<h3>No records</h3>
 				}
 			</div>
 		)
