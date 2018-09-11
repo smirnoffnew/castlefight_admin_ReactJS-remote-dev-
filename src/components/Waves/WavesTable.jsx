@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import Helper from "../../helper";
 import deleteIcon from "../../assets/images/de.png";
 import editIcon from "../../assets/images/edit-icon.png";
-import ModalForm from "./WavesModal";
+import WavesModalForm from "./WavesModalForm";
 
 class TableRow extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.helper = new Helper();
 		this.state = {
 			modalIsOpen: false,
 		};
-		this.handleChange = this.handleChange.bind(this)
+		this.handleChange = this.handleChange.bind(this);
 		this.onSave = this.onSave.bind(this)
 	}
 
 	handleChange(e, id) {
 		const target = e.target;
 		this.setState((prevState) => {
-			prevState.content[id].value = target.value
+			prevState.content[id].value = target.value;
 			return {
 				content: prevState.content
 			}
@@ -26,7 +26,7 @@ class TableRow extends Component {
 	}
 
 	onSave(content) {
-		this.props.onEdit(content)
+		this.props.onEdit(content);
 		this.setState({ content });
 		this.closeModal();
 	}
@@ -83,7 +83,7 @@ class TableRow extends Component {
 					<button className="edit-btn" onClick={() => this.openModal()}>
 						<img src={editIcon} alt="Edit" className="edit-btn-icon" />
 					</button>
-					<ModalForm
+					<WavesModalForm
 						isOpen={this.state.modalIsOpen}
 						onSave={this.onSave}
 						closeModal={() => this.closeModal()}
@@ -104,7 +104,7 @@ class TableRow extends Component {
 
 class TableComponent extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.helper = new Helper();
 	}
 

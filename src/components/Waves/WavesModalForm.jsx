@@ -16,7 +16,7 @@ const customStyles = {
 	}
 };
 
-class ModalForm extends Component {
+class WavesModalForm extends Component {
 	constructor(props) {
 		super(props);
 		this.helper = new Helper();
@@ -24,12 +24,12 @@ class ModalForm extends Component {
 		this.state = {
 			values: props.values ? props.values : {},
 			isEdit: this.props.isEdit,
-			enemyTypes: [],
+			enemyTypes: this.props.enemyTypes,
 		}
 	};
 
 	componentWillMount() {
-		this.getEnemyTypes()
+
 	}
 
 	componentWillReceiveProps() {
@@ -54,26 +54,6 @@ class ModalForm extends Component {
 			return { prevState }
 		})
 	};
-
-	getEnemyTypes() {
-		axios
-			.get(`enemies/types/`)
-			.then(response => {
-				let { data } = response;
-				if (data) {
-					this.setState(() => {
-						return {
-							enemyTypes: data.map(item => {
-								return { label: item, value: item }
-							}),
-						}
-					});
-				}
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	}
 
 	handleChangeId(e, index, type, key) {
 		const value = typeof e === 'string' || typeof e === 'number' ? e : e.target.value;
@@ -168,12 +148,12 @@ class ModalForm extends Component {
 								</div>
 								{
 									Object.keys(column.value).map((key, id) => {
-										let selectedLabel
+										let selectedLabel;
 										this.props.enemies.forEach(item => {
 											if (item.value == key) {
 												selectedLabel = item.label
 											}
-										})
+										});
 										return (
 											<div key={id} className="three-inputs">
 												<Select
@@ -249,7 +229,7 @@ class ModalForm extends Component {
 								className="btn btn-save"
 								type="reset"
 								onClick={() => {
-									this.props.closeModal()
+									this.props.closeModal();
 									this.props.onSave(this.state.values)
 								}}
 							>
@@ -271,4 +251,4 @@ class ModalForm extends Component {
 	}
 }
 
-export default ModalForm;
+export default WavesModalForm;
