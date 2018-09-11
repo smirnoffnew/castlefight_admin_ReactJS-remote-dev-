@@ -1,8 +1,8 @@
 export default class Helper {
 	waves(data) {
-		let temp
+		let temp;
 		if (Array.isArray(data)) {
-			temp = 1
+			temp = 1;
 			data.forEach(column => {
 				column.forEach(item => {
 					if (item.name === 'id' && parseInt(item.value, 10) && parseInt(item.value, 10) > temp)
@@ -59,7 +59,7 @@ export default class Helper {
 	level() {
 		return (
 			{
-				"id": this.makeId(),
+				"id": this.makeNumberId(),
 				"companyAct": "FIRST",
 				"background": "SUMMER",
 				"index": 10,

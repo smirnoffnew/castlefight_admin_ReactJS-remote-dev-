@@ -89,7 +89,7 @@ class LevelsModalForm extends Component {
 				}),
 			}
 		});
-	}
+	};
 
 	getInputs() {
 		if (this.state.values)

@@ -37,7 +37,7 @@ class EnemyWaves extends Component {
                 .post(`/enemyWaves`, output)
                 .then(() => {
                     Alert.success(
-                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`
+                        `${this.helper.getCharacterNameByUrl(this.props.history.location.pathname)} Successfully saved!`
                     );
                     this.getData();
                 })
@@ -55,7 +55,7 @@ class EnemyWaves extends Component {
                 .delete(`/enemyWaves/${id}`, {})
                 .then(() => {
                     Alert.success(
-                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`
+                        `${this.helper.getCharacterNameByUrl(this.props.history.location.pathname)} with id ${id} Successfully deleted!`
                     );
                     this.getData();
                 })

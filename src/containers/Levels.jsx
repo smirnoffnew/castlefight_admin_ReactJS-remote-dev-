@@ -16,7 +16,7 @@ class Levels extends Component {
 			waves: [],
 			backgrounds: [],
 			companyActs: [],
-			entity: '',
+			entity: 'level',
 		};
 	}
 
@@ -93,12 +93,12 @@ class Levels extends Component {
 	};
 
 	removeRecord = (id) => {
-        if ((typeof id !== void(0)) && (typeof id === 'number'))
+        if ((typeof id !== void(0)) && (typeof id === 'number' || typeof id === 'string'))
 			axios
 				.delete(`/levels/${id}`, {})
 				.then(() => {
                     Alert.success(
-                        `${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully deleted!`
+                        `${this.helper.getCharacterNameByUrl(this.props.history.location.pathname)} with id ${id} Successfully deleted!`
                     );
 					this.getData();
 				})
@@ -108,8 +108,6 @@ class Levels extends Component {
 		else
 			console.error('this entity can\'t be deleted due to lack of id')
 	};
-
-
 
 	addCycle = (content) => {
 		let send = false;
@@ -138,11 +136,14 @@ class Levels extends Component {
 					}
 				}
 			});
+            output.id = Number(output.id);
 			axios
 				.post(`/levels`, output)
 				.then(() => {
-					this.props.alert.success(`${this.helper.getCharacterNameByUrl(this.state.entity)} Successfully saved!`);
-					this.getData()
+                    Alert.success(
+                    	`${this.helper.getCharacterNameByUrl(this.props.history.location.pathname)} with id ${output.id} Successfully saved!`
+					);
+					this.getData();
 				})
 				.catch(error => {
 					console.error(error);
