@@ -45,6 +45,7 @@ class WavesModalForm extends Component {
 	handleChange(e, index, id, type) {
 		const value = e.target.value;
 		this.setState((prevState) => {
+			debugger;
 			if (typeof id === 'number') {
 				prevState.values[index].value[id][type] = value
 			} else {

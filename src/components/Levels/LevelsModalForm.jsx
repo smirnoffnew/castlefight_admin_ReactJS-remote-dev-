@@ -56,26 +56,17 @@ class LevelsModalForm extends Component {
 			})
 	}
 
-	handleChange(e, index, id, type) {
-		const value = e.target.value;
-		const valueStore = Object.create(null);
-        typeof id === 'number' ? valueStore[index].value[id][type] = value : valueStore[index].value = value;
-
-		this.setState( prevState  => {
-			// if (typeof id === 'number') {
-			// 	prevState.values[index].value[id][type] = value
-			// } else {
-			// 	prevState.values[index].value = value
-			// }
-			return {
-                ...prevState,
-                values: {
-                    ...prevState.values,
-                    valueStore
-                }
+    handleChange(e, index, id, type) {
+        const value = e.target.value;
+        this.setState((prevState) => {
+            if (typeof id === 'number') {
+                prevState.values[index].value[id][type] = value
+            } else {
+                prevState.values[index].value = value
             }
-		})
-	}
+            return { prevState }
+        })
+    }
 
 	onSelectChange = (value, name) => {
 		this.setState((prevState) => {
