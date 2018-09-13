@@ -110,9 +110,10 @@ export default class Helper {
 	}
 
 	getCharacterDefaultModel(characterType, id, components){
-        switch (characterType) {
-            case 'knight':
+        switch (true) {
+            case (characterType === 'knight' || characterType === 'ally' || characterType === 'enemy'):
                 return {
+                	"id": id,
                     "name" : this.makeRandomName(),
                     "projectileSettings" : {
                         "name" : this.makeRandomName(),
@@ -130,33 +131,7 @@ export default class Helper {
                     },
                     "components" : [this.getNewUniqueComponent(components[0].type)]
                 };
-            case 'ally':
-                return  {
-                    "id" : id ? id :this.makeNumberId(),
-                    "name" : this.makeRandomName(),
-                    "projectileSettings" : {
-                        "name" : this.makeRandomName(),
-                        "localPosition" : {
-                            "x" : 0.0,
-                            "y" : 0.0
-                        },
-
-                        "startDirection" : {
-                            "x" : 0.0,
-                            "y" : 0.0
-                        },
-
-                        "force" : 0.0
-                    },
-                    "components" : [this.getNewUniqueComponent(components[0].type)]
-                };
-            case 'enemy':
-                return {
-                    "id" : id ? id :this.makeNumberId(),
-                    "name" : this.makeRandomName(),
-                    "components" : [this.getNewUniqueComponent(components[0].type)]
-                };
-            case 'ability':
+            case characterType === 'ability':
                 return {
                     "id" : id ? id :this.makeNumberId(),
                     "components" : [this.getNewUniqueComponent(components[0].type)]

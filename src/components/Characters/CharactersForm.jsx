@@ -271,6 +271,7 @@ class CharactersForm extends Component {
     };
 
 	render() {
+	    console.log('this.props', this.props);
 		return (
 			<div>
 				<form>
@@ -319,7 +320,7 @@ class CharactersForm extends Component {
 							<hr />
                             {
 	// project ile Settings --------------------------------------------------------------------------------------------
-                                this.props.characterType === 'knight' || this.props.characterType === 'ally'
+                                this.props.characterType !== 'ability'
                                     ?
 									<div className="new-inputs-container">
 

@@ -58,7 +58,7 @@ class CharactersContainer extends Component {
 
     isProjectileSettingsExist = (projectileSettings) => {
         let store = Object.create(null);
-    	if(this.props.history.location.pathname === '/knights' || this.props.history.location.pathname === '/allies')
+    	if(this.props.history.location.pathname !== '/abilities')
 			  projectileSettings
 			  ?
 			  store['projectileSettings'] = projectileSettings
@@ -98,6 +98,7 @@ class CharactersContainer extends Component {
 						.data
 						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
+				console.log('container state', this.state);
 			})
 			.catch(error => {
 				console.error(error);
