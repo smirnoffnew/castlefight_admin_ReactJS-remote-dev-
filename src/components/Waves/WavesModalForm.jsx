@@ -29,8 +29,7 @@ class WavesModalForm extends Component {
 
   componentWillReceiveProps() {
     if (this.props.data && this.props.emptyWaves) {
-      let temp = [],
-        values = [];
+      let temp = [], values = [];
       temp = this.helper.waves(this.props.data);
       for (let item in temp) {
         values.push({ name: item, value: temp[item] });
@@ -56,13 +55,9 @@ class WavesModalForm extends Component {
       typeof e === 'string' || typeof e === 'number' ? e : e.target.value;
     if (type === 'id') {
       this.setState(prevState => {
-        let values = Object.keys(prevState.values[index].value).filter(
-          item => item !== key
-        );
+        let values = Object.keys(prevState.values[index].value).filter(item => item !== key);
         let output = {};
-        values.forEach(
-          item => (output[item] = prevState.values[index].value[item])
-        );
+        values.forEach(item => (output[item] = prevState.values[index].value[item]));
         output[value] = prevState.values[index].value[key];
         prevState.values[index].value = output;
         return prevState;
@@ -88,7 +83,7 @@ class WavesModalForm extends Component {
           biggest = parseInt(item, 10);
       });
       prevState.values[index].value[biggest + 1] = {
-        type: 'Week',
+        type: 'Normal',
         count: 10
       };
       return prevState;
@@ -98,25 +93,24 @@ class WavesModalForm extends Component {
   handleDelete(e, index, key) {
     e.preventDefault();
     this.setState(prevState => {
-      let values = Object.keys(prevState.values[index].value).filter(
-        item => item !== key
-      );
+      let values = Object.keys(prevState.values[index].value).filter(item => item !== key);
       let output = {};
-      values.forEach(
-        item => (output[item] = prevState.values[index].value[item])
-      );
+      values.forEach(item => (output[item] = prevState.values[index].value[item]));
       prevState.values[index].value = output;
       return prevState;
     });
   }
 
+  setValueSelect = (enemies, enemyId) => {
+    let currentEnemy = enemies.filter(enemy => enemy.value === Number(enemyId))[0];
+    let defaultEnemy = enemies.length === 0 ? {value:1, label:'no enemies'} : enemies[0];
+    return currentEnemy ? {value: enemyId, label: currentEnemy.label} : {value:defaultEnemy.value, label:defaultEnemy.label};
+  };
+
   getInputs() {
     if (Array.isArray(this.state.values) && this.state.values.length > 0) {
       return this.state.values.map((column, index) => {
-        if (
-          typeof column.value === 'object' &&
-          column.name !== 'enemyIdsAndCount'
-        ) {
+        if (typeof column.value === 'object' && column.name !== 'enemyIdsAndCount') {
           return (
             <tr key={index}>
               <td>{column.name}</td>
@@ -156,24 +150,17 @@ class WavesModalForm extends Component {
                   </button>
                 </div>
                 {Object.keys(column.value).map((key, id) => {
-                  let selectedLabel;
-                  this.props.enemies.forEach(item => {
-                    if (item.value === key) {
-                      selectedLabel = item.label;
-                    }
-                  });
+
                   return (
                     <div key={id} className="three-inputs">
                       <Select
                         className="select-3"
-                        value={{
-                          value: key,
-                          label: selectedLabel || key
-                        }}
+                        value={this.setValueSelect(this.props.enemies, key)}
                         onChange={e =>
                           this.handleChangeId(e.value, index, 'id', key)
                         }
                         options={this.props.enemies}
+                        placeholder={'Select enemy...'}
                       />
                       <Select
                         className="select-3"

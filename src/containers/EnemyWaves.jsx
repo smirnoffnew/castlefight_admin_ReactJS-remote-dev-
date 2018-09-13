@@ -90,7 +90,7 @@ class EnemyWaves extends Component {
                         data: data ? data.map(value => {
                             let output = [];
                             for (const item in value) {
-                                output.push({'name': item, 'value': value[item]});
+                                output.push({'name': item, 'value': value[item] ? value[item] : {}});
                             }
                             return output;
                         }) : [],

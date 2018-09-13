@@ -98,7 +98,6 @@ class CharactersContainer extends Component {
 						.data
 						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
-				console.log('container state', this.state);
 			})
 			.catch(error => {
 				console.error(error);

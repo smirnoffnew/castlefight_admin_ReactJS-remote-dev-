@@ -15,18 +15,6 @@ export default class Helper {
 				"id": temp ? temp + 1 : this.makeNumberId(),
 				"pauseInterval": 10,
 				"enemyIdsAndCount": {
-					"1": {
-						"type": "Weak",
-						"count": 10
-					},
-					"2": {
-						"type": "Normal",
-						"count": 10
-					},
-					"3": {
-						"type": "Hard",
-						"count": 10
-					},
 				},
 				"weakSummonCycle": {
 					"count": 1,
