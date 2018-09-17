@@ -96,9 +96,11 @@ class CharactersContainer extends Component {
 					isLoaded: true,
 					defaultComponentsList: componentsListResponse
 						.data
+                        .sort()
 						.map(componentName => this.helper.getNewUniqueComponent(componentName))
 				}));
 			})
+
 			.catch(error => {
 				console.error(error);
 			});
