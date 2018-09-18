@@ -147,6 +147,7 @@ class LevelsModalForm extends Component {
 							<td>{column.name}</td>
 							<td colSpan="2">
 								<Select
+									className={"custom-select"}
 									value={this.state.enemyWaveIds}
 									isMulti
 									onChange={(value) => this.onMultiSelectChange(value)}
