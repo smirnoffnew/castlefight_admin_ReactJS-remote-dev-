@@ -3,6 +3,7 @@ import Helper from "../../helper";
 import deleteIcon from "../../assets/images/de.png";
 import editIcon from "../../assets/images/edit-icon.png";
 import WavesModalForm from "./WavesModalForm";
+import FilterComponent from "./filter";
 
 class TableRow extends Component {
 	constructor(props) {
@@ -107,18 +108,47 @@ class TableComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.helper = new Helper();
+        this.state = {
+        	levels: this.props.levels ? this.props.levels : [],
+            enemies: this.props.enemies ? this.props.enemies : [],
+            enemyTypes: this.props.enemyTypes ? this.props.enemyTypes : [],
+            content: this.props.content ? this.props.content : [],
+        };
 	}
+
+    applyFilters = (result) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                content: result
+            }
+        })
+	};
+
+    componentWillReceiveProps(nextProps) {
+        this.setState( () => {
+            return {
+                ...nextProps,
+            }
+        })
+    }
 
 	render() {
 		return (
 			<div className="table-container">
-				<h1>{this.props.content.entity}</h1>
+
+				<FilterComponent
+					levels={this.props.levels}
+					content={this.props.content}
+					resultCallBack={this.applyFilters}
+				/>
+
 				{
-					this.props.content[0] ?
+					this.state.content[0] ?
 						<table className="table table-bordered table-hover" width="100%">
 							<thead>
 								<tr>
-									{this.props.content[0].map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
+									{this.state.content[0].map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
 									<th>
 										Edit
                                     </th>
@@ -129,14 +159,14 @@ class TableComponent extends Component {
 							</thead>
 							<tbody>
 								{
-									this.props.content.map((row, index) => (
+									this.state.content.map((row, index) => (
 										<TableRow
-											data={row}
 											key={index}
+											data={row}
+											enemies={this.state.enemies}
+											removeRecord={this.state.removeRecord}
+											enemyTypes={this.state.enemyTypes}
 											onEdit={this.props.onEdit}
-											enemies={this.props.enemies}
-											removeRecord={this.props.removeRecord}
-											enemyTypes={this.props.enemyTypes}
 										/>
 									))
 								}

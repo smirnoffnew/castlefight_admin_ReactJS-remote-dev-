@@ -70,6 +70,7 @@ class EnemyWaves extends Component {
         let data;
         let enemies;
         let enemyTypes;
+        let levels;
         axios
             .get('/enemyWaves')
             .then(response => {
@@ -78,6 +79,10 @@ class EnemyWaves extends Component {
             })
             .then(response => {
                 enemies = response.data;
+                return this.getLevels();
+            })
+            .then(response => {
+                levels = response.data;
                 return this.getEnemyTypes();
             })
             .then(response => {
@@ -86,6 +91,7 @@ class EnemyWaves extends Component {
                     return {
                         ...prevState,
                         isLoaded: true,
+                        levels: levels,
                         entity: this.props.history.location.pathname.substr(1),
                         data: data ? data.map(value => {
                             let output = [];
@@ -112,6 +118,8 @@ class EnemyWaves extends Component {
     getEnemies = () => axios.get('/enemies');
 
     getEnemyTypes = () => axios.get('enemies/types/');
+
+    getLevels = () => axios.get('/levels');
 
     openModal = () => {
         this.setState({modalIsOpen: true});
@@ -142,18 +150,19 @@ class EnemyWaves extends Component {
                 </div>
                 {
                     this.state.isLoaded
-                        ?
-                        <WavesTable
-                            getData={this.getData}
-                            content={this.state.data}
-                            removeRecord={this.removeRecord}
-                            entity={this.state.entity}
-                            onEdit={this.onEdit}
-                            enemies={this.state.enemies}
-                            enemyTypes={this.state.enemyTypes}
-                        />
-                        :
-                        <Loading />
+                    ?
+                    <WavesTable
+                        getData={this.getData}
+                        content={this.state.data}
+                        levels={this.state.levels}
+                        removeRecord={this.removeRecord}
+                        entity={this.state.entity}
+                        onEdit={this.onEdit}
+                        enemies={this.state.enemies}
+                        enemyTypes={this.state.enemyTypes}
+                    />
+                    :
+                    <Loading />
                 }
                 <WavesModalForm
                     isOpen={this.state.modalIsOpen}

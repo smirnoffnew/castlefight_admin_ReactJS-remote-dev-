@@ -35,7 +35,8 @@ class FilterComponent extends Component {
                 });
 
                 if (this.state.companyAct && this.state.background) {
-                    return (companyActObject.value === this.state.companyAct.value) && (backgroundObject.value === this.state.background.value)
+                    return (companyActObject.value === this.state.companyAct.value) &&
+                           (backgroundObject.value === this.state.background.value)
                 }
 
                 if (this.state.companyAct && !this.state.background) {
@@ -50,7 +51,8 @@ class FilterComponent extends Component {
                     return true
                 }
 
-            }))
+            })
+        )
     };
 
     clearFilter = () => {
