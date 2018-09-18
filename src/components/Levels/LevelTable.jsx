@@ -3,6 +3,7 @@ import LevelsModalForm from "./LevelsModalForm";
 import Helper from "../../helper";
 import deleteIcon from "../../assets/images/de.png";
 import editIcon from "../../assets/images/edit-icon.png";
+import FilterComponent from "./filter";
 
 class TableRow extends Component {
 	constructor(props) {
@@ -94,18 +95,50 @@ class TableComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.helper = new Helper();
+		this.state = {
+            backgrounds: [],
+            companyActs: [],
+            content: [],
+            enemyWaveIds: [],
+            entity: ''
+		};
 	}
+
+    applyFilters = (result) => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                content: result
+            }
+        })
+    };
+
+    componentWillReceiveProps(nextProps) {
+		this.setState( () => {
+			return {
+				...nextProps,
+			}
+		})
+    }
 
 	render() {
 		return (
 			<div className="table-container">
-				<h1>{this.props.content.entity}</h1>
+
+				<FilterComponent
+					backgroundsList={this.props.backgrounds}
+					companyActsList={this.props.companyActs}
+					content={this.props.content}
+					resultCallBack={this.applyFilters}
+				/>
+
 				{
-					this.props.content[0] ?
+					this.state.content[0]
+						?
 						<table className="table table-bordered table-hover" width="100%">
 							<thead>
 								<tr>
-									{this.props.content[0].map((column) => (<th key={this.helper.makeId()}>{column.name}</th>))}
+									{this.state.content[0].map( column => (<th key={this.helper.makeId()}>{column.name}</th>))}
 									<th>
 										Edit
                                     </th>
@@ -116,13 +149,13 @@ class TableComponent extends Component {
 							</thead>
 							<tbody>
 								{
-									this.props.content.map((row, index) => (
+									this.state.content.map((row, index) => (
 										<TableRow
-											data={row}
-											enemyWaveIds={this.props.enemyWaveIds}
-											backgrounds={this.props.backgrounds}
-											companyActs={this.props.companyActs}
 											key={index}
+											data={row}
+											enemyWaveIds={this.state.enemyWaveIds}
+											backgrounds={this.state.backgrounds}
+											companyActs={this.state.companyActs}
 											onSave={this.props.onSave}
 											removeRecord={this.props.removeRecord}
 										/>

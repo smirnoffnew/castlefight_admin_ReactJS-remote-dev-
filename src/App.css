@@ -39,6 +39,13 @@ input[type="text"]:disabled {
   margin: 20px 0;
 }
 
+.m-col-50 {
+  width: 50%;
+  float: left;
+  margin: 20px 0;
+  min-width: 600px;
+}
+
 .col-50.withButton button {
   height: 28px;
 }
@@ -531,4 +538,33 @@ table>tbody>tr>td {
 
 .custom-select {
   margin-bottom: -15px;
+}
+
+.filter-component {
+  width: 100%;
+  float: left;
+}
+
+.filter-select-container {
+  display: inline-block;
+}
+
+.select-width {
+  width: 230px;
+}
+
+.filter-background {
+  background-color: #efefef;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 70px;
+}
+.filter-button {
+  min-width: 120px;
+  text-align: center;
+  height: 39px;
 }
