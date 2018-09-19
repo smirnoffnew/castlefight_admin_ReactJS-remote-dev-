@@ -201,7 +201,9 @@ class Levels extends Component {
                 if (item.name === 'id') {
                     id = item.value;
                     return false
-                }
+                } else {
+                	return true;
+				}
             });
             return id;
         }));

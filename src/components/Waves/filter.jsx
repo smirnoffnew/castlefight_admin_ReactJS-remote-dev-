@@ -35,6 +35,8 @@ class FilterComponent extends Component {
                         if (element.name === 'id') {
                             waveId = element.value;
                             return false;
+                        } else {
+                            return true;
                         }
                     });
 
@@ -60,6 +62,8 @@ class FilterComponent extends Component {
                         if (element.name === 'id') {
                             waveId = element.value;
                             return false;
+                        } else {
+                            return true;
                         }
                     });
 

@@ -48,7 +48,9 @@ class FilterComponent extends Component {
                 }
 
                 if (!this.state.background && !this.state.companyAct) {
-                    return true
+                    return true;
+                } else {
+                    return true;
                 }
 
             })
