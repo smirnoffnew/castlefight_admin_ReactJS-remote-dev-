@@ -44,10 +44,10 @@ export default class Helper {
 		)
 	}
 
-	level() {
+	level(maxId) {
 		return (
 			{
-				"id": this.makeNumberId(),
+				"id": maxId ? maxId + 1 : this.makeNumberId(),
 				"companyAct": "FIRST",
 				"background": "SUMMER",
 				"index": 10,

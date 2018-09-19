@@ -54,7 +54,6 @@ class FilterComponent extends Component {
 
                     let levelsIdArr = this.props.levels.map(level=>level.enemyWaveIds);
                     let exist = false;
-                    debugger;
 
                     let waveId = '';
                     wave.every(element => {

@@ -22,7 +22,7 @@ class LevelsModalForm extends Component {
 
 		let temp, values = [];
 		if (props.emptyLevel) {
-			temp = this.helper.level();
+			temp = this.helper.level(props.maxId);
 			for (let item in temp) {
 				let val = temp[item];
 				if (typeof val === 'object') {

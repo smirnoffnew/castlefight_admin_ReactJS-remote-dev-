@@ -54,7 +54,6 @@ class Levels extends Component {
 							return output
 						});
 						return {
-							isLoaded: true,
 							entity: this.props.history.location.pathname.substr(1),
 							data: data.map(item=>this.changePosition(item))
 						};
@@ -74,6 +73,7 @@ class Levels extends Component {
 				this.setState((prevState) => {
 					return {
 						...prevState,
+                        isLoaded: true,
 						backgrounds: backgroundsResponse.data.map(background => ({ label: background, value: background }))
 					}
 				});
@@ -194,6 +194,19 @@ class Levels extends Component {
 		this.getData();
 	};
 
+    getMaxId = (data) => {
+        return Math.max.apply(null, data.map(item => {
+            let id = '';
+            item.every(item => {
+                if (item.name === 'id') {
+                    id = item.value;
+                    return false
+                }
+            });
+            return id;
+        }));
+    };
+
 	render() {
 		return (
 			<div className="container">
@@ -219,15 +232,23 @@ class Levels extends Component {
 						:
 						<Loading />
 				}
-				<LevelsModalForm
-					isOpen={this.state.modalIsOpen}
-					enemyWaveIds={this.state.enemyWaveIds}
-					backgrounds={this.state.backgrounds}
-					companyActs={this.state.companyActs}
-					onSave={this.addCycle}
-					closeModal={this.closeModal}
-					emptyLevel
-				/>
+
+                {
+                    this.state.isLoaded
+					?
+					<LevelsModalForm
+						isOpen={this.state.modalIsOpen}
+						enemyWaveIds={this.state.enemyWaveIds}
+						backgrounds={this.state.backgrounds}
+						companyActs={this.state.companyActs}
+						onSave={this.addCycle}
+						closeModal={this.closeModal}
+						maxId={this.getMaxId(this.state.data)}
+						emptyLevel
+					/>
+					: null
+                }
+
 			</div>
 		)
 	}
