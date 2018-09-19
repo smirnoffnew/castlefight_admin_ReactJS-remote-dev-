@@ -164,7 +164,7 @@ class TableComponent extends Component {
 											key={index}
 											data={row}
 											enemies={this.state.enemies}
-											removeRecord={this.state.removeRecord}
+											removeRecord={this.props.removeRecord}
 											enemyTypes={this.state.enemyTypes}
 											onEdit={this.props.onEdit}
 										/>
