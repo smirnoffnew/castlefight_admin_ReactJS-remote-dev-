@@ -56,7 +56,7 @@ class Levels extends Component {
 						return {
 							isLoaded: true,
 							entity: this.props.history.location.pathname.substr(1),
-							data,
+							data: data.map(item=>this.changePosition(item))
 						};
 					});
 				return this.getWaves();
@@ -91,6 +91,31 @@ class Levels extends Component {
 				console.error(error);
 			});
 	};
+
+
+    arrModifier = (arr, name) => {
+        let _object = {};
+        let _index = 0;
+
+        arr.forEach( (item, index) => {
+            if (item.name === name){
+                _object = item;
+                _index = index;
+            }
+        });
+
+        arr.splice(_index, 1);
+        arr.splice(1, 0, _object);
+
+        return arr;
+    };
+
+    changePosition = (arr) => {
+        arr = this.arrModifier(arr, 'enemyWaveIds');
+        arr = this.arrModifier(arr, 'audioClipName');
+        arr = this.arrModifier(arr, 'index');
+        return arr;
+    };
 
 	removeRecord = (id) => {
         if ((typeof id !== void(0)) && (typeof id === 'number' || typeof id === 'string'))

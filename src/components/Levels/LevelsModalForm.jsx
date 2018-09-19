@@ -91,33 +91,9 @@ class LevelsModalForm extends Component {
 		});
 	};
 
-	arrModifier = (arr, name) => {
-        let _object = {};
-        let _index = 0;
-
-        arr.forEach( (item, index) => {
-            if (item.name === name){
-                _object = item;
-                _index = index;
-            }
-        });
-
-        arr.splice(_index, 1);
-        arr.splice(1, 0, _object);
-
-		return arr;
-	};
-
-	changePosition = (arr) => {
-        arr = this.arrModifier(arr, 'enemyWaveIds');
-        arr = this.arrModifier(arr, 'audioClipName');
-        arr = this.arrModifier(arr, 'index');
-		return arr;
-	};
-
 	getInputs() {
 		if (this.state.values)
-			return this.changePosition(this.state.values).map((column, index) => {
+			return this.state.values.map((column, index) => {
 				if (typeof column.value === 'object' && column.name !== 'enemyWaveIds') {
 					return (
 						<tr key={index}>
