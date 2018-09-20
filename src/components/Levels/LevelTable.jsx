@@ -96,11 +96,10 @@ class TableComponent extends Component {
 		super(props);
 		this.helper = new Helper();
 		this.state = {
-            backgrounds: [],
-            companyActs: [],
-            content: [],
-            enemyWaveIds: [],
-            entity: ''
+            backgrounds: this.props.backgrounds ? this.props.backgrounds : [],
+            companyActs: this.props.companyActs ? this.props.companyActs : [],
+            content: this.props.content ? this.props.content : [],
+            enemyWaveIds: this.props.enemyWaveIds ? this.props.enemyWaveIds : [],
 		};
 	}
 

@@ -11,12 +11,14 @@ class Levels extends Component {
 		super(props);
 		this.helper = new Helper();
 		this.state = {
+            modalIsOpen: false,
 			isLoaded: false,
-			modalIsOpen: false,
-			waves: [],
-			backgrounds: [],
+            entity: 'level',
+			data:[],
+            waves: [],
+            backgrounds: [],
 			companyActs: [],
-			entity: 'level',
+			maxId: this.helper.makeNumberId()
 		};
 	}
 
@@ -29,61 +31,54 @@ class Levels extends Component {
 	getLevels = () => axios.get('/levels');
 
 	getData = () => {
+		let _levels;
+        let _waves;
+		let _backgrounds;
+		let _companyActs;
 		this.getLevels()
-			.then(response => {
-				let { data } = response;
-				if (data)
-					this.setState(() => {
-						data = data.map((value) => {
-							let output = [];
-							for (let item in value) {
-								let val = value[item];
-								if (typeof val === 'object') {
-									let outputObj = [];
-									for (let item in val) {
-										if (typeof val[item] === 'object') {
-											outputObj.push({ 'name': val[item] ? val[item].type : 0, 'value': val[item] ? val[item].count : 0 })
-										} else {
-											outputObj.push({ 'name': item, 'value': val[item] })
-										}
-									}
-									val = outputObj
+			.then( levelsResponse => {
+                _levels = levelsResponse.data;
+				_levels = _levels.map((value) => {
+					let output = [];
+					for (let item in value) {
+						let val = value[item];
+						if (typeof val === 'object') {
+							let outputObj = [];
+							for (let item in val) {
+								if (typeof val[item] === 'object') {
+									outputObj.push({ 'name': val[item] ? val[item].type : 0, 'value': val[item] ? val[item].count : 0 })
+								} else {
+									outputObj.push({ 'name': item, 'value': val[item] })
 								}
-								output.push({ 'name': item, 'value': val })
 							}
-							return output
-						});
-						return {
-							entity: this.props.history.location.pathname.substr(1),
-							data: data.map(item=>this.changePosition(item))
-						};
-					});
+							val = outputObj
+						}
+						output.push({ 'name': item, 'value': val })
+					}
+					return output;
+				});
 				return this.getWaves();
 			})
-			.then((wavesResponse) => {
-				this.setState((prevState) => {
-					return {
-						...prevState,
-						enemyWaveIds: wavesResponse.data.map(wave => ({ label: wave.id, value: wave.id }))
-					}
-				});
+			.then( wavesResponse => {
+                _waves = wavesResponse.data;
 				return this.getBackgrounds();
 			})
-			.then((backgroundsResponse) => {
+			.then( backgroundsResponse => {
+                _backgrounds = backgroundsResponse.data;
+				return this.getCompanyActs();
+			})
+			.then( companyActsResponse => {
+                _companyActs = companyActsResponse.data;
 				this.setState((prevState) => {
 					return {
 						...prevState,
                         isLoaded: true,
-						backgrounds: backgroundsResponse.data.map(background => ({ label: background, value: background }))
-					}
-				});
-				return this.getCompanyActs();
-			})
-			.then((companyActsResponse) => {
-				this.setState((prevState) => {
-					return {
-						...prevState,
-						companyActs: companyActsResponse.data.map(ActsResponse => ({ label: ActsResponse, value: ActsResponse }))
+                        entity: this.props.history.location.pathname.substr(1),
+                        data: _levels.map(item=>this.changePosition(item)),
+                        enemyWaveIds: _waves.map(wave => ({ label: wave.id, value: wave.id })),
+                        backgrounds: _backgrounds.map(background => ({ label: background, value: background })),
+						companyActs: _companyActs.map(ActsResponse => ({ label: ActsResponse, value: ActsResponse })),
+                        maxId: this.getMaxId(_levels)
 					}
 				});
 			})
@@ -222,14 +217,13 @@ class Levels extends Component {
 					this.state.isLoaded
 						?
 						<LevelTable
-							getData={this.getData}
 							content={this.state.data}
 							enemyWaveIds={this.state.enemyWaveIds}
 							backgrounds={this.state.backgrounds}
 							companyActs={this.state.companyActs}
 							removeRecord={this.removeRecord}
-							entity={this.state.entity}
 							onSave={this.addCycle}
+							getData={this.getData}
 						/>
 						:
 						<Loading />
@@ -239,14 +233,14 @@ class Levels extends Component {
                     this.state.isLoaded
 					?
 					<LevelsModalForm
+						isEdit={false}
 						isOpen={this.state.modalIsOpen}
 						enemyWaveIds={this.state.enemyWaveIds}
 						backgrounds={this.state.backgrounds}
 						companyActs={this.state.companyActs}
 						onSave={this.addCycle}
 						closeModal={this.closeModal}
-						maxId={this.getMaxId(this.state.data)}
-						emptyLevel
+						maxId={this.state.maxId}
 					/>
 					: null
                 }

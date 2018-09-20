@@ -19,42 +19,77 @@ class LevelsModalForm extends Component {
 	constructor(props) {
 		super(props);
 		this.helper = new Helper();
-
-		let temp, values = [];
-		if (props.emptyLevel) {
-			temp = this.helper.level(props.maxId);
-			for (let item in temp) {
-				let val = temp[item];
-				if (typeof val === 'object') {
-					let outputObj = [];
-					for (let item in val) {
-						if (typeof val[item] === 'object') {
-							outputObj.push({ 'name': val[item].type, 'value': val[item].count })
-						} else {
-							outputObj.push({ 'name': item, 'value': val[item] })
-						}
-					}
-					val = outputObj
-				}
-				values.push({ 'name': item, 'value': val })
-			}
-		}
-
 		this.state = {
-			values: props.values ? props.values : values,
+            enemyWaveIds: [],
+			values: props.values ? props.values : this.changePosition(this.formatEmptyLevel(props.maxId)),
 			isEdit: this.props.isEdit,
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.values)
-			nextProps.values.forEach(column => {
-				if (column.name === 'enemyWaveIds' && Array.isArray(column.value))
-					this.setState({
-						enemyWaveIds: column.value.map(item => ({ value: item.value, label: item.value }))
-					})
-			})
-	}
+    componentWillReceiveProps(nextProps) {
+    if(nextProps.isEdit===false)
+        this.setState( prevState => {
+        	return {
+				...prevState,
+                values: this.changePosition(this.formatEmptyLevel(nextProps.maxId)),
+			}
+		});
+
+        if (nextProps.values)
+            nextProps.values.forEach(column => {
+                if (column.name === 'enemyWaveIds' && Array.isArray(column.value))
+                    this.setState({
+                        enemyWaveIds: column.value.map(item => ({ value: item.value, label: item.value })),
+                    })
+            })
+    }
+
+	formatEmptyLevel = (maxId) => {
+        let temp, values = [];
+        temp = this.helper.level(maxId);
+        for (let item in temp) {
+            let val = temp[item];
+            if (typeof val === 'object') {
+                let outputObj = [];
+                for (let item in val) {
+                    if (typeof val[item] === 'object') {
+                        outputObj.push({ 'name': val[item].type, 'value': val[item].count })
+                    } else {
+                        outputObj.push({ 'name': item, 'value': val[item] })
+                    }
+                }
+                val = outputObj
+            }
+            values.push({ 'name': item, 'value': val })
+        }
+        return values;
+	};
+
+    arrModifier = (arr, name) => {
+        let _object = {};
+        let _index = 0;
+
+        arr.forEach( (item, index) => {
+            if (item.name === name){
+                _object = item;
+                _index = index;
+            }
+        });
+
+        arr.splice(_index, 1);
+        arr.splice(1, 0, _object);
+
+        return arr;
+    };
+
+    changePosition = (arr) => {
+        arr = this.arrModifier(arr, 'enemyWaveIds');
+        arr = this.arrModifier(arr, 'audioClipName');
+        arr = this.arrModifier(arr, 'index');
+        return arr;
+    };
+
+
 
     handleChange(e, index, id, type) {
         const value = e.target.value;
