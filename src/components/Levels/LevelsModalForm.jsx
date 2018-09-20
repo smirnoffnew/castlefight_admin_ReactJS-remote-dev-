@@ -158,6 +158,7 @@ class LevelsModalForm extends Component {
 							<td>{column.name}</td>
 							<td colSpan="2">
 								<Select
+									placeholder={'Select wave ids...'}
 									className={"custom-select"}
 									value={this.state.enemyWaveIds}
 									isMulti
