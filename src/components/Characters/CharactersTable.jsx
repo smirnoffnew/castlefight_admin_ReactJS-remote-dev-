@@ -31,6 +31,15 @@ class CharactersTable extends Component {
 								:
 								<th>id</th>
                             }
+
+                            {
+                                this.props.characterType === 'ally' || this.props.characterType === 'enemy'
+								?
+								<th>prefab name</th>
+								:
+								null
+                            }
+
 							{
 								this.props.columns.map((column, key) => (
 									this.props.characterType === 'ability' && column === 'Name'
@@ -47,13 +56,21 @@ class CharactersTable extends Component {
 							(this.props.characterType === 'knight' ? this.props.rows : this.sortById() ).map((row, key) => (
 								<tr key={key}>
 									{
-
                                         this.props.characterType === 'knight'
                                         ?
 										null
 										:
 										<td>{row.id}</td>
 									}
+
+                                    {
+                                        this.props.characterType === 'ally' || this.props.characterType === 'enemy'
+										?
+										<td>{row.prefabName}</td>
+										:
+										null
+                                    }
+
 									{
                                         this.props.characterType === 'ability'
 										?

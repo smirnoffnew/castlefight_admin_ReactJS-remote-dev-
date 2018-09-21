@@ -190,6 +190,18 @@ class CharactersForm extends Component {
         });
     };
 
+    changePrefabNameValue = (value) => {
+        this.setState( prevState => {
+            return {
+                ...prevState,
+                characterDataObject: {
+                    ...prevState.characterDataObject,
+                    prefabName: value
+                }
+            }
+        });
+    };
+
     changeIdValue = (value) => {
         this.setState( prevState => {
             return {
@@ -284,7 +296,7 @@ class CharactersForm extends Component {
 						</div>
 						<div className="modal-body">
 							{
-	// name and ids ----------------------------------------------------------------------------------------------------
+	// name and ids prefabName -----------------------------------------------------------------------------------------
                                 this.props.characterType === 'knight'
 								?
 								null
@@ -315,6 +327,22 @@ class CharactersForm extends Component {
 									/>
 								</div>
 							}
+
+                            {
+                                this.props.characterType === 'ally' || this.props.characterType === 'enemy'
+                                    ?
+                                    <div className="name-input-container new-inputs-container">
+                                        <label style={{ 'marginRight': '15px' }}>Prefab Name:</label>
+                                        <input
+                                            type="number"
+                                            value={this.state.characterDataObject.prefabName}
+                                            onChange={ e => this.changePrefabNameValue(e.target.value)}
+                                        />
+                                    </div>
+                                    :
+                                    null
+
+                            }
 
 							<hr />
                             {
