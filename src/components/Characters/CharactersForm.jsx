@@ -334,7 +334,7 @@ class CharactersForm extends Component {
                                     <div className="name-input-container new-inputs-container">
                                         <label style={{ 'marginRight': '15px' }}>Prefab Name:</label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             value={this.state.characterDataObject.prefabName}
                                             onChange={ e => this.changePrefabNameValue(e.target.value)}
                                         />
