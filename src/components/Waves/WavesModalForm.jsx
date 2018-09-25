@@ -129,7 +129,7 @@ class WavesModalForm extends Component {
                         onChange={e =>
                           this.handleChange(e, index, key)
                         }
-                        type="text"
+                        type="number"
                         value={column.value[key]}
                       />
                       <br />
@@ -198,7 +198,7 @@ class WavesModalForm extends Component {
               <td colSpan="2">
                 <input
                   onChange={e => this.handleChange(e, index)}
-                  type="text"
+                  type="number"
                   value={column.value}
                   disabled={column.name === 'id' ? this.state.isEdit : false}
                 />

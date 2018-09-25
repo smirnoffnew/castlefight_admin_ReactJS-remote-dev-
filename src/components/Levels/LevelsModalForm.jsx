@@ -144,7 +144,7 @@ class LevelsModalForm extends Component {
 								{
 									column.value.map((item, id) => (
 										<React.Fragment key={id}>
-											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="text" value={item.value} />
+											<input onChange={(e) => this.handleChange(e, index, id, 'value')} type="number" value={item.value} />
 											<br />
 										</React.Fragment>
 									))
