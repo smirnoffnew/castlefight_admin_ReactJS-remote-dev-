@@ -95,9 +95,9 @@ class LevelsModalForm extends Component {
         const value = e.target.value;
         this.setState((prevState) => {
             if (typeof id === 'number') {
-                prevState.values[index].value[id][type] = value
+                prevState.values[index].value[id][type] = Number(value);
             } else {
-                prevState.values[index].value = value
+                prevState.values[index].value = value;
             }
             return { prevState }
         })

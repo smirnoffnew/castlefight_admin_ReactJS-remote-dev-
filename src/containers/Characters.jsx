@@ -40,6 +40,9 @@ class CharactersContainer extends Component {
 				this.getData()
 			})
 			.catch((error) => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
 				console.error(error);
 			});
 	};
@@ -102,6 +105,9 @@ class CharactersContainer extends Component {
 			})
 
 			.catch(error => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
 				console.error(error);
 			});
 	};

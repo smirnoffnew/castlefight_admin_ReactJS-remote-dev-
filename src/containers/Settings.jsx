@@ -58,7 +58,10 @@ class SettingsContainer extends Component {
                     }
                 });
             })
-            .catch((error) => {
+            .catch( error => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
                 console.error(error);
             });
     };
@@ -78,7 +81,10 @@ class SettingsContainer extends Component {
                 Alert.success(`All settings successfully saved!`);
                 this.getData()
             })
-            .catch((error) => {
+            .catch( error => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
                 console.error(error);
             });
     };

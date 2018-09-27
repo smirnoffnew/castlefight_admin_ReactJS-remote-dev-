@@ -83,6 +83,9 @@ class Levels extends Component {
 				});
 			})
 			.catch(error => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
 				console.error(error);
 			});
 	};
@@ -122,7 +125,10 @@ class Levels extends Component {
                     );
 					this.getData();
 				})
-				.catch((error) => {
+				.catch( error  => {
+                    Alert.error(
+                        `Something went wrong ${error}`
+                    );
 					console.error(error);
 				});
 		else
@@ -165,7 +171,10 @@ class Levels extends Component {
 					);
 					this.getData();
 				})
-				.catch(error => {
+				.catch( error => {
+                    Alert.error(
+                        `Something went wrong ${error}`
+                    );
 					console.error(error);
 				});
 		}

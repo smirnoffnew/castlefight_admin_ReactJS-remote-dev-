@@ -42,6 +42,9 @@ class EnemyWaves extends Component {
                     this.getData();
                 })
                 .catch(error => {
+                    Alert.error(
+                        `Something went wrong ${error}`
+                    );
                     console.error(error);
                 });
         }
@@ -59,7 +62,10 @@ class EnemyWaves extends Component {
                     );
                     this.getData();
                 })
-                .catch(function (error) {
+                .catch(error => {
+                    Alert.error(
+                        `Something went wrong ${error}`
+                    );
                     console.error(error);
                 });
         else
@@ -110,7 +116,10 @@ class EnemyWaves extends Component {
                     };
                 });
             })
-            .catch(function (error) {
+            .catch( error => {
+                Alert.error(
+                    `Something went wrong ${error}`
+                );
                 console.error(error);
             });
     };
