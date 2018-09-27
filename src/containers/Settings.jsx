@@ -60,7 +60,8 @@ class SettingsContainer extends Component {
             })
             .catch( error => {
                 Alert.error(
-                    `Something went wrong ${error}`
+                    `Something went wrong ${error.response.data}`,
+                    {timeout: 6000}
                 );
                 console.error(error);
             });
@@ -83,7 +84,8 @@ class SettingsContainer extends Component {
             })
             .catch( error => {
                 Alert.error(
-                    `Something went wrong ${error}`
+                    `Something went wrong ${error.response.data}`,
+                    {timeout: 6000}
                 );
                 console.error(error);
             });
