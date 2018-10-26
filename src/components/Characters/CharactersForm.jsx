@@ -313,10 +313,6 @@ class CharactersForm extends Component {
                             }
 
 							{
-                                this.props.characterType === 'ability'
-								?
-								null
-								:
 								<div className="name-input-container new-inputs-container">
 									<label style={{ 'marginRight': '15px' }}>Name:</label>
 									<input

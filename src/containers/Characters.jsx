@@ -76,7 +76,9 @@ class CharactersContainer extends Component {
 			.get(this.props.history.location.pathname)
 			.then(response => {
                 this.charactersData.characterType = this.helper.getCharacterNameByUrl(this.props.history.location.pathname);
+
 				this.charactersData.rows = response.data.map( entityItem => {
+					console.log('entityItem', entityItem);
                     let projectileSettingsStore = this.isProjectileSettingsExist(entityItem.projectileSettings);
                     return {
                         ...entityItem,
@@ -91,6 +93,9 @@ class CharactersContainer extends Component {
                         }),
                     }
                 });
+
+                console.log('	this.charactersData.rows', 	this.charactersData.rows);
+
 				return this.getComponentsList();
 			})
 			.then((componentsListResponse) => {
