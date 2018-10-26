@@ -318,7 +318,7 @@ class CharactersForm extends Component {
 									<input
 										disabled={this.state.isEdit && this.state.characterType === "knight"}
 										type="text"
-										value={this.state.characterDataObject.name}
+										value={this.state.characterDataObject.name === null ? '' : this.state.characterDataObject.name}
 										onChange={ e => this.changeNameValue(e.target.value)}
 									/>
 								</div>
